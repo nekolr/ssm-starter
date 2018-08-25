@@ -20,3 +20,5 @@
 # 可能用到的参考
 - RESTful
     - [restful-api-design-references](https://github.com/aisuhua/restful-api-design-references)
+    - [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
+    - [使用 Spring HATEOAS 开发 REST 服务](https://www.ibm.com/developerworks/cn/java/j-lo-SpringHATEOAS/index.html?ca=drs-&utm_source=tuicool&utm_medium=referral)
