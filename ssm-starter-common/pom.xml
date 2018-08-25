@@ -6,21 +6,24 @@
 
     <groupId>com.nekolr</groupId>
     <artifactId>ssm-starter-common</artifactId>
-    <name>ssm-starter-common</name>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
+
+    <name>ssm-starter-common</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <spring.version>5.0.8.RELEASE</spring.version>
     </properties>
 
     <dependencies>
+        <!-- Spring -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
         </dependency>
     </dependencies>
 
