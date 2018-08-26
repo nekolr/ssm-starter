@@ -17,6 +17,18 @@
     1. 前端框架使用 Vue.js，在这之上，尽量少的编写 Vue 组件，更多的使用现有的组件。  
     2. 目前的 UI admin 有三种选择，一个是 iview 团队的 iview-admin，一个是基于 element-ui 的 vue-element-admin，还有一个是基于 ant-design 的 ant-design-vue。  
 
+# 结构
+```
+ssm-starter
+     ├─ssm-starter-common                       公共模块
+     ├─ssm-starter-upms                         用户权限管理系统
+     |        ├─ssm-starter-upms-server             Web 服务模块
+     |        ├─ssm-starter-upms-provider           服务提供模块
+     |        ├─ssm-starter-upms-dao                持久层模块
+     |        ├─ssm-starter-upms-common             公共模块
+     |        ├─ssm-starter-upms-api                API 模块
+```
+
 # 可能用到的参考
 - RESTful
     - [restful-api-design-references](https://github.com/aisuhua/restful-api-design-references)
