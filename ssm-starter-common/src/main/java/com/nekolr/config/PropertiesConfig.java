@@ -23,6 +23,8 @@ public class PropertiesConfig {
 
     /**
      * 资源文件解析类
+     * <p>
+     * 这样就可以通过 @Value(${xxx.xxx.xxx}) 的方式获取配置项
      *
      * @return
      */
