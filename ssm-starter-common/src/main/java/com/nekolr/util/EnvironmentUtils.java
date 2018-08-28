@@ -11,6 +11,8 @@ import java.lang.reflect.Method;
 
 /**
  * Spring 配置转换工具类
+ *
+ * @author nekolr
  */
 public class EnvironmentUtils {
 

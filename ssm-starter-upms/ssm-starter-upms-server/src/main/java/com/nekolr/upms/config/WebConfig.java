@@ -1,5 +1,10 @@
-package com.nekolr.config;
+package com.nekolr.upms.config;
 
+import com.nekolr.config.AbstractWebInitializer;
+
+/**
+ * @author nekolr
+ */
 public class WebConfig extends AbstractWebInitializer {
 
     @Override

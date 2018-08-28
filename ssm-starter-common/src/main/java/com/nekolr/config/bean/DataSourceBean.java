@@ -6,6 +6,8 @@ import lombok.Setter;
 
 /**
  * 数据源 bean
+ *
+ * @author nekolr
  */
 @Getter
 @Setter

@@ -6,6 +6,8 @@ import lombok.Setter;
 
 /**
  * MyBatis 分页插件 bean
+ *
+ * @author nekolr
  */
 @Getter
 @Setter
@@ -16,4 +18,5 @@ public class PageHelperBean {
     private Boolean supportMethodsArguments;
     private String params;
     private Boolean autoRuntimeDialect;
+    private Boolean closeConn;
 }

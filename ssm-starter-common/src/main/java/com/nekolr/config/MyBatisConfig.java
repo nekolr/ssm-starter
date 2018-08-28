@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * MyBatis 配置类
@@ -103,7 +104,7 @@ public class MyBatisConfig {
     }
 
     /**
-     * mybatis分页插件
+     * mybatis 分页插件
      *
      * @return
      */
@@ -111,7 +112,14 @@ public class MyBatisConfig {
     public Interceptor getPageInterceptor(Environment environment) throws Exception {
         PageHelperBean pageHelperBean = EnvironmentUtils.toBean(environment, PageHelperBean.class);
         Interceptor pageInterceptor = new com.github.pagehelper.PageInterceptor();
-        // TODO
+        Properties properties = new Properties();
+        properties.setProperty("helperDialect", pageHelperBean.getHelperDialect());
+        properties.setProperty("reasonable", String.valueOf(pageHelperBean.getReasonable()));
+        properties.setProperty("supportMethodsArguments", String.valueOf(pageHelperBean.getSupportMethodsArguments()));
+        properties.setProperty("params", pageHelperBean.getParams());
+        properties.setProperty("autoRuntimeDialect", String.valueOf(pageHelperBean.getAutoRuntimeDialect()));
+        properties.setProperty("closeConn", String.valueOf(pageHelperBean.getCloseConn()));
+        pageInterceptor.setProperties(properties);
         return pageInterceptor;
     }
 
