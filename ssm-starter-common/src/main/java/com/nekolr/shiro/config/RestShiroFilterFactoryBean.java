@@ -15,7 +15,7 @@ import org.springframework.beans.factory.BeanInitializationException;
  * @author nekolr
  */
 @Slf4j
-public class RESTShiroFilterFactoryBean extends ShiroFilterFactoryBean {
+public class RestShiroFilterFactoryBean extends ShiroFilterFactoryBean {
 
     @Override
     protected AbstractShiroFilter createInstance() throws Exception {
@@ -31,9 +31,9 @@ public class RESTShiroFilterFactoryBean extends ShiroFilterFactoryBean {
         } else {
             FilterChainManager manager = this.createFilterChainManager();
             // RestPathMatchingFilterChainResolver
-            RESTPathMatchingFilterChainResolver chainResolver = new RESTPathMatchingFilterChainResolver();
+            RestPathMatchingFilterChainResolver chainResolver = new RestPathMatchingFilterChainResolver();
             chainResolver.setFilterChainManager(manager);
-            return new RESTShiroFilterFactoryBean.SpringShiroFilter((WebSecurityManager) securityManager, chainResolver);
+            return new RestShiroFilterFactoryBean.SpringShiroFilter((WebSecurityManager) securityManager, chainResolver);
         }
     }
 

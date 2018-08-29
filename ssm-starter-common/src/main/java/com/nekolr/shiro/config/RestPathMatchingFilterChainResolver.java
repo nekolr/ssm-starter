@@ -15,7 +15,7 @@ import javax.servlet.ServletResponse;
  * @author nekolr
  */
 @Slf4j
-public class RESTPathMatchingFilterChainResolver extends PathMatchingFilterChainResolver {
+public class RestPathMatchingFilterChainResolver extends PathMatchingFilterChainResolver {
 
     @Override
     public FilterChain getChain(ServletRequest request, ServletResponse response, FilterChain originalChain) {

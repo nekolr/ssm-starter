@@ -12,7 +12,7 @@ import javax.servlet.ServletRequest;
  * @author nekolr
  */
 @Slf4j
-public class RESTPathMatchingFilter extends PathMatchingFilter {
+public class RestPathMatchingFilter extends PathMatchingFilter {
 
     /**
      * 重写 URI 匹配规则，支持 HTTP METHOD
