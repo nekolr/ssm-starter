@@ -35,3 +35,5 @@ ssm-starter
     - [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
     - [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
     - [使用 Spring HATEOAS 开发 REST 服务](https://www.ibm.com/developerworks/cn/java/j-lo-SpringHATEOAS/index.html?ca=drs-&utm_source=tuicool&utm_medium=referral)
+- JWT
+    - [The Ins and Outs of Token Based Authentication](https://scotch.io/tutorials/the-ins-and-outs-of-token-based-authentication)

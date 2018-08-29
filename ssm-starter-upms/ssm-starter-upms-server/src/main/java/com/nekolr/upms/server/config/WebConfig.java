@@ -1,4 +1,4 @@
-package com.nekolr.upms.config;
+package com.nekolr.upms.server.config;
 
 import com.nekolr.config.AbstractWebInitializer;
 
