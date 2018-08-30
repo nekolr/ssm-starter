@@ -97,6 +97,7 @@ public abstract class AbstractRestPathMatchingFilter extends PathMatchingFilter 
      * @return
      * @throws Exception
      */
+    @Override
     public boolean onPreHandle(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
         return isAccessAllowed(request, response, mappedValue) || onAccessDenied(request, response, mappedValue);
     }
