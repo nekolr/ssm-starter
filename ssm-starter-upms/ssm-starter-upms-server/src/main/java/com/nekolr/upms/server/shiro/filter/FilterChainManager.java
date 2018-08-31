@@ -14,7 +14,7 @@ import java.util.Map;
  *
  * @author nekolr
  */
-@Component
+//@Component
 public class FilterChainManager {
 
     private final StringRedisTemplate stringRedisTemplate;

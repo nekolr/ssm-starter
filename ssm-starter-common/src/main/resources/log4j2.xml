@@ -12,6 +12,8 @@
     <Properties>
         <!-- 配置日志文件输出目录，此配置将日志输出到tomcat根目录下的指定文件夹 -->
         <Property name="LOG_HOME">${sys:catalina.home}/logs/ssm-starter</Property>
+        <!-- 使用 Mybatis Generator 时将日志输出到项目目录下 -->
+        <Property name="LOG_HOME">logs/ssm-starter</Property>
     </Properties>
 
     <Appenders>

@@ -1,7 +1,13 @@
 package com.nekolr.config;
 
+import com.baomidou.mybatisplus.core.MybatisConfiguration;
+import com.baomidou.mybatisplus.core.MybatisSessionFactoryBuilder;
+import com.baomidou.mybatisplus.core.MybatisXMLLanguageDriver;
+import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
+import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import com.nekolr.config.bean.MyBatisBean;
-import com.nekolr.config.bean.PageHelperBean;
 import com.nekolr.util.EnvironmentUtils;
 import com.nekolr.util.PackageUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -9,8 +15,8 @@ import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.AutoMappingBehavior;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.LocalCacheScope;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.type.JdbcType;
-import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,7 +32,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Properties;
 
 /**
  * MyBatis 配置类
@@ -39,16 +44,16 @@ import java.util.Properties;
 public class MyBatisConfig {
 
     @Bean(name = "sqlSessionFactory")
-    public SqlSessionFactoryBean getSqlSessionFactoryBean(DataSource dataSource, Environment environment) throws Exception {
+    public SqlSessionFactory getSqlSessionFactoryBean(DataSource dataSource, Environment environment) throws Exception {
         // 获取配置 bean
         MyBatisBean myBatisBean = EnvironmentUtils.toBean(environment, MyBatisBean.class);
 
-        SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
-        factoryBean.setDataSource(dataSource);
+        MybatisSqlSessionFactoryBean factoryBean = new MybatisSqlSessionFactoryBean();
 
         // MyBatis Configuration 设置
-        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
+        com.baomidou.mybatisplus.core.MybatisConfiguration configuration = new MybatisConfiguration();
         configuration.setCacheEnabled(myBatisBean.getCacheEnabled());
+        configuration.setDefaultScriptingLanguage(MybatisXMLLanguageDriver.class);
         configuration.setLazyLoadingEnabled(myBatisBean.getLazyLoadingEnabled());
         configuration.setMultipleResultSetsEnabled(myBatisBean.getMultipleResultSetsEnabled());
         configuration.setUseColumnLabel(myBatisBean.getUseColumnLabel());
@@ -61,6 +66,9 @@ public class MyBatisConfig {
         configuration.setJdbcTypeForNull(JdbcType.valueOf(myBatisBean.getJdbcTypeForNull()));
         configuration.setLazyLoadTriggerMethods(new HashSet<>(Arrays.asList(myBatisBean.getLazyLoadTriggerMethods().split(","))));
         configuration.setAggressiveLazyLoading(myBatisBean.getAggressiveLazyLoading());
+
+        // 设置数据源
+        factoryBean.setDataSource(dataSource);
 
         // 设置配置项
         factoryBean.setConfiguration(configuration);
@@ -79,23 +87,30 @@ public class MyBatisConfig {
         }
 
         // 设置插件
-        factoryBean.setPlugins(new Interceptor[]{getPageInterceptor(environment)});
+        factoryBean.setPlugins(new Interceptor[]{
+                // 分页插件
+                getPageInterceptor(),
+                // 性能拦截器，兼 SQL 打印，生产环境不建议配置
+                new PerformanceInterceptor(),
+                // 乐观锁插件
+                new OptimisticLockerInterceptor()
+        });
 
         // 设置映射 xml 路径
         factoryBean.setMapperLocations(getMapperLocations(myBatisBean));
 
-        return factoryBean;
+        return factoryBean.getObject();
     }
 
     /**
-     * 扫描配置
+     * 扫描配置，如果不使用 @MapperScan 注解，则需要将扫描方法设置为 static
      *
      * @param environment
      * @return
      * @throws Exception
      */
     @Bean
-    public MapperScannerConfigurer getMapperScannerConfigurer(Environment environment) throws Exception {
+    public static MapperScannerConfigurer getMapperScannerConfigurer(Environment environment) throws Exception {
         MyBatisBean myBatisBean = EnvironmentUtils.toBean(environment, MyBatisBean.class);
         MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
         mapperScannerConfigurer.setSqlSessionFactoryBeanName("sqlSessionFactory");
@@ -104,22 +119,13 @@ public class MyBatisConfig {
     }
 
     /**
-     * mybatis 分页插件
+     * mybatis plus 分页插件
      *
      * @return
      */
-    @Bean(name = "pageHelper")
-    public Interceptor getPageInterceptor(Environment environment) throws Exception {
-        PageHelperBean pageHelperBean = EnvironmentUtils.toBean(environment, PageHelperBean.class);
-        Interceptor pageInterceptor = new com.github.pagehelper.PageInterceptor();
-        Properties properties = new Properties();
-        properties.setProperty("helperDialect", pageHelperBean.getHelperDialect());
-        properties.setProperty("reasonable", String.valueOf(pageHelperBean.getReasonable()));
-        properties.setProperty("supportMethodsArguments", String.valueOf(pageHelperBean.getSupportMethodsArguments()));
-        properties.setProperty("params", pageHelperBean.getParams());
-        properties.setProperty("autoRuntimeDialect", String.valueOf(pageHelperBean.getAutoRuntimeDialect()));
-        properties.setProperty("closeConn", String.valueOf(pageHelperBean.getCloseConn()));
-        pageInterceptor.setProperties(properties);
+    @Bean
+    public PaginationInterceptor getPageInterceptor() {
+        PaginationInterceptor pageInterceptor = new PaginationInterceptor();
         return pageInterceptor;
     }
 

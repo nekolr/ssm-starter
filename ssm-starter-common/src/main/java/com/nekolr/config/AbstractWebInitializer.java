@@ -77,7 +77,7 @@ public abstract class AbstractWebInitializer extends AbstractAnnotationConfigDis
      */
     private void initCustomFilters() {
         this.initCharacterEncodingFilter();
-        this.initShiroFilter();
+//        this.initShiroFilter();
         this.registerCustomFilters();
     }
 

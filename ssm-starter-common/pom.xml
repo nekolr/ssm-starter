@@ -24,9 +24,11 @@
         <disruptor.version>3.4.2</disruptor.version>
         <lombok.version>1.18.2</lombok.version>
         <commons-lang3.version>3.8</commons-lang3.version>
-        <mybatis-plus.version>2.1.5</mybatis-plus.version>
+        <mybatis-plus.version>3.0.1</mybatis-plus.version>
         <pagehelper.version>5.1.4</pagehelper.version>
         <jjwt.version>0.10.5</jjwt.version>
+        <mysql-driver.version>5.1.47</mysql-driver.version>
+        <velocity-engine-core.version>2.0</velocity-engine-core.version>
     </properties>
 
     <dependencies>
@@ -144,10 +146,17 @@
             <artifactId>mybatis-plus</artifactId>
             <version>${mybatis-plus.version}</version>
         </dependency>
+        <!-- velocity-engine-core -->
         <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper</artifactId>
-            <version>${pagehelper.version}</version>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-engine-core</artifactId>
+            <version>${velocity-engine-core.version}</version>
+        </dependency>
+        <!-- mysql driver -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-driver.version}</version>
         </dependency>
         <!-- JWT -->
         <dependency>

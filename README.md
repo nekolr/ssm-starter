@@ -8,7 +8,7 @@
     3. 整体架构风格为 RESTful。  
     4. 权限框架暂时指定为 Shiro，该框架对于 RESTful 的支持可能不太好，需要改造。  
     5. SSM 框架整合尽量减少使用 XML，更多的使用 Java Config 和注解。  
-    6. 无状态设计，使用 JWT 验证身份，Shiro 鉴权。  
+    6. 使用 JWT 验证身份，Shiro 鉴权。  
     7. 使用 Dubbo 提供分布式服务支持。  
     8. 使用 Redis 提供缓存支持。  
     9. 代码生成功能。  
