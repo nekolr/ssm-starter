@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
-import org.springframework.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -68,6 +68,12 @@ public class MyBatisGenerator {
         Boolean entityTableFieldAnnotationEnable = Boolean.valueOf(props.getProperty("generator.entityTableFieldAnnotationEnable"));
         String parent = props.getProperty("generator.parent");
         String moduleName = props.getProperty("generator.moduleName");
+        String controller = props.getProperty("generator.controller");
+        String service = props.getProperty("generator.service");
+        String serviceImpl = props.getProperty("generator.serviceImpl");
+        String mapper = props.getProperty("generator.mapper");
+        String xml = props.getProperty("generator.xml");
+        String entity = props.getProperty("generator.entity");
         /**
          * 全局配置
          */
@@ -149,6 +155,18 @@ public class MyBatisGenerator {
         packageConfig.setParent(parent);
         // 模块名
         packageConfig.setModuleName(moduleName);
+        // 自定义 controller 包名
+        packageConfig.setController(controller);
+        // 自定义的 service 包名
+        packageConfig.setService(service);
+        // 自定义的 service impl 包名
+        packageConfig.setServiceImpl(serviceImpl);
+        // 自定义的 mapper 包名
+        packageConfig.setMapper(mapper);
+        // 自定义的 mapper xml 包名
+        packageConfig.setXml(xml);
+        // 自定义的 entity 包名
+        packageConfig.setEntity(entity);
 
         new AutoGenerator()
                 .setGlobalConfig(globalConfig)

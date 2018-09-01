@@ -24,7 +24,7 @@
     <dependencies>
         <dependency>
             <groupId>com.nekolr</groupId>
-            <artifactId>ssm-starter-upms-dao</artifactId>
+            <artifactId>ssm-starter-upms-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>

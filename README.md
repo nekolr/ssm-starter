@@ -22,11 +22,10 @@
 ssm-starter
      ├─ssm-starter-common                       公共模块
      ├─ssm-starter-upms                         用户权限管理系统
-     |        ├─ssm-starter-upms-server             Web 服务模块
-     |        ├─ssm-starter-upms-provider           服务提供模块
-     |        ├─ssm-starter-upms-dao                持久层模块
      |        ├─ssm-starter-upms-common             公共模块
      |        ├─ssm-starter-upms-api                API 模块
+     |        ├─ssm-starter-upms-provider           服务提供模块
+     |        ├─ssm-starter-upms-server             Web 服务模块
 ```
 
 # 可能用到的参考

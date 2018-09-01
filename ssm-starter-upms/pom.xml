@@ -19,7 +19,6 @@
         <module>ssm-starter-upms-provider</module>
         <module>ssm-starter-upms-api</module>
         <module>ssm-starter-upms-common</module>
-        <module>ssm-starter-upms-dao</module>
         <module>ssm-starter-upms-server</module>
     </modules>
 

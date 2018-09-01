@@ -63,5 +63,28 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+
+        <resources>
+            <resource>
+                <!-- resources 目录下的文件 -->
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+
+            <resource>
+                <!-- java 源文件下 -->
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+
+        </resources>
     </build>
 </project>
