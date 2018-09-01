@@ -2,6 +2,7 @@ package com.nekolr.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.nekolr.config.bean.DataSourceBean;
+import com.nekolr.util.EncryptUtils;
 import com.nekolr.util.EnvironmentUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,8 +27,8 @@ public class DataSourceConfig {
         // 设置属性
         dataSource.setDriverClassName(dataSourceBean.getDriverClass());
         dataSource.setUrl(dataSourceBean.getUrl());
-        dataSource.setUsername(dataSourceBean.getUsername());
-        dataSource.setPassword(dataSourceBean.getPassword());
+        dataSource.setUsername(EncryptUtils.aesDecrypt(dataSourceBean.getUsername()));
+        dataSource.setPassword(EncryptUtils.aesDecrypt(dataSourceBean.getPassword()));
         dataSource.setInitialSize(dataSourceBean.getInitialSize());
         dataSource.setMinIdle(dataSourceBean.getMinIdle());
         dataSource.setMaxActive(dataSourceBean.getMaxActive());
