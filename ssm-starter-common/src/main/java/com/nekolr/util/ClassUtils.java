@@ -1,5 +1,10 @@
 package com.nekolr.util;
 
+/**
+ * 类工具
+ *
+ * @author nekolr
+ */
 public class ClassUtils {
 
     /**

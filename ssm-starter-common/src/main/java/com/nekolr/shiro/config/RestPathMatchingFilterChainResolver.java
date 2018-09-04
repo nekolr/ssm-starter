@@ -29,7 +29,7 @@ public class RestPathMatchingFilterChainResolver extends PathMatchingFilterChain
             // 比如一个资源，url = "api/v1/resource", httpMethod="GET"，那么配置为：api/v1/resource==GET
             String[] pathPatterns = pathPattern.split("==");
             if (pathPatterns.length == 2) {
-                // 比较 HTTP HTTP METHOD 是否一致，不一致就不匹配
+                // 比较 HTTP METHOD 是否一致，不一致就不匹配
                 if (WebUtils.toHttp(request).getMethod().toUpperCase().equals(pathPatterns[1].toUpperCase())) {
                     isMatch = true;
                 } else {

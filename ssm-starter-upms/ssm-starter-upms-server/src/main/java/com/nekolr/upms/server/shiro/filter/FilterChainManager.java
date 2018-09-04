@@ -14,7 +14,7 @@ import java.util.Map;
  *
  * @author nekolr
  */
-//@Component
+@Component
 public class FilterChainManager {
 
     private final StringRedisTemplate stringRedisTemplate;
@@ -35,7 +35,7 @@ public class FilterChainManager {
         return filterMap;
     }
 
-    public Map<String, String> initFilterChain() {
+    public Map<String, String> initFilterChainDefinitions() {
         return null;
     }
 }

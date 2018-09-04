@@ -77,7 +77,7 @@ public abstract class AbstractWebInitializer extends AbstractAnnotationConfigDis
      */
     private void initCustomFilters() {
         this.initCharacterEncodingFilter();
-//        this.initShiroFilter();
+        this.initShiroFilter();
         this.registerCustomFilters();
     }
 
@@ -87,10 +87,10 @@ public abstract class AbstractWebInitializer extends AbstractAnnotationConfigDis
     private void initShiroFilter() {
         // 将过滤器纳入 Spring 容器管理
         DelegatingFilterProxy delegatingFilterProxy = new DelegatingFilterProxy();
-        delegatingFilterProxy.setTargetFilterLifecycle(true);
+        delegatingFilterProxy.setTargetFilterLifecycle(Boolean.TRUE);
         delegatingFilterProxy.setTargetBeanName("shiroFilter");
         FilterRegistration.Dynamic registration = this.servletContext.addFilter("shiroFilter", delegatingFilterProxy);
-        registration.addMappingForUrlPatterns(getDispatcherTypes(), false, "/*");
+        registration.addMappingForUrlPatterns(getDispatcherTypes(), Boolean.FALSE, "/*");
     }
 
     /**
@@ -99,10 +99,10 @@ public abstract class AbstractWebInitializer extends AbstractAnnotationConfigDis
     private void initCharacterEncodingFilter() {
         CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();
         encodingFilter.setEncoding("UTF-8");
-        encodingFilter.setForceEncoding(true);
+        encodingFilter.setForceEncoding(Boolean.TRUE);
         FilterRegistration.Dynamic registration = this.servletContext.addFilter("characterEncodingFilter", encodingFilter);
         // 配置过滤的 URL，放到最前面
-        registration.addMappingForUrlPatterns(getDispatcherTypes(), false, "/*");
+        registration.addMappingForUrlPatterns(getDispatcherTypes(), Boolean.FALSE, "/*");
     }
 
 

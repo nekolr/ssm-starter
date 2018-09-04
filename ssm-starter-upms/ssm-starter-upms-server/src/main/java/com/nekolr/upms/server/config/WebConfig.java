@@ -10,8 +10,7 @@ public class WebConfig extends AbstractWebInitializer {
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-//        return new Class[]{AppConfig.class, ShiroConfig.class};
-        return new Class[]{AppConfig.class};
+        return new Class[]{AppConfig.class, ShiroConfig.class};
     }
 
     @Override
