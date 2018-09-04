@@ -29,6 +29,9 @@
         <mysql-driver.version>5.1.47</mysql-driver.version>
         <velocity-engine-core.version>2.0</velocity-engine-core.version>
         <hutool.version>4.1.9</hutool.version>
+        <commons-beanutils.version>1.9.3</commons-beanutils.version>
+        <commons-fileupload.version>1.3.3</commons-fileupload.version>
+        <esapi.version>2.1.0.1</esapi.version>
     </properties>
 
     <dependencies>
@@ -139,6 +142,34 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons-lang3.version}</version>
+        </dependency>
+        <!-- esapi -->
+        <dependency>
+            <groupId>org.owasp.esapi</groupId>
+            <artifactId>esapi</artifactId>
+            <version>${esapi.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-fileupload</groupId>
+                    <artifactId>commons-fileupload</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-beanutils</groupId>
+                    <artifactId>commons-beanutils-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- commons-beanutils -->
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>${commons-beanutils.version}</version>
+        </dependency>
+        <!-- commons-fileupload -->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>${commons-fileupload.version}</version>
         </dependency>
         <!-- hutool-crypto -->
         <dependency>
