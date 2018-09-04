@@ -12,6 +12,16 @@ import java.util.regex.Pattern;
  */
 public class XssUtils {
 
+    private static final Pattern SCRIPT_PATTERN = Pattern.compile("<script>(.*?)</script>", Pattern.CASE_INSENSITIVE);
+    private static final Pattern CLOSE_SCRIPT_PATTERN = Pattern.compile("</script>", Pattern.CASE_INSENSITIVE);
+    private static final Pattern BEGIN_SCRIPT_PATTERN = Pattern.compile("<script(.*?)>", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
+    private static final Pattern EVAL_SCRIPT_PATTERN = Pattern.compile("eval\\((.*?)\\)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
+    private static final Pattern EXPRESSION_SCRIPT_PATTERN = Pattern.compile("expression\\((.*?)\\)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
+    private static final Pattern JAVASCRIPT_SCRIPT_PATTERN = Pattern.compile("javascript:", Pattern.CASE_INSENSITIVE);
+    private static final Pattern VB_SCRIPT_SCRIPT_PATTERN = Pattern.compile("vbscript:", Pattern.CASE_INSENSITIVE);
+    private static final Pattern ON_LOAD_SCRIPT_PATTERN = Pattern.compile("onload(.*?)=", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
+
+
     /**
      * 简单处理文本内容
      *
@@ -31,44 +41,24 @@ public class XssUtils {
     public static String filterXssScript(String content) {
         String encoded = canonicalize(content);
         if (encoded != null) {
-            // Avoid null characters
+            // null
             encoded = content.replaceAll("", "");
-
-            // Avoid anything between script tags
-            Pattern scriptPattern = Pattern.compile("<script>(.*?)</script>", Pattern.CASE_INSENSITIVE);
-            encoded = scriptPattern.matcher(encoded).replaceAll("");
-
-            // Remove any lonesome </script> tag
-            scriptPattern = Pattern.compile("</script>", Pattern.CASE_INSENSITIVE);
-            encoded = scriptPattern.matcher(encoded).replaceAll("");
-
-            // Remove any lonesome <script ...> tag
-            scriptPattern = Pattern.compile("<script(.*?)>", Pattern.CASE_INSENSITIVE
-                    | Pattern.MULTILINE | Pattern.DOTALL);
-            encoded = scriptPattern.matcher(encoded).replaceAll("");
-
-            // Avoid eval(...) expressions
-            scriptPattern = Pattern.compile("eval\\((.*?)\\)", Pattern.CASE_INSENSITIVE
-                    | Pattern.MULTILINE | Pattern.DOTALL);
-            encoded = scriptPattern.matcher(encoded).replaceAll("");
-
-            // Avoid expression(...) expressions
-            scriptPattern = Pattern.compile("expression\\((.*?)\\)", Pattern.CASE_INSENSITIVE
-                    | Pattern.MULTILINE | Pattern.DOTALL);
-            encoded = scriptPattern.matcher(encoded).replaceAll("");
-
-            // Avoid javascript:... expressions
-            scriptPattern = Pattern.compile("javascript:", Pattern.CASE_INSENSITIVE);
-            encoded = scriptPattern.matcher(encoded).replaceAll("");
-
-            // Avoid vbscript:... expressions
-            scriptPattern = Pattern.compile("vbscript:", Pattern.CASE_INSENSITIVE);
-            encoded = scriptPattern.matcher(encoded).replaceAll("");
-
-            // Avoid onload= expressions
-            scriptPattern = Pattern.compile("onload(.*?)=", Pattern.CASE_INSENSITIVE
-                    | Pattern.MULTILINE | Pattern.DOTALL);
-            encoded = scriptPattern.matcher(encoded).replaceAll("");
+            // script
+            encoded = SCRIPT_PATTERN.matcher(encoded).replaceAll("");
+            // </script>
+            encoded = CLOSE_SCRIPT_PATTERN.matcher(encoded).replaceAll("");
+            // <script ...>
+            encoded = BEGIN_SCRIPT_PATTERN.matcher(encoded).replaceAll("");
+            // eval()
+            encoded = EVAL_SCRIPT_PATTERN.matcher(encoded).replaceAll("");
+            // expression()
+            encoded = EXPRESSION_SCRIPT_PATTERN.matcher(encoded).replaceAll("");
+            // javascript:
+            encoded = JAVASCRIPT_SCRIPT_PATTERN.matcher(encoded).replaceAll("");
+            // vbscript:
+            encoded = VB_SCRIPT_SCRIPT_PATTERN.matcher(encoded).replaceAll("");
+            // onload=
+            encoded = ON_LOAD_SCRIPT_PATTERN.matcher(encoded).replaceAll("");
         }
         return encoded;
     }
