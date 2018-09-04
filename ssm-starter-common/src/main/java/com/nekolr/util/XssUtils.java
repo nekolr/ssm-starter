@@ -47,7 +47,7 @@ public class XssUtils {
             encoded = SCRIPT_PATTERN.matcher(encoded).replaceAll("");
             // </script>
             encoded = CLOSE_SCRIPT_PATTERN.matcher(encoded).replaceAll("");
-            // <script ...>
+            // <script>
             encoded = BEGIN_SCRIPT_PATTERN.matcher(encoded).replaceAll("");
             // eval()
             encoded = EVAL_SCRIPT_PATTERN.matcher(encoded).replaceAll("");
