@@ -24,8 +24,7 @@ public class RandomUtils {
         Random random = new Random();
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < length; i++) {
-            int index = random.nextInt(len);
-            builder.append(origin.charAt(index));
+            builder.append(origin.charAt(random.nextInt(len)));
         }
         return builder.toString();
     }

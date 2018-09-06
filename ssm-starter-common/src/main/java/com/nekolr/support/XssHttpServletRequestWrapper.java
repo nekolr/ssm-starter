@@ -5,6 +5,7 @@ import com.nekolr.util.XssUtils;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -21,7 +22,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     @Override
     public Map<String, String[]> getParameterMap() {
         Map<String, String[]> parameterMap = super.getParameterMap();
-        Map<String, String[]> result = super.getParameterMap();
+        Map<String, String[]> result = new HashMap<>((int)(((float)parameterMap.size()/ 0.75F) + 1.0F));
         parameterMap.forEach((k, v) -> result.put(k, filterParams(v)));
         return result;
     }
