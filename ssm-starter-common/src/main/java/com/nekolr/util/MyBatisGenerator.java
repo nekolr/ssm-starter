@@ -1,6 +1,7 @@
 package com.nekolr.util;
 
 import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
@@ -43,6 +44,7 @@ public class MyBatisGenerator {
         Boolean activeRecord = Boolean.valueOf(props.getProperty("generator.activeRecord"));
         String serviceName = props.getProperty("generator.serviceName");
         String entityName = props.getProperty("generator.entityName");
+        String idType = props.getProperty("generator.idType");
         Boolean enableCache = Boolean.valueOf(props.getProperty("generator.enableCache"));
         Boolean baseResultMap = Boolean.valueOf(props.getProperty("generator.baseResultMap"));
         Boolean baseColumnList = Boolean.valueOf(props.getProperty("generator.baseColumnList"));
@@ -89,6 +91,8 @@ public class MyBatisGenerator {
         globalConfig.setServiceName(serviceName);
         // 全局的 entity 名称
         globalConfig.setEntityName(entityName);
+        // 主键策略
+        globalConfig.setIdType(IdType.valueOf(idType));
         // XML 二级缓存
         globalConfig.setEnableCache(enableCache);
         // XML ResultMap
