@@ -1,7 +1,10 @@
 package com.nekolr.util;
 
 import com.alibaba.fastjson.JSON;
+import com.nekolr.common.ResultBean;
+
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -16,15 +19,17 @@ public class ResponseUtils {
      * 响应 JSON 文本
      *
      * @param response
-     * @param data
+     * @param resultBean
      */
-    public static void responseJson(ServletResponse response, Object data) {
+    public static void responseJson(ServletResponse response, ResultBean resultBean) {
         // 设置响应头
         response.setContentType("application/json;charset=utf-8");
+        // 设置状态码
+        ((HttpServletResponse) response).setStatus(resultBean.getCode());
         PrintWriter printWriter = null;
         try {
             printWriter = response.getWriter();
-            printWriter.write(JSON.toJSONString(data));
+            printWriter.write(JSON.toJSONString(resultBean));
             printWriter.flush();
         } catch (IOException e) {
             e.printStackTrace();

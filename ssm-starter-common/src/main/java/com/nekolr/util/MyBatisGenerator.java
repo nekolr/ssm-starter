@@ -42,6 +42,7 @@ public class MyBatisGenerator {
         Boolean fileOverride = Boolean.valueOf(props.getProperty("generator.fileOverride"));
         Boolean activeRecord = Boolean.valueOf(props.getProperty("generator.activeRecord"));
         String serviceName = props.getProperty("generator.serviceName");
+        String entityName = props.getProperty("generator.entityName");
         Boolean enableCache = Boolean.valueOf(props.getProperty("generator.enableCache"));
         Boolean baseResultMap = Boolean.valueOf(props.getProperty("generator.baseResultMap"));
         Boolean baseColumnList = Boolean.valueOf(props.getProperty("generator.baseColumnList"));
@@ -86,6 +87,8 @@ public class MyBatisGenerator {
         globalConfig.setActiveRecord(activeRecord);
         // 全局的 service 接口名
         globalConfig.setServiceName(serviceName);
+        // 全局的 entity 名称
+        globalConfig.setEntityName(entityName);
         // XML 二级缓存
         globalConfig.setEnableCache(enableCache);
         // XML ResultMap

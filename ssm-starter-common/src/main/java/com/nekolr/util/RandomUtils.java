@@ -18,7 +18,7 @@ public class RandomUtils {
      * @param length 字符串的长度
      * @return
      */
-    public static String getRandomString(int length) {
+    public static String randomString(int length) {
         final String origin = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         final int len = origin.length();
         Random random = new Random();
