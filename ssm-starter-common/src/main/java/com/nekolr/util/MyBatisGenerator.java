@@ -69,6 +69,7 @@ public class MyBatisGenerator {
         Boolean entityBuilderModel = Boolean.valueOf(props.getProperty("generator.entityBuilderModel"));
         Boolean entityLombokModel = Boolean.valueOf(props.getProperty("generator.entityLombokModel"));
         Boolean entityTableFieldAnnotationEnable = Boolean.valueOf(props.getProperty("generator.entityTableFieldAnnotationEnable"));
+        Boolean restControllerStyle = Boolean.valueOf(props.getProperty("generator.restControllerStyle"));
         String parent = props.getProperty("generator.parent");
         String moduleName = props.getProperty("generator.moduleName");
         String controller = props.getProperty("generator.controller");
@@ -153,6 +154,9 @@ public class MyBatisGenerator {
         strategyConfig.setEntityLombokModel(entityLombokModel);
         // 自动生成注解
         strategyConfig.entityTableFieldAnnotationEnable(entityTableFieldAnnotationEnable);
+        // REST 注解
+        strategyConfig.setRestControllerStyle(restControllerStyle);
+
 
         /**
          * 包配置
