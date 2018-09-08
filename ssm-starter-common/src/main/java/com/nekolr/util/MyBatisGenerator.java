@@ -60,6 +60,7 @@ public class MyBatisGenerator {
         Boolean capitalMode = Boolean.valueOf(props.getProperty("generator.capitalMode"));
         String[] tablePrefix = StringUtils.isEmpty(props.getProperty("generator.tablePrefix")) ? null : props.getProperty("generator.tablePrefix").split(",");
         String naming = props.getProperty("generator.naming");
+        String columnNaming = props.getProperty("generator.columnNaming");
         String[] include = StringUtils.isEmpty(props.getProperty("generator.include")) ? null : props.getProperty("generator.include").split(",");
         String[] exclude = StringUtils.isEmpty(props.getProperty("generator.exclude")) ? null : props.getProperty("generator.exclude").split(",");
         String superEntityClass = props.getProperty("generator.superEntityClass");
@@ -134,8 +135,10 @@ public class MyBatisGenerator {
         strategyConfig.setCapitalMode(capitalMode);
         // 表前缀
         strategyConfig.setTablePrefix(tablePrefix);
-        // 表名生成策略，默认不做修改
+        // 表名生成策略
         strategyConfig.setNaming(NamingStrategy.valueOf(naming));
+        // 列名生成策略
+        strategyConfig.setColumnNaming(NamingStrategy.valueOf(columnNaming));
         // 需要生成的表
         strategyConfig.setInclude(include);
         // 需要排除的表

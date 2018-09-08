@@ -34,8 +34,8 @@ open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperNam
 public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} {
 #if(${cfg.addDtoInterfaceAndImpl})
 
-    private final BeanCopier dto2DoBeanCopier = BeanCopier.create(${tableName}DTO.class, ${tableName}DO.class, false);
-    private final BeanCopier do2DtoBeanCopier = BeanCopier.create(${tableName}DO.class, ${tableName}DTO.class, false);
+    private final BeanCopier dto2DoBeanCopier = BeanCopier.create(${tableName}DTO.class, ${tableName}.class, false);
+    private final BeanCopier do2DtoBeanCopier = BeanCopier.create(${tableName}.class, ${tableName}DTO.class, false);
 
     /**
      * DTO 转 DO
@@ -43,10 +43,10 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
      * @param entity DTO 对象
      * @return
      */
-    private ${tableName}DO dto2Do(${tableName}DTO entity) {
-        ${tableName}DO userDO = new ${tableName}DO();
-        dto2DoBeanCopier.copy(entity, userDO, null);
-        return userDO;
+    private ${tableName} dto2Do(${tableName}DTO entity) {
+        ${tableName} target = new ${tableName}();
+        dto2DoBeanCopier.copy(entity, target, null);
+        return target;
     }
 
     /**
@@ -55,10 +55,10 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
      * @param entity DO 对象
      * @return
      */
-    private ${tableName}DTO do2Dto(${tableName}DO entity) {
-        ${tableName}DTO userDTO = new ${tableName}DTO();
-        do2DtoBeanCopier.copy(entity, userDTO, null);
-        return userDTO;
+    private ${tableName}DTO do2Dto(${tableName} entity) {
+        ${tableName}DTO target = new ${tableName}DTO();
+        do2DtoBeanCopier.copy(entity, target, null);
+        return target;
     }
 
     @Override
@@ -73,7 +73,7 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
 
     @Override
     public boolean saveBatchDTO(Collection<${tableName}DTO> entityList, int batchSize) {
-        List<${tableName}DO> targetList = new ArrayList<>(entityList.size());
+        List<${tableName}> targetList = new ArrayList<>(entityList.size());
         entityList.forEach(e -> targetList.add(dto2Do(e)));
         return super.saveBatch(targetList, batchSize);
     }
@@ -90,7 +90,7 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
 
     @Override
     public boolean saveOrUpdateBatchDTO(Collection<${tableName}DTO> entityList, int batchSize) {
-        List<${tableName}DO> targetList = new ArrayList<>(entityList.size());
+        List<${tableName}> targetList = new ArrayList<>(entityList.size());
         entityList.forEach(e -> targetList.add(dto2Do(e)));
         return super.saveOrUpdateBatch(targetList, batchSize);
     }
@@ -107,7 +107,7 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
 
     @Override
     public boolean updateBatchByIdDTO(Collection<${tableName}DTO> entityList, int batchSize) {
-        List<${tableName}DO> targetList = new ArrayList<>(entityList.size());
+        List<${tableName}> targetList = new ArrayList<>(entityList.size());
         entityList.forEach(e -> targetList.add(dto2Do(e)));
         return super.updateBatchById(targetList, batchSize);
     }
@@ -119,7 +119,7 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
 
     @Override
     public Collection<${tableName}DTO> listByIdsDTO(Collection<? extends Serializable> idList) {
-        Collection<${tableName}DO> list = super.listByIds(idList);
+        Collection<${tableName}> list = super.listByIds(idList);
         List<${tableName}DTO> result = new ArrayList<>(list.size());
         if (list.size() != 0) {
             list.forEach(e -> result.add(do2Dto(e)));
@@ -129,7 +129,7 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
 
     @Override
     public Collection<${tableName}DTO> listByMapDTO(Map<String, Object> columnMap) {
-        Collection<${tableName}DO> list = super.listByMap(columnMap);
+        Collection<${tableName}> list = super.listByMap(columnMap);
         List<${tableName}DTO> result = new ArrayList<>(list.size());
         if (list.size() != 0) {
             list.forEach(e -> result.add(do2Dto(e)));

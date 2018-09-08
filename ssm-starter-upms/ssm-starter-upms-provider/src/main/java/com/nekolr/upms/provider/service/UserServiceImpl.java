@@ -1,18 +1,16 @@
 package com.nekolr.upms.provider.service;
 
-import com.nekolr.upms.api.entity.UserDO;
+import com.nekolr.upms.api.entity.User;
 import com.nekolr.upms.provider.dao.UserMapper;
 import com.nekolr.upms.api.rpc.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import net.sf.cglib.beans.BeanCopier;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-
 import com.nekolr.upms.api.dto.UserDTO;
 
 /**
@@ -21,13 +19,13 @@ import com.nekolr.upms.api.dto.UserDTO;
  * </p>
  *
  * @author nekolr
- * @since 2018-09-08
+ * @since 2018-09-09
  */
 @Service
-public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements UserService {
+public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
-    private final BeanCopier dto2DoBeanCopier = BeanCopier.create(UserDTO.class, UserDO.class, false);
-    private final BeanCopier do2DtoBeanCopier = BeanCopier.create(UserDO.class, UserDTO.class, false);
+    private final BeanCopier dto2DoBeanCopier = BeanCopier.create(UserDTO.class, User.class, false);
+    private final BeanCopier do2DtoBeanCopier = BeanCopier.create(User.class, UserDTO.class, false);
 
     /**
      * DTO 转 DO
@@ -35,10 +33,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
      * @param entity DTO 对象
      * @return
      */
-    private UserDO dto2Do(UserDTO entity) {
-        UserDO userDO = new UserDO();
-        dto2DoBeanCopier.copy(entity, userDO, null);
-        return userDO;
+    private User dto2Do(UserDTO entity) {
+        User target = new User();
+        dto2DoBeanCopier.copy(entity, target, null);
+        return target;
     }
 
     /**
@@ -47,10 +45,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
      * @param entity DO 对象
      * @return
      */
-    private UserDTO do2Dto(UserDO entity) {
-        UserDTO userDTO = new UserDTO();
-        do2DtoBeanCopier.copy(entity, userDTO, null);
-        return userDTO;
+    private UserDTO do2Dto(User entity) {
+        UserDTO target = new UserDTO();
+        do2DtoBeanCopier.copy(entity, target, null);
+        return target;
     }
 
     @Override
@@ -65,7 +63,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
 
     @Override
     public boolean saveBatchDTO(Collection<UserDTO> entityList, int batchSize) {
-        List<UserDO> targetList = new ArrayList<>(entityList.size());
+        List<User> targetList = new ArrayList<>(entityList.size());
         entityList.forEach(e -> targetList.add(dto2Do(e)));
         return super.saveBatch(targetList, batchSize);
     }
@@ -82,7 +80,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
 
     @Override
     public boolean saveOrUpdateBatchDTO(Collection<UserDTO> entityList, int batchSize) {
-        List<UserDO> targetList = new ArrayList<>(entityList.size());
+        List<User> targetList = new ArrayList<>(entityList.size());
         entityList.forEach(e -> targetList.add(dto2Do(e)));
         return super.saveOrUpdateBatch(targetList, batchSize);
     }
@@ -99,7 +97,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
 
     @Override
     public boolean updateBatchByIdDTO(Collection<UserDTO> entityList, int batchSize) {
-        List<UserDO> targetList = new ArrayList<>(entityList.size());
+        List<User> targetList = new ArrayList<>(entityList.size());
         entityList.forEach(e -> targetList.add(dto2Do(e)));
         return super.updateBatchById(targetList, batchSize);
     }
@@ -111,7 +109,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
 
     @Override
     public Collection<UserDTO> listByIdsDTO(Collection<? extends Serializable> idList) {
-        Collection<UserDO> list = super.listByIds(idList);
+        Collection<User> list = super.listByIds(idList);
         List<UserDTO> result = new ArrayList<>(list.size());
         if (list.size() != 0) {
             list.forEach(e -> result.add(do2Dto(e)));
@@ -121,7 +119,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
 
     @Override
     public Collection<UserDTO> listByMapDTO(Map<String, Object> columnMap) {
-        Collection<UserDO> list = super.listByMap(columnMap);
+        Collection<User> list = super.listByMap(columnMap);
         List<UserDTO> result = new ArrayList<>(list.size());
         if (list.size() != 0) {
             list.forEach(e -> result.add(do2Dto(e)));

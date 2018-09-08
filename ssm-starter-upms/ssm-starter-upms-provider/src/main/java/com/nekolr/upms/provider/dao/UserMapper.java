@@ -1,6 +1,6 @@
 package com.nekolr.upms.provider.dao;
 
-import com.nekolr.upms.api.entity.UserDO;
+import com.nekolr.upms.api.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author nekolr
- * @since 2018-09-08
+ * @since 2018-09-09
  */
-public interface UserMapper extends BaseMapper<UserDO> {
+public interface UserMapper extends BaseMapper<User> {
 
 }

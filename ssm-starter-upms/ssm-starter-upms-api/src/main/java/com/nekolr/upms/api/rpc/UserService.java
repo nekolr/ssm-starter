@@ -1,6 +1,6 @@
 package com.nekolr.upms.api.rpc;
 
-import com.nekolr.upms.api.entity.UserDO;
+import com.nekolr.upms.api.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import java.io.Serializable;
 import com.nekolr.upms.api.dto.UserDTO;
@@ -13,9 +13,9 @@ import java.util.Map;
  * </p>
  *
  * @author nekolr
- * @since 2018-09-08
+ * @since 2018-09-09
  */
-public interface UserService extends IService<UserDO> {
+public interface UserService extends IService<User> {
     /**
      * <p>
      * 插入一条记录（选择字段，策略插入）
