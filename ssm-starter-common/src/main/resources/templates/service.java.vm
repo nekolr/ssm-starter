@@ -1,21 +1,29 @@
-package com.nekolr.upms.api.rpc;
+package ${package.Service};
 
-import com.nekolr.upms.api.entity.UserDO;
-import com.baomidou.mybatisplus.extension.service.IService;
+import ${package.Entity}.${entity};
+import ${superServiceClassPackage};
+#if(${cfg.addDtoInterfaceAndImpl})
+## dtoName 是生成的 dto 的名称
+#set($dtoName = "${table.name.toUpperCase().substring(0,1)}${table.name.substring(1)}DTO")
 import java.io.Serializable;
-import com.nekolr.upms.api.dto.UserDTO;
+import ${cfg.dtoPackageName}.${dtoName};
 import java.util.Collection;
 import java.util.Map;
+#end
 
 /**
  * <p>
- * 用户 服务类
+ * $!{table.comment} 服务类
  * </p>
  *
- * @author nekolr
- * @since 2018-09-08
+ * @author ${author}
+ * @since ${date}
  */
-public interface UserService extends IService<UserDO> {
+#if(${kotlin})
+interface ${table.serviceName} : ${superServiceClass}<${entity}>
+#else
+public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
+#if(${cfg.addDtoInterfaceAndImpl})
     /**
      * <p>
      * 插入一条记录（选择字段，策略插入）
@@ -24,7 +32,7 @@ public interface UserService extends IService<UserDO> {
      * @param entity 实体对象
      * @return
      */
-    boolean saveDTO(UserDTO entity);
+    boolean saveDTO(${dtoName} entity);
 
     /**
      * <p>
@@ -34,7 +42,7 @@ public interface UserService extends IService<UserDO> {
      * @param entityList 实体对象集合
      * @return
      */
-    boolean saveBatchDTO(Collection<UserDTO> entityList);
+    boolean saveBatchDTO(Collection<${dtoName}> entityList);
 
     /**
      * <p>
@@ -45,7 +53,7 @@ public interface UserService extends IService<UserDO> {
      * @param batchSize  插入批次数量
      * @return
      */
-    boolean saveBatchDTO(Collection<UserDTO> entityList, int batchSize);
+    boolean saveBatchDTO(Collection<${dtoName}> entityList, int batchSize);
 
     /**
      * <p>
@@ -55,7 +63,7 @@ public interface UserService extends IService<UserDO> {
      * @param entity 实体对象
      * @return
      */
-    boolean saveOrUpdateDTO(UserDTO entity);
+    boolean saveOrUpdateDTO(${dtoName} entity);
 
     /**
      * <p>
@@ -65,7 +73,7 @@ public interface UserService extends IService<UserDO> {
      * @param entityList 实体对象集合
      * @return
      */
-    boolean saveOrUpdateBatchDTO(Collection<UserDTO> entityList);
+    boolean saveOrUpdateBatchDTO(Collection<${dtoName}> entityList);
 
     /**
      * <p>
@@ -76,7 +84,7 @@ public interface UserService extends IService<UserDO> {
      * @param batchSize  每次的数量
      * @return
      */
-    boolean saveOrUpdateBatchDTO(Collection<UserDTO> entityList, int batchSize);
+    boolean saveOrUpdateBatchDTO(Collection<${dtoName}> entityList, int batchSize);
 
     /**
      * <p>
@@ -86,7 +94,7 @@ public interface UserService extends IService<UserDO> {
      * @param entity 实体对象
      * @return
      */
-    boolean updateByIdDTO(UserDTO entity);
+    boolean updateByIdDTO(${dtoName} entity);
 
     /**
      * <p>
@@ -96,7 +104,7 @@ public interface UserService extends IService<UserDO> {
      * @param entityList 实体对象集合
      * @return
      */
-    boolean updateBatchByIdDTO(Collection<UserDTO> entityList);
+    boolean updateBatchByIdDTO(Collection<${dtoName}> entityList);
 
     /**
      * <p>
@@ -107,7 +115,7 @@ public interface UserService extends IService<UserDO> {
      * @param batchSize  更新批次数量
      * @return
      */
-    boolean updateBatchByIdDTO(Collection<UserDTO> entityList, int batchSize);
+    boolean updateBatchByIdDTO(Collection<${dtoName}> entityList, int batchSize);
 
     /**
      * <p>
@@ -117,7 +125,7 @@ public interface UserService extends IService<UserDO> {
      * @param id 主键ID
      * @return
      */
-    UserDTO getByIdDTO(Serializable id);
+    ${dtoName} getByIdDTO(Serializable id);
 
     /**
      * <p>
@@ -127,7 +135,7 @@ public interface UserService extends IService<UserDO> {
      * @param idList 主键ID列表
      * @return
      */
-    Collection<UserDTO> listByIdsDTO(Collection<? extends Serializable> idList);
+    Collection<${dtoName}> listByIdsDTO(Collection<? extends Serializable> idList);
 
     /**
      * <p>
@@ -137,5 +145,7 @@ public interface UserService extends IService<UserDO> {
      * @param columnMap 表字段 map 对象
      * @return
      */
-    Collection<UserDTO> listByMapDTO(Map<String, Object> columnMap);
+    Collection<${dtoName}> listByMapDTO(Map<String, Object> columnMap);
+#end
 }
+#end
