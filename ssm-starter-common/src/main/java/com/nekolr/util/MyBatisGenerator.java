@@ -78,6 +78,7 @@ public class MyBatisGenerator {
         String mapper = props.getProperty("generator.mapper");
         String xml = props.getProperty("generator.xml");
         String entity = props.getProperty("generator.entity");
+
         /**
          * 全局配置
          */
@@ -156,7 +157,6 @@ public class MyBatisGenerator {
         strategyConfig.entityTableFieldAnnotationEnable(entityTableFieldAnnotationEnable);
         // REST 注解
         strategyConfig.setRestControllerStyle(restControllerStyle);
-
 
         /**
          * 包配置

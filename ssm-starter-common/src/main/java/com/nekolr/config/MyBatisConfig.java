@@ -2,6 +2,7 @@ package com.nekolr.config;
 
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.MybatisXMLLanguageDriver;
+import com.baomidou.mybatisplus.extension.MybatisMapWrapperFactory;
 import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
@@ -65,6 +66,8 @@ public class MyBatisConfig {
         configuration.setJdbcTypeForNull(JdbcType.valueOf(myBatisBean.getJdbcTypeForNull()));
         configuration.setLazyLoadTriggerMethods(new HashSet<>(Arrays.asList(myBatisBean.getLazyLoadTriggerMethods().split(","))));
         configuration.setAggressiveLazyLoading(myBatisBean.getAggressiveLazyLoading());
+        // 结果集为 java.util.Map 时将查询结果的下划线自动转驼峰
+        configuration.setObjectWrapperFactory(new MybatisMapWrapperFactory());
 
         // 设置数据源
         factoryBean.setDataSource(dataSource);
