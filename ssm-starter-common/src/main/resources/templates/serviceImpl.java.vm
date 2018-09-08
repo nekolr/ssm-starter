@@ -33,15 +33,28 @@ open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperNam
 #else
 public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} {
 #if(${cfg.addDtoInterfaceAndImpl})
+
     private final BeanCopier dto2DoBeanCopier = BeanCopier.create(${tableName}DTO.class, ${tableName}DO.class, false);
     private final BeanCopier do2DtoBeanCopier = BeanCopier.create(${tableName}DO.class, ${tableName}DTO.class, false);
 
+    /**
+     * DTO 转 DO
+     *
+     * @param entity DTO 对象
+     * @return
+     */
     private ${tableName}DO dto2Do(${tableName}DTO entity) {
         ${tableName}DO userDO = new ${tableName}DO();
         dto2DoBeanCopier.copy(entity, userDO, null);
         return userDO;
     }
 
+    /**
+     * DO 转 DTO
+     *
+     * @param entity DO 对象
+     * @return
+     */
     private ${tableName}DTO do2Dto(${tableName}DO entity) {
         ${tableName}DTO userDTO = new ${tableName}DTO();
         do2DtoBeanCopier.copy(entity, userDTO, null);

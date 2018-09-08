@@ -25,15 +25,28 @@ import com.nekolr.upms.api.dto.UserDTO;
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements UserService {
+
     private final BeanCopier dto2DoBeanCopier = BeanCopier.create(UserDTO.class, UserDO.class, false);
     private final BeanCopier do2DtoBeanCopier = BeanCopier.create(UserDO.class, UserDTO.class, false);
 
+    /**
+     * DTO 转 DO
+     *
+     * @param entity DTO 对象
+     * @return
+     */
     private UserDO dto2Do(UserDTO entity) {
         UserDO userDO = new UserDO();
         dto2DoBeanCopier.copy(entity, userDO, null);
         return userDO;
     }
 
+    /**
+     * DO 转 DTO
+     *
+     * @param entity DO 对象
+     * @return
+     */
     private UserDTO do2Dto(UserDO entity) {
         UserDTO userDTO = new UserDTO();
         do2DtoBeanCopier.copy(entity, userDTO, null);
