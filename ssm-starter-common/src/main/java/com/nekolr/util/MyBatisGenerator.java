@@ -3,7 +3,6 @@ package com.nekolr.util;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
-import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.PackageConfig;
@@ -14,8 +13,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -82,8 +79,6 @@ public class MyBatisGenerator {
         String mapper = props.getProperty("generator.mapper");
         String xml = props.getProperty("generator.xml");
         String entity = props.getProperty("generator.entity");
-        Boolean addDtoInterfaceAndImpl = Boolean.valueOf(props.getProperty("generator.addDtoInterfaceAndImpl"));
-        String dtoPackageName = props.getProperty("generator.dtoPackageName");
 
         /**
          * 全局配置
@@ -187,26 +182,11 @@ public class MyBatisGenerator {
         // 自定义的 entity 包名
         packageConfig.setEntity(entity);
 
-        /**
-         * 自定义配置注入
-         */
-        InjectionConfig injectionConfig = new InjectionConfig() {
-            @Override
-            public void initMap() {
-                Map<String, Object> map = new HashMap<>(3);
-                // 这样设置后，可以在 vm 模板中使用 cfg.addDtoInterfaceAndImpl
-                map.put("addDtoInterfaceAndImpl", addDtoInterfaceAndImpl);
-                map.put("dtoPackageName", dtoPackageName);
-                this.setMap(map);
-            }
-        };
-
         new AutoGenerator()
                 .setGlobalConfig(globalConfig)
                 .setDataSource(dataSourceConfig)
                 .setStrategy(strategyConfig)
                 .setPackageInfo(packageConfig)
-                .setCfg(injectionConfig)
                 .execute();
     }
 }

@@ -68,7 +68,7 @@ public class PasswordFilter extends AccessControlFilter {
         }
 
         // 无效的请求
-        ResponseUtils.responseJson(response, new ResultBean().fail(1000, ""));
+        ResponseUtils.responseJson(response, new ResultBean().fail(400, "无效的请求"));
         return false;
     }
 
