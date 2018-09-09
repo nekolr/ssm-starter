@@ -20,7 +20,7 @@ ssm-starter
 | Spring Framework | 作为 bean 容器，提供 IoC 和 AOP | |
 | Spring MVC | MVC 框架 | |
 | MyBatis | ORM 框架 | |
-| MyBatis Plus | MyBatis 增强工具，提供通用 CURD，以及代码生成功能等 | 项目需要，添加了自定义的代码生成模板 |
+| MyBatis Plus | MyBatis 增强工具 | 通用 CURD，以及代码生成功能等。因为项目需要，添加了自定义的代码生成模板 |
 | Apache Shiro | 安全框架 | 由于 Shiro 对 RESTful 的支持不太好，所以对该框架进行了改造 |
 | Redis | key-value 数据库，提供缓存支持 | |
 | Druid | 数据库连接池 | |
