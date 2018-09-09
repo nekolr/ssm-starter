@@ -1,4 +1,6 @@
-package com.nekolr.upms.server.vo;
+package com.nekolr.upms.server.vo.user;
+
+import lombok.Data;
 
 import java.io.Serializable;
 
@@ -7,6 +9,7 @@ import java.io.Serializable;
  *
  * @author nekolr
  */
+@Data
 public class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -15,4 +18,14 @@ public class Account implements Serializable {
      * 账号
      */
     private String account;
+
+    /**
+     * 密码
+     */
+    private String password;
+
+    /**
+     * 盐
+     */
+    private String salt;
 }

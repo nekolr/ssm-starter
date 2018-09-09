@@ -3,17 +3,17 @@ package com.nekolr.util;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
-import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
-import com.baomidou.mybatisplus.generator.config.GlobalConfig;
-import com.baomidou.mybatisplus.generator.config.PackageConfig;
-import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.InjectionConfig;
+import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
+import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * MyBatis Plus 代码生成器
@@ -43,6 +43,7 @@ public class MyBatisGenerator {
         Boolean fileOverride = Boolean.valueOf(props.getProperty("generator.fileOverride"));
         Boolean activeRecord = Boolean.valueOf(props.getProperty("generator.activeRecord"));
         String serviceName = props.getProperty("generator.serviceName");
+        String serviceImplName = props.getProperty("generator.serviceImplName");
         String entityName = props.getProperty("generator.entityName");
         String idType = props.getProperty("generator.idType");
         Boolean enableCache = Boolean.valueOf(props.getProperty("generator.enableCache"));
@@ -79,6 +80,8 @@ public class MyBatisGenerator {
         String mapper = props.getProperty("generator.mapper");
         String xml = props.getProperty("generator.xml");
         String entity = props.getProperty("generator.entity");
+        Boolean addDtoServiceAndImpl = Boolean.valueOf(props.getProperty("generator.addDtoServiceAndImpl"));
+        String dtoPackageName = props.getProperty("generator.dtoPackageName");
 
         /**
          * 全局配置
@@ -92,6 +95,8 @@ public class MyBatisGenerator {
         globalConfig.setActiveRecord(activeRecord);
         // 全局的 service 接口名
         globalConfig.setServiceName(serviceName);
+        // 全局的 service impl 名称
+        globalConfig.setServiceImplName(serviceImplName);
         // 全局的 entity 名称
         globalConfig.setEntityName(entityName);
         // 主键策略
@@ -182,11 +187,64 @@ public class MyBatisGenerator {
         // 自定义的 entity 包名
         packageConfig.setEntity(entity);
 
-        new AutoGenerator()
+        /**
+         * 自动生成器创建
+         */
+        AutoGenerator autoGenerator = new AutoGenerator()
                 .setGlobalConfig(globalConfig)
                 .setDataSource(dataSourceConfig)
                 .setStrategy(strategyConfig)
-                .setPackageInfo(packageConfig)
-                .execute();
+                .setPackageInfo(packageConfig);
+
+        // 是否添加 DTO service 接口和实现
+        if (addDtoServiceAndImpl) {
+            /**
+             * 自定义配置
+             */
+            InjectionConfig injectionConfig = new InjectionConfig() {
+                @Override
+                public void initMap() {
+                    Map<String, Object> map = new HashMap<>(3);
+                    // 这样设置后，可以在 vm 模板中使用 cfg.addDtoServiceAndImpl
+                    map.put("addDtoServiceAndImpl", true);
+                    map.put("dtoPackageName", dtoPackageName);
+                    this.setMap(map);
+                }
+            };
+
+            /**
+             * 新模板添加
+             */
+            List<FileOutConfig> focList = new ArrayList<>();
+            // 添加 DTO service 模板
+            focList.add(new FileOutConfig("/templates/dtoService.java.vm") {
+                @Override
+                public String outputFile(TableInfo tableInfo) {
+                    // 自定义输出的文件位置
+                    String packageName = parent + "." + moduleName + "." + service;
+                    String packagePath = packageName.replaceAll("\\.", "\\" + File.separator);
+                    return outputDir + File.separator + packagePath + File.separator + tableInfo.getEntityName() + "DtoService.java";
+                }
+            });
+            // 添加 DTO service impl 模板
+            focList.add(new FileOutConfig("/templates/dtoServiceImpl.java.vm") {
+                @Override
+                public String outputFile(TableInfo tableInfo) {
+                    // 自定义输出的文件位置
+                    String packageName = parent + "." + moduleName + "." + serviceImpl;
+                    String packagePath = packageName.replaceAll("\\.", "\\" + File.separator);
+                    return outputDir + File.separator + packagePath + File.separator + tableInfo.getEntityName() + "DtoServiceImpl.java";
+                }
+            });
+            injectionConfig.setFileOutConfigList(focList);
+
+            // 设置自定义注入
+            autoGenerator.setCfg(injectionConfig);
+        }
+
+        /**
+         * 执行生成
+         */
+        autoGenerator.execute();
     }
 }
