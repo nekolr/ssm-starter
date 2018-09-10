@@ -8,13 +8,13 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 账户操作日志
+ * 操作日志
  * </p>
  *
  * @author nekolr
  * @since 2018-09-10
  */
-public class AccountLog extends Model<AccountLog> {
+public class OperationLog extends Model<OperationLog> {
 
     private static final long serialVersionUID = 1L;
 
@@ -40,9 +40,14 @@ public class AccountLog extends Model<AccountLog> {
     private String userId;
 
     /**
-     * 操作
+     * 请求的 api 名称
      */
-    private String operation;
+    private String api;
+
+    /**
+     * 请求的方法名
+     */
+    private String method;
 
     /**
      * 创建时间
@@ -50,7 +55,7 @@ public class AccountLog extends Model<AccountLog> {
     private LocalDateTime createTime;
 
     /**
-     * 操作状态
+     * 状态
      */
     private Boolean status;
 
@@ -58,11 +63,6 @@ public class AccountLog extends Model<AccountLog> {
      * 具体信息
      */
     private String message;
-
-    /**
-     * 操作时的 IP
-     */
-    private String ip;
 
 
     public String getId() {
@@ -97,12 +97,20 @@ public class AccountLog extends Model<AccountLog> {
         this.userId = userId;
     }
 
-    public String getOperation() {
-        return operation;
+    public String getApi() {
+        return api;
     }
 
-    public void setOperation(String operation) {
-        this.operation = operation;
+    public void setApi(String api) {
+        this.api = api;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
     }
 
     public LocalDateTime getCreateTime() {
@@ -129,14 +137,6 @@ public class AccountLog extends Model<AccountLog> {
         this.message = message;
     }
 
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
     @Override
     protected Serializable pkVal() {
         return this.id;
@@ -144,16 +144,16 @@ public class AccountLog extends Model<AccountLog> {
 
     @Override
     public String toString() {
-        return "AccountLog{" +
+        return "OperationLog{" +
         "id=" + id +
         ", logName=" + logName +
         ", username=" + username +
         ", userId=" + userId +
-        ", operation=" + operation +
+        ", api=" + api +
+        ", method=" + method +
         ", createTime=" + createTime +
         ", status=" + status +
         ", message=" + message +
-        ", ip=" + ip +
         "}";
     }
 }
