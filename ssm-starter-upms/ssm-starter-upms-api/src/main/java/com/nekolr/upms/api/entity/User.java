@@ -2,8 +2,11 @@ package com.nekolr.upms.api.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+
 import java.time.LocalDateTime;
+
 import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.io.Serializable;
 
 /**
@@ -21,8 +24,8 @@ public class User extends Model<User> {
     /**
      * 主键
      */
-    @TableId(value = "id", type = IdType.ID_WORKER)
-    private Long id;
+    @TableId(value = "id", type = IdType.ID_WORKER_STR)
+    private String id;
 
     /**
      * 用户名
@@ -67,7 +70,7 @@ public class User extends Model<User> {
     /**
      * 头像
      */
-    private Long avatar;
+    private String avatar;
 
     /**
      * 创建时间
@@ -85,11 +88,11 @@ public class User extends Model<User> {
     private Integer status;
 
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -157,11 +160,11 @@ public class User extends Model<User> {
         this.sex = sex;
     }
 
-    public Long getAvatar() {
+    public String getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(Long avatar) {
+    public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
 
@@ -197,19 +200,19 @@ public class User extends Model<User> {
     @Override
     public String toString() {
         return "User{" +
-        "id=" + id +
-        ", username=" + username +
-        ", password=" + password +
-        ", salt=" + salt +
-        ", email=" + email +
-        ", mobile=" + mobile +
-        ", realName=" + realName +
-        ", age=" + age +
-        ", sex=" + sex +
-        ", avatar=" + avatar +
-        ", createTime=" + createTime +
-        ", updateTime=" + updateTime +
-        ", status=" + status +
-        "}";
+                "id=" + id +
+                ", username=" + username +
+                ", password=" + password +
+                ", salt=" + salt +
+                ", email=" + email +
+                ", mobile=" + mobile +
+                ", realName=" + realName +
+                ", age=" + age +
+                ", sex=" + sex +
+                ", avatar=" + avatar +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", status=" + status +
+                "}";
     }
 }
