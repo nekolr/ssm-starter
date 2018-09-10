@@ -10,6 +10,10 @@ import cn.hutool.crypto.symmetric.AES;
  */
 public class EncryptUtils {
 
+    private EncryptUtils() {
+
+    }
+
     /**
      * AES 加密
      *

@@ -40,11 +40,6 @@ public class AccountLog extends Model<AccountLog> {
     private String userId;
 
     /**
-     * 操作
-     */
-    private String operation;
-
-    /**
      * 创建时间
      */
     private LocalDateTime createTime;
@@ -97,14 +92,6 @@ public class AccountLog extends Model<AccountLog> {
         this.userId = userId;
     }
 
-    public String getOperation() {
-        return operation;
-    }
-
-    public void setOperation(String operation) {
-        this.operation = operation;
-    }
-
     public LocalDateTime getCreateTime() {
         return createTime;
     }
@@ -149,7 +136,6 @@ public class AccountLog extends Model<AccountLog> {
         ", logName=" + logName +
         ", username=" + username +
         ", userId=" + userId +
-        ", operation=" + operation +
         ", createTime=" + createTime +
         ", status=" + status +
         ", message=" + message +

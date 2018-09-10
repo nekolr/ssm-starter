@@ -43,6 +43,10 @@ public class ResourceUtils {
      */
     public static final String URL_PROTOCOL_ZIP = "zip";
 
+    private ResourceUtils() {
+
+    }
+
     /**
      * 判断是否为 URL
      * <p>

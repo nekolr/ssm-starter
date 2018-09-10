@@ -20,6 +20,10 @@ import java.util.Set;
  */
 public class PackageUtils {
 
+    private PackageUtils() {
+
+    }
+
     /**
      * 包名搜索
      *

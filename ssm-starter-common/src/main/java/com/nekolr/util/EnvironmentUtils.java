@@ -16,6 +16,10 @@ import java.lang.reflect.Method;
  */
 public class EnvironmentUtils {
 
+    private EnvironmentUtils() {
+
+    }
+
     /**
      * 将配置转换成 bean
      *

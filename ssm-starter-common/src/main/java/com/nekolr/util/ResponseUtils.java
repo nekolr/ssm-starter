@@ -15,6 +15,10 @@ import java.io.PrintWriter;
  */
 public class ResponseUtils {
 
+    private ResponseUtils() {
+
+    }
+
     /**
      * 响应 JSON 文本
      *

@@ -7,6 +7,10 @@ package com.nekolr.util;
  */
 public class ClassUtils {
 
+    private ClassUtils() {
+
+    }
+
     /**
      * 获取类加载器
      *

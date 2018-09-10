@@ -21,6 +21,9 @@ public class XssUtils {
     private static final Pattern VB_SCRIPT_SCRIPT_PATTERN = Pattern.compile("vbscript:", Pattern.CASE_INSENSITIVE);
     private static final Pattern ON_LOAD_SCRIPT_PATTERN = Pattern.compile("onload(.*?)=", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
 
+    private XssUtils() {
+
+    }
 
     /**
      * 简单处理文本内容

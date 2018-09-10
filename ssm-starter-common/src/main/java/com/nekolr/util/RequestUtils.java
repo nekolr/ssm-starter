@@ -16,6 +16,10 @@ import java.util.Map;
  */
 public class RequestUtils {
 
+    private RequestUtils() {
+
+    }
+
     /**
      * 获取 HttpServletRequest 包装类
      *
