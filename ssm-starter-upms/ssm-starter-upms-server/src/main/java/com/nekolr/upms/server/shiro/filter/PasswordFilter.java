@@ -101,7 +101,7 @@ public class PasswordFilter extends AccessControlFilter {
             ResponseUtils.responseJson(response, new ResultBean().success("issue tokenKey success")
                     .addData("tokenKey", tokenKey).addData("userKey", userKey));
         } catch (Exception e) {
-            log.warn("签发动态密钥失败：" + e.getMessage(), e);
+            log.warn("签发动态密钥失败：{}", e.getMessage(), e);
             ResponseUtils.responseJson(response, new ResultBean().fail("issue tokenKey fail"));
         }
 
@@ -142,11 +142,11 @@ public class PasswordFilter extends AccessControlFilter {
             // 登录认证成功
             return true;
         } catch (AuthenticationException e) {
-            log.warn(token.getPrincipal() + "::" + e.getMessage());
-            ResponseUtils.responseJson(response, new ResultBean().fail(403, "login fail"));
+            log.warn("{}::{}", token.getPrincipal(), e.getMessage());
+            ResponseUtils.responseJson(response, new ResultBean().fail(400, "login fail"));
         } catch (Exception e) {
-            log.warn(token.getPrincipal() + "::认证异常::" + e.getMessage(), e);
-            ResponseUtils.responseJson(response, new ResultBean().fail(403, "login fail"));
+            log.warn("{}::认证异常::{}", token.getPrincipal(), e.getMessage(), e);
+            ResponseUtils.responseJson(response, new ResultBean().fail(400, "login fail"));
         }
         return false;
     }

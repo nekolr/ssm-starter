@@ -1,4 +1,4 @@
-package com.nekolr.upms.server.support;
+package com.nekolr.upms.server.support.factory;
 
 import com.nekolr.upms.api.entity.AccountLog;
 import com.nekolr.upms.api.entity.OperationLog;

@@ -1,4 +1,4 @@
-package com.nekolr.upms.server.support.manager;
+package com.nekolr.upms.server.support.factory.manager;
 
 import java.util.TimerTask;
 import java.util.concurrent.ScheduledThreadPoolExecutor;

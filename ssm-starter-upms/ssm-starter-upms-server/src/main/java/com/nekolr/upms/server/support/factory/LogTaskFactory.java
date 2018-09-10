@@ -1,4 +1,4 @@
-package com.nekolr.upms.server.support;
+package com.nekolr.upms.server.support.factory;
 
 import com.nekolr.support.SpringContextHolder;
 import com.nekolr.upms.api.entity.AccountLog;
@@ -45,7 +45,7 @@ public class LogTaskFactory {
             public void run() {
                 AccountLog accountLog = LogFactory.createAccountLog(username, userId, "用户登录", ip, status, message);
                 if (!accountLogService.save(accountLog)) {
-                    log.error("写入用户登录日志异常：" + accountLog.toString());
+                    log.error("写入用户登录日志异常：{}", accountLog.toString());
                 }
             }
         };
@@ -69,7 +69,7 @@ public class LogTaskFactory {
                         username, userId, "用户登出", ip, status, message
                 );
                 if (!accountLogService.save(accountLog)) {
-                    log.error("写入用户登出日志异常：" + accountLog.toString());
+                    log.error("写入用户登出日志异常：{}", accountLog.toString());
                 }
             }
         };
@@ -95,7 +95,7 @@ public class LogTaskFactory {
                         username, userId, "业务操作日志", api, method, status, message
                 );
                 if (!operationLogService.save(operationLog)) {
-                    log.error("写入用户业务操作日志异常：" + operationLog.toString());
+                    log.error("写入用户业务操作日志异常：{}", operationLog.toString());
                 }
             }
         };
@@ -121,7 +121,7 @@ public class LogTaskFactory {
                         username, userId, "业务异常日志", api, method, status, message
                 );
                 if (!operationLogService.save(operationLog)) {
-                    log.error("写入业务异常日志异常：" + operationLog.toString());
+                    log.error("写入业务异常日志异常：{}", operationLog.toString());
                 }
             }
         };

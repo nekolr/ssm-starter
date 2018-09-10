@@ -58,7 +58,7 @@ public abstract class AbstractWebInitializer extends AbstractAnnotationConfigDis
      *
      * @return
      */
-    private EnumSet<DispatcherType> getDispatcherTypes() {
+    public EnumSet<DispatcherType> getDispatcherTypes() {
         return isAsyncSupported() ?
                 EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.INCLUDE, DispatcherType.ASYNC) :
                 EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.INCLUDE);
