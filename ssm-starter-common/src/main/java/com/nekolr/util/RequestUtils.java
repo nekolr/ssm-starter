@@ -2,10 +2,12 @@ package com.nekolr.util;
 
 import com.alibaba.fastjson.JSON;
 import com.nekolr.support.XssHttpServletRequestWrapper;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,6 +63,36 @@ public class RequestUtils {
                 return new HashMap<>(0);
             }
         }
+    }
+
+    /**
+     * 通过请求头 key 获取 value
+     *
+     * @param request
+     * @param key
+     * @return
+     */
+    public static String getHeader(ServletRequest request, String key) {
+        return getXssHandleRequest(request).getHeader(key);
+    }
+
+    /**
+     * 获取所有值不为空的请求头
+     *
+     * @param request
+     * @return
+     */
+    public static Map<String, String> getHeaders(ServletRequest request) {
+        Enumeration names = getXssHandleRequest(request).getHeaderNames();
+        Map<String, String> result = new HashMap<>();
+        while (names.hasMoreElements()) {
+            String name = (String) names.nextElement();
+            String value = getHeader(request, name);
+            if (!StringUtils.isEmpty(value)) {
+                result.put(name, value);
+            }
+        }
+        return result;
     }
 
 }

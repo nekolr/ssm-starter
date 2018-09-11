@@ -14,14 +14,29 @@ import org.apache.shiro.authc.AuthenticationToken;
 @Setter
 public class PasswordToken implements AuthenticationToken {
 
+    /**
+     * 账号
+     */
     private String account;
 
+    /**
+     * 密码
+     */
     private String password;
 
+    /**
+     * 时间戳
+     */
     private String timestamp;
 
+    /**
+     * IP
+     */
     private String ip;
 
+    /**
+     * 申请到的动态加密令牌
+     */
     private String tokenKey;
 
     public PasswordToken(String account, String password, String timestamp, String ip, String tokenKey) {
