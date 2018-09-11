@@ -1,13 +1,22 @@
 package com.nekolr.util;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nekolr.vo.JwtAccount;
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.impl.DefaultHeader;
+import io.jsonwebtoken.impl.DefaultJwsHeader;
+import io.jsonwebtoken.impl.compression.DefaultCompressionCodecResolver;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.lang.Strings;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
+import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * JWT 工具
@@ -21,6 +30,15 @@ public class JwtUtils {
      */
     private static final String SECRET_KEY = ":xgj%eMd#gk+wh.`t2;XW!.dIuC&$#Lua+;%~!F=" +
             "G&16Eo7b3o|GudHr%:?ijHQ3=G&:hVFcnQV?57f*)p!wNMG*Sfz%:pSU~5n,J|G%ro1blr'*'yD&z@Y&1Aa|=Bu:k";
+    /**
+     * Jackson 对象映射
+     */
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+
+    /**
+     * 压缩处理器
+     */
+    private static CompressionCodecResolver codecResolver = new DefaultCompressionCodecResolver();
 
     private JwtUtils() {
 
@@ -126,5 +144,94 @@ public class JwtUtils {
         jwtAccount.setPerms((String) claims.get("perms"));
         jwtAccount.setHost((String) claims.get("host"));
         return jwtAccount;
+    }
+
+    /**
+     * 解析 JWT 的 Payload
+     *
+     * @param jwt
+     * @return
+     */
+    public static String parsePayload(String jwt) {
+        if (jwt == null) {
+            throw new IllegalArgumentException("JWT string argument cannot be null or empty");
+        }
+        String base64UrlEncodedHeader = null;
+        String base64UrlEncodedPayload = null;
+        String base64UrlEncodedSignature = null;
+        int delimiterCount = 0;
+        StringBuilder builder = new StringBuilder();
+        char[] jwtCharArray = jwt.toCharArray();
+        for (char c : jwtCharArray) {
+            if (c == '.') {
+                // 去除头部和尾部的空白符
+                CharSequence sequence = Strings.clean(builder);
+                String token = sequence != null ? sequence.toString() : null;
+                if (delimiterCount == 0) {
+                    base64UrlEncodedHeader = token;
+                } else if (delimiterCount == 1) {
+                    base64UrlEncodedPayload = token;
+                }
+                delimiterCount++;
+                builder.setLength(0);
+            } else {
+                builder.append(c);
+            }
+        }
+        // 正常情况下此时 delimiterCount 应该是 2
+        if (delimiterCount != 2) {
+            throw new MalformedJwtException("JWT string must contain exactly 2 period characters. Found: " + delimiterCount);
+        }
+
+        // 剩下的就是 Signature
+        if (builder.length() > 0) {
+            base64UrlEncodedSignature = builder.toString();
+        }
+
+        // 没有 Payload 则抛异常
+        if (base64UrlEncodedPayload == null) {
+            throw new MalformedJwtException("JWT string '" + jwt + "' is missing a body/payload");
+        }
+
+        // 解析 Header
+        Header header;
+        CompressionCodec compressionCodec = null;
+        if (base64UrlEncodedHeader != null) {
+            String originalValue = new String(Decoders.BASE64URL.decode(base64UrlEncodedHeader), Charset.forName("UTF-8"));
+            Map<String, Object> map = readValue(originalValue);
+            if (base64UrlEncodedSignature != null) {
+                header = new DefaultJwsHeader(map);
+            } else {
+                header = new DefaultHeader(map);
+            }
+            // 解析压缩方式
+            compressionCodec = codecResolver.resolveCompressionCodec(header);
+        }
+
+        // 解析 Payload
+        String payload;
+        if (compressionCodec != null) {
+            // 解压缩
+            byte[] decompressed = compressionCodec.decompress(Decoders.BASE64URL.decode(base64UrlEncodedPayload));
+            payload = new String(decompressed, Charset.forName("UTF-8"));
+        } else {
+            payload = new String(Decoders.BASE64URL.decode(base64UrlEncodedPayload), Charset.forName("UTF-8"));
+        }
+
+        return payload;
+    }
+
+    /**
+     * JSON 字符串转 java.util.Map
+     *
+     * @param jsonText
+     * @return
+     */
+    private static Map<String, Object> readValue(String jsonText) {
+        try {
+            return OBJECT_MAPPER.readValue(jsonText, Map.class);
+        } catch (IOException e) {
+            throw new MalformedJwtException("Unable to read JSON value: " + jsonText, e);
+        }
     }
 }
