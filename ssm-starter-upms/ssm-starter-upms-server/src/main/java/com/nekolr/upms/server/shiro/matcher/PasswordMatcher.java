@@ -3,12 +3,14 @@ package com.nekolr.upms.server.shiro.matcher;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
+import org.springframework.stereotype.Component;
 
 /**
  * 用户名密码匹匹配器
  *
  * @author nekolr
  */
+@Component
 public class PasswordMatcher implements CredentialsMatcher {
 
     @Override

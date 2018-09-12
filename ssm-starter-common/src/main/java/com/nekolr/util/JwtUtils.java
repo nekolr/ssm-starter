@@ -227,7 +227,7 @@ public class JwtUtils {
      * @param jsonText
      * @return
      */
-    private static Map<String, Object> readValue(String jsonText) {
+    public static Map<String, Object> readValue(String jsonText) {
         try {
             return OBJECT_MAPPER.readValue(jsonText, Map.class);
         } catch (IOException e) {

@@ -20,16 +20,16 @@ import java.util.Map;
 @Component
 public class FilterChainManager {
 
+    @Autowired
     private StringRedisTemplate stringRedisTemplate;
-
+    @Autowired
     private AccountService accountService;
 
-    @Autowired
-    public FilterChainManager(StringRedisTemplate stringRedisTemplate, AccountService accountService) {
-        this.stringRedisTemplate = stringRedisTemplate;
-        this.accountService = accountService;
-    }
-
+    /**
+     * 初始化默认的过滤器集合
+     *
+     * @return
+     */
     public Map<String, Filter> initFilters() {
         Map<String, Filter> filterMap = new LinkedHashMap<>();
         // PasswordFilter
@@ -43,6 +43,11 @@ public class FilterChainManager {
         return filterMap;
     }
 
+    /**
+     * 初始化过滤链规则
+     *
+     * @return
+     */
     public Map<String, String> initFilterChainDefinitions() {
         Map<String, String> filterChain = new LinkedHashMap<>();
         // defaultAnon 为过滤器默认忽略的 URI
