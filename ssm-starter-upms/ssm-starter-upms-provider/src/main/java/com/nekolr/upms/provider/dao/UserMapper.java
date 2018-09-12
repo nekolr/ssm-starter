@@ -13,4 +13,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface UserMapper extends BaseMapper<User> {
 
+    /**
+     * 获取用户的所有角色
+     *
+     * @param appId 用户标识（可以是用户名、邮箱等）
+     * @return
+     */
+    String getUserRoles(String appId);
 }

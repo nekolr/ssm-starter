@@ -50,7 +50,7 @@ public class JwtUtils {
      * @param tokenId     令牌 ID
      * @param subject     被签发者
      * @param issuer      签发者
-     * @param period      有效时间
+     * @param period      有效时间，单位秒
      * @param roles       角色
      * @param permissions 权限（资源）
      * @param algorithm   加密算法

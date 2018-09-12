@@ -27,12 +27,42 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class PasswordFilter extends AccessControlFilter {
 
-    private StringRedisTemplate stringRedisTemplate;
-
     /**
      * 动态密钥放入 redis 中时，key 的前缀
      */
     private static final String TOKEN_KEY_PREFIX = "TOKEN_KEY_";
+
+    /**
+     * 客户端收到的消息：签发 tokenKey 成功
+     */
+    private static final String ISSUE_TOKEN_KEY_SUCCESS_INFO = "issue tokenKey success";
+
+    /**
+     * 客户端收到的消息：签发 tokenKey 失败
+     */
+    private static final String ISSUE_TOKEN_KEY_FAIL_INFO = "issue tokenKey fail";
+
+    /**
+     * 客户端收到的消息：登录失败
+     */
+    private static final String LOGIN_FAIL_INFO = "login fail";
+
+    /**
+     * 客户端收到的消息：无效的请求
+     */
+    private static final String ERROR_REQUEST_INFO = "error request";
+
+    /**
+     * tokenKey
+     */
+    private static final String TOKEN_KEY = "tokenKey";
+
+    /**
+     * userKey
+     */
+    private static final String USER_KEY = "userKey";
+
+    private StringRedisTemplate stringRedisTemplate;
 
     public PasswordFilter(StringRedisTemplate stringRedisTemplate) {
         this.stringRedisTemplate = stringRedisTemplate;
@@ -68,7 +98,7 @@ public class PasswordFilter extends AccessControlFilter {
         }
 
         // 无效的请求
-        ResponseUtils.responseJson(response, new ResultBean().fail(400, "无效的请求"));
+        ResponseUtils.responseJson(response, new ResultBean().fail(400, ERROR_REQUEST_INFO));
         return false;
     }
 
@@ -79,7 +109,7 @@ public class PasswordFilter extends AccessControlFilter {
      * @return
      */
     private boolean isGetTokenKey(ServletRequest request) {
-        String tokenKey = RequestUtils.getParameter(request, "tokenKey");
+        String tokenKey = RequestUtils.getParameter(request, TOKEN_KEY);
         return (request instanceof HttpServletRequest)
                 && ((HttpServletRequest) request).getMethod().toUpperCase().equals("GET")
                 && tokenKey != null && "get".equals(tokenKey);
@@ -98,11 +128,11 @@ public class PasswordFilter extends AccessControlFilter {
         // 动态密钥放入 redis，有效期 5 秒，key 为 TOKEN_KEY_IP_userKey，value 为 tokenKey
         try {
             stringRedisTemplate.opsForValue().set(TOKEN_KEY_PREFIX + ip + "_" + userKey, tokenKey, 5, TimeUnit.SECONDS);
-            ResponseUtils.responseJson(response, new ResultBean().success("issue tokenKey success")
-                    .addData("tokenKey", tokenKey).addData("userKey", userKey));
+            ResponseUtils.responseJson(response, new ResultBean().success(ISSUE_TOKEN_KEY_SUCCESS_INFO)
+                    .addData(TOKEN_KEY, tokenKey).addData(USER_KEY, userKey));
         } catch (Exception e) {
             log.warn("签发动态密钥失败：{}", e.getMessage(), e);
-            ResponseUtils.responseJson(response, new ResultBean().fail("issue tokenKey fail"));
+            ResponseUtils.responseJson(response, new ResultBean().fail(ISSUE_TOKEN_KEY_FAIL_INFO));
         }
 
         return false;
@@ -143,10 +173,10 @@ public class PasswordFilter extends AccessControlFilter {
             return true;
         } catch (AuthenticationException e) {
             log.warn("{}::{}", token.getPrincipal(), e.getMessage());
-            ResponseUtils.responseJson(response, new ResultBean().fail(400, "login fail"));
+            ResponseUtils.responseJson(response, new ResultBean().fail(400, LOGIN_FAIL_INFO));
         } catch (Exception e) {
             log.warn("{}::认证异常::{}", token.getPrincipal(), e.getMessage(), e);
-            ResponseUtils.responseJson(response, new ResultBean().fail(400, "login fail"));
+            ResponseUtils.responseJson(response, new ResultBean().fail(400, LOGIN_FAIL_INFO));
         }
         return false;
     }

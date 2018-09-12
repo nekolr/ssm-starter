@@ -2,6 +2,7 @@ package com.nekolr.shiro.token;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.apache.shiro.authc.AuthenticationToken;
 
 /**
@@ -11,7 +12,10 @@ import org.apache.shiro.authc.AuthenticationToken;
  */
 @Getter
 @Setter
+@ToString
 public class JwtToken implements AuthenticationToken {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * 用户账号
