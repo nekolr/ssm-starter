@@ -1,6 +1,7 @@
 package com.nekolr.upms.server.shiro.filter;
 
 
+import com.nekolr.upms.api.rpc.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
@@ -19,11 +20,14 @@ import java.util.Map;
 @Component
 public class FilterChainManager {
 
-    private final StringRedisTemplate stringRedisTemplate;
+    private StringRedisTemplate stringRedisTemplate;
+
+    private AccountService accountService;
 
     @Autowired
-    public FilterChainManager(StringRedisTemplate stringRedisTemplate) {
+    public FilterChainManager(StringRedisTemplate stringRedisTemplate, AccountService accountService) {
         this.stringRedisTemplate = stringRedisTemplate;
+        this.accountService = accountService;
     }
 
     public Map<String, Filter> initFilters() {
@@ -33,6 +37,8 @@ public class FilterChainManager {
         filterMap.put("auth", passwordFilter);
         // JwtFilter
         JwtFilter jwtFilter = new JwtFilter();
+        jwtFilter.setStringRedisTemplate(stringRedisTemplate);
+        jwtFilter.setAccountService(accountService);
         filterMap.put("jwt", jwtFilter);
         return filterMap;
     }
