@@ -15,7 +15,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <spring.version>5.0.8.RELEASE</spring.version>
+        <spring.version>5.0.9.RELEASE</spring.version>
         <servlet.version>3.1.0</servlet.version>
         <druid.version>1.1.10</druid.version>
         <shiro.version>1.4.0</shiro.version>
@@ -35,6 +35,8 @@
         <fastjson.version>1.2.49</fastjson.version>
         <cglib.version>3.2.7</cglib.version>
         <jackson.version>2.9.6</jackson.version>
+        <spring-data-redis.version>2.0.10.RELEASE</spring-data-redis.version>
+        <lettuce.version>5.0.5.RELEASE</lettuce.version>
     </properties>
 
     <dependencies>
@@ -67,13 +69,19 @@
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-redis</artifactId>
-            <version>2.0.5.RELEASE</version>
+            <version>${spring-data-redis.version}</version>
             <exclusions>
                 <exclusion>
                     <artifactId>jcl-over-slf4j</artifactId>
                     <groupId>org.slf4j</groupId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <!-- lettuce -->
+        <dependency>
+            <groupId>io.lettuce</groupId>
+            <artifactId>lettuce-core</artifactId>
+            <version>${lettuce.version}</version>
         </dependency>
         <!-- servlet api -->
         <dependency>

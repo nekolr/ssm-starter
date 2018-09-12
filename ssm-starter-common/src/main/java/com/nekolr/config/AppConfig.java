@@ -17,6 +17,6 @@ import org.springframework.stereotype.Controller;
 @ComponentScan(basePackages = Constants.BASE_PACKAGE_PATH,
         excludeFilters = {@ComponentScan.Filter(type = FilterType.ANNOTATION, value = {Controller.class, Configuration.class})})
 @EnableAspectJAutoProxy(proxyTargetClass = true)
-@Import(value = {PropertiesConfig.class, MyBatisConfig.class, CacheConfig.class})
+@Import(value = {PropertiesConfig.class, MyBatisConfig.class, CacheConfig.class, RedisConfig.class})
 public class AppConfig {
 }
