@@ -2,6 +2,8 @@ package com.nekolr.upms.server.shiro.filter;
 
 
 import com.nekolr.upms.api.rpc.AccountService;
+import com.nekolr.upms.api.rpc.ShiroFilterRuleService;
+import com.nekolr.upms.common.vo.RoleResourceRule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
@@ -25,6 +27,8 @@ public class FilterChainManager {
     private StringRedisTemplate stringRedisTemplate;
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private ShiroFilterRuleService shiroFilterRuleService;
 
     /**
      * 初始化默认的过滤器集合
@@ -53,14 +57,24 @@ public class FilterChainManager {
         Map<String, String> filterChain = new LinkedHashMap<>();
         // defaultAnon 为过滤器默认忽略的 URI
         List<String> defaultAnon = Arrays.asList();
-        defaultAnon.forEach(e -> filterChain.put(e, "anon"));
+        defaultAnon.forEach(anon -> filterChain.put(anon, "anon"));
 
         // defaultAuth 为需要 PasswordFilter 过滤器认证的 URI
         List<String> defaultAuth = Arrays.asList("/account/**");
-        defaultAuth.forEach(e -> filterChain.put(e, "auth"));
+        defaultAuth.forEach(auth -> filterChain.put(auth, "auth"));
 
         // 从数据库根据角色资源关系动态加载过滤链规则
-        //TODO
+        if (shiroFilterRuleService != null) {
+            List<RoleResourceRule> roleResourceRules = shiroFilterRuleService.getRoleResourceRuleList();
+            if (roleResourceRules != null) {
+                roleResourceRules.forEach(rule -> {
+                    String chain = rule.toFilterChainRule();
+                    if (chain != null) {
+                        filterChain.putIfAbsent(rule.getUri(), chain);
+                    }
+                });
+            }
+        }
 
         return filterChain;
     }
