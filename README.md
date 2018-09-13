@@ -59,7 +59,7 @@ ssm-starter
 
 # 进度
 - [x] Spring + Spring MVC + MyBatis 整合  
-- [ ] Apache Shiro 改造和 JWT 集成  
+- [x] Apache Shiro 改造和 JWT 集成  
 - [x] 自定义代码生成模板  
 - [x] 代码生成器  
 
@@ -71,3 +71,5 @@ ssm-starter
     - [使用 Spring HATEOAS 开发 REST 服务](https://www.ibm.com/developerworks/cn/java/j-lo-SpringHATEOAS/index.html?ca=drs-&utm_source=tuicool&utm_medium=referral)
 - JWT
     - [The Ins and Outs of Token Based Authentication](https://scotch.io/tutorials/the-ins-and-outs-of-token-based-authentication)
+# 特别感谢
+- [bootshiro](https://github.com/tomsun28/bootshiro)（本项目的 shiro 改造和 JWT 集成代码参考来源）
