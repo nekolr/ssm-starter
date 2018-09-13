@@ -3,6 +3,8 @@ package com.nekolr.config;
 import com.nekolr.config.bean.RedisBean;
 import com.nekolr.util.EncryptUtils;
 import com.nekolr.util.EnvironmentUtils;
+import io.lettuce.core.resource.ClientResources;
+import io.lettuce.core.resource.DefaultClientResources;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -12,6 +14,8 @@ import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.*;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+
+import java.time.Duration;
 
 /**
  * Redis 配置类
@@ -33,11 +37,34 @@ public class RedisConfig {
         standaloneConfiguration.setDatabase(redisBean.getDbIndex());
         standaloneConfiguration.setPassword(RedisPassword.of(EncryptUtils.aesDecrypt(redisBean.getPassword())));
 
+        // 客户端配置
+        LettuceClientConfiguration clientConfig = LettuceClientConfiguration.builder()
+                .useSsl()
+                .and()
+                .commandTimeout(Duration.ofSeconds(redisBean.getCommandTimeout()))
+                .shutdownTimeout(Duration.ofSeconds(redisBean.getShutdownTimeout()))
+                .clientResources(clientResources(environment))
+                .build();
+
         // 连接工厂
-        LettuceConnectionFactory factory = new LettuceConnectionFactory(standaloneConfiguration);
+        LettuceConnectionFactory factory = new LettuceConnectionFactory(standaloneConfiguration, clientConfig);
         factory.setValidateConnection(redisBean.getValidateConnection());
         factory.afterPropertiesSet();
+
         return factory;
+    }
+
+    @Bean(destroyMethod = "shutdown")
+    public ClientResources clientResources(Environment environment) throws Exception {
+        // 获取配置 bean
+        RedisBean redisBean = EnvironmentUtils.toBean(environment, RedisBean.class);
+
+        DefaultClientResources defaultClientResources = DefaultClientResources.builder()
+                .ioThreadPoolSize(redisBean.getIoThreadPoolSize())
+                .computationThreadPoolSize(redisBean.getComputationThreadPoolSize())
+                .build();
+
+        return defaultClientResources;
     }
 
     /**
@@ -55,6 +82,7 @@ public class RedisConfig {
         RedisTemplate redisTemplate = new RedisTemplate();
         redisTemplate.setConnectionFactory(factory);
         redisTemplate.setEnableTransactionSupport(redisBean.getEnableTransactionSupport());
+
         return redisTemplate;
     }
 
@@ -73,6 +101,7 @@ public class RedisConfig {
         StringRedisTemplate stringRedisTemplate = new StringRedisTemplate();
         stringRedisTemplate.setEnableTransactionSupport(redisBean.getEnableTransactionSupport());
         stringRedisTemplate.setConnectionFactory(factory);
+
         return stringRedisTemplate;
     }
 

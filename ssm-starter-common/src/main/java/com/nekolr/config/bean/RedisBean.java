@@ -19,4 +19,8 @@ public class RedisBean {
     private Integer dbIndex;
     private Boolean validateConnection;
     private Boolean enableTransactionSupport;
+    private Long commandTimeout;
+    private Long shutdownTimeout;
+    private Integer ioThreadPoolSize;
+    private Integer computationThreadPoolSize;
 }
