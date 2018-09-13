@@ -17,4 +17,14 @@
         <result column="update_time" property="updateTime" />
     </resultMap>
 
+    <select id="getRoleResourceRuleList" resultType="com.nekolr.upms.common.vo.RoleResourceRule">
+        SELECT CONCAT(re.uri, "==", UCASE(re.method)) AS uri, GROUP_CONCAT(ro.code ORDER BY re.uri) AS roles
+        FROM resource re
+        LEFT JOIN role_resource rr ON re.id = rr.resource_id
+        LEFT JOIN role ro ON rr.role_id = ro.id
+        WHERE re.type = 2
+        GROUP BY
+        re.uri, re.id
+    </select>
+
 </mapper>

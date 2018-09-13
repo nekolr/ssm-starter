@@ -1,4 +1,4 @@
-package com.nekolr.vo;
+package com.nekolr.upms.common.vo;
 
 import lombok.*;
 

@@ -4,6 +4,7 @@ import com.nekolr.common.ResultBean;
 import com.nekolr.shiro.filter.AbstractRestPathMatchingFilter;
 import com.nekolr.shiro.token.JwtToken;
 import com.nekolr.upms.api.rpc.AccountService;
+import com.nekolr.upms.common.util.JwtUtils;
 import com.nekolr.util.*;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;

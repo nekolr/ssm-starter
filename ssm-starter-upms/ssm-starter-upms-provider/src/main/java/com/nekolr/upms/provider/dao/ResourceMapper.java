@@ -2,6 +2,9 @@ package com.nekolr.upms.provider.dao;
 
 import com.nekolr.upms.api.entity.Resource;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.nekolr.upms.common.vo.RoleResourceRule;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface ResourceMapper extends BaseMapper<Resource> {
 
+    /**
+     * 获取过滤链规则
+     *
+     * @return
+     */
+    List<RoleResourceRule> getRoleResourceRuleList();
 }

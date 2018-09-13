@@ -1,7 +1,7 @@
-package com.nekolr.util;
+package com.nekolr.upms.common.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nekolr.vo.JwtAccount;
+import com.nekolr.upms.common.vo.JwtAccount;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.impl.DefaultHeader;
 import io.jsonwebtoken.impl.DefaultJwsHeader;
@@ -28,7 +28,7 @@ public class JwtUtils {
     /**
      * HS512 需要的私钥
      */
-    private static final String SECRET_KEY = ":xgj%eMd#gk+wh.`t2;XW!.dIuC&$#Lua+;%~!F=" +
+    public static final String SECRET_KEY = ":xgj%eMd#gk+wh.`t2;XW!.dIuC&$#Lua+;%~!F=" +
             "G&16Eo7b3o|GudHr%:?ijHQ3=G&:hVFcnQV?57f*)p!wNMG*Sfz%:pSU~5n,J|G%ro1blr'*'yD&z@Y&1Aa|=Bu:k";
     /**
      * Jackson 对象映射

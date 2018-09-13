@@ -19,4 +19,11 @@
         <result column="status" property="status" />
     </resultMap>
 
+    <select id="getUserRoles" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT GROUP_CONCAT(r.code) AS roles
+        FROM role r
+        JOIN user_role ur ON ur.role_id = r.id
+        WHERE ur.user_id = #{appId, jdbcType=VARCHAR}
+    </select>
+
 </mapper>
