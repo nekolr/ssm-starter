@@ -1,5 +1,12 @@
 # 简介
-<p align="center"><img src="https://github.com/nekolr/ssm-starter/blob/master/ssm-starter.png"></p>
+<p align="center">
+     <img src="https://github.com/nekolr/ssm-starter/blob/master/ssm-starter.png">
+     <br/>
+     <img src="https://img.shields.io/badge/JDK-8-blue.svg?style=flat-square">
+     <img src="https://img.shields.io/github/stars/nekolr/ssm-starter.svg?style=flat-square&label=Stars">
+     <img src="https://img.shields.io/github/forks/nekolr/ssm-starter.svg?style=flat-square&label=Fork">
+     <img src="https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square">
+</p>
 
 一个基于 SSM + Shiro + Dubbo 的 RESTful Web 应用快速启动器。  
 
