@@ -1,12 +1,6 @@
 # 简介
-```
-                          _             _            
-  ___ ___ _ __ ___    ___| |_ __ _ _ __| |_ ___ _ __ 
- / __/ __| '_ ` _ \  / __| __/ _` | '__| __/ _ \ '__|
- \__ \__ \ | | | | | \__ \ || (_| | |  | ||  __/ |   
- |___/___/_| |_| |_| |___/\__\__,_|_|   \__\___|_|   
-                                                     
-```
+<p align="center"><img src="https://github.com/nekolr/ssm-starter/blob/master/ssm-starter.png"></p>
+
 一个基于 SSM + Shiro + Dubbo 的 RESTful Web 应用快速启动器。  
 
 # 模块结构
