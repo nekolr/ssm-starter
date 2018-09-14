@@ -5,7 +5,7 @@ package com.nekolr.upms.common;
  *
  * @author nekolr
  */
-public class UpmsConstant {
+public class UpmsConstants {
 
     /**
      * 匿名角色，此角色下分配的资源不需要权限即可访问

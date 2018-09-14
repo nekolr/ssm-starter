@@ -1,6 +1,6 @@
 package com.nekolr.upms.common.vo;
 
-import com.nekolr.upms.common.UpmsConstant;
+import com.nekolr.upms.common.UpmsConstants;
 import com.nekolr.util.StringHelper;
 import lombok.Getter;
 import lombok.Setter;
@@ -45,7 +45,7 @@ public class RoleResourceRule implements Serializable {
              * - 如果一个资源被分配到 role_anon 角色下，则该资源不需要认证和权限即可访问
              * - 除此之外的角色下的资源都需要认证和授权才可以访问
              */
-            if (roleSet.contains(UpmsConstant.ROLE_ANON)) {
+            if (roleSet.contains(UpmsConstants.ROLE_ANON)) {
                 return "anon";
             } else {
                 return "jwt:[" + this.roles + "]";
