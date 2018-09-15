@@ -1,4 +1,3 @@
-# 简介
 <p align="center">
      <img src="https://github.com/nekolr/ssm-starter/blob/master/ssm-starter.png">
      <br/>
@@ -8,6 +7,7 @@
      <img src="https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square">
 </p>
 
+# 简介
 一个基于 SSM + Shiro + Dubbo 的 RESTful Web 应用快速启动器。  
 
 # 模块结构
