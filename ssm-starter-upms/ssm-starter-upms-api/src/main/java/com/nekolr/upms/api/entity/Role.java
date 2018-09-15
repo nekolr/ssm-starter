@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import java.io.Serializable;
 
 /**
@@ -12,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author nekolr
- * @since 2018-09-10
+ * @since 2018-09-15
  */
 public class Role extends Model<Role> {
 
@@ -48,6 +49,12 @@ public class Role extends Model<Role> {
      * 修改时间
      */
     private LocalDateTime updateTime;
+
+    /**
+     * 逻辑删除（0未删除 1已删除）
+     */
+    @TableLogic
+    private Boolean deleteFlag;
 
 
     public String getId() {
@@ -98,6 +105,14 @@ public class Role extends Model<Role> {
         this.updateTime = updateTime;
     }
 
+    public Boolean getDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public void setDeleteFlag(Boolean deleteFlag) {
+        this.deleteFlag = deleteFlag;
+    }
+
     @Override
     protected Serializable pkVal() {
         return this.id;
@@ -112,6 +127,7 @@ public class Role extends Model<Role> {
         ", status=" + status +
         ", createTime=" + createTime +
         ", updateTime=" + updateTime +
+        ", deleteFlag=" + deleteFlag +
         "}";
     }
 }

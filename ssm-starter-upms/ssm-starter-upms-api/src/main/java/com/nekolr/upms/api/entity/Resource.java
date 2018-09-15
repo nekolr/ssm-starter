@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import java.io.Serializable;
 
 /**
@@ -12,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author nekolr
- * @since 2018-09-10
+ * @since 2018-09-15
  */
 public class Resource extends Model<Resource> {
 
@@ -60,11 +61,6 @@ public class Resource extends Model<Resource> {
     private String icon;
 
     /**
-     * 状态
-     */
-    private Boolean status;
-
-    /**
      * 创建时间
      */
     private LocalDateTime createTime;
@@ -73,6 +69,22 @@ public class Resource extends Model<Resource> {
      * 更新时间
      */
     private LocalDateTime updateTime;
+
+    /**
+     * 排序（值越小越靠前）
+     */
+    private Integer sortOrder;
+
+    /**
+     * 状态
+     */
+    private Boolean status;
+
+    /**
+     * 逻辑删除（0未删除 1已删除）
+     */
+    @TableLogic
+    private Boolean deleteFlag;
 
 
     public String getId() {
@@ -139,14 +151,6 @@ public class Resource extends Model<Resource> {
         this.icon = icon;
     }
 
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
     public LocalDateTime getCreateTime() {
         return createTime;
     }
@@ -161,6 +165,30 @@ public class Resource extends Model<Resource> {
 
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getSortOrder() {
+        return sortOrder;
+    }
+
+    public void setSortOrder(Integer sortOrder) {
+        this.sortOrder = sortOrder;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public Boolean getDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public void setDeleteFlag(Boolean deleteFlag) {
+        this.deleteFlag = deleteFlag;
     }
 
     @Override
@@ -179,9 +207,11 @@ public class Resource extends Model<Resource> {
         ", parentId=" + parentId +
         ", method=" + method +
         ", icon=" + icon +
-        ", status=" + status +
         ", createTime=" + createTime +
         ", updateTime=" + updateTime +
+        ", sortOrder=" + sortOrder +
+        ", status=" + status +
+        ", deleteFlag=" + deleteFlag +
         "}";
     }
 }

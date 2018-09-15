@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import com.nekolr.common.Constants;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
@@ -42,27 +43,29 @@ public class MyBatisGenerator {
         String outputDir = props.getProperty("generator.outputDir");
         Boolean fileOverride = Boolean.valueOf(props.getProperty("generator.fileOverride"));
         Boolean activeRecord = Boolean.valueOf(props.getProperty("generator.activeRecord"));
-        String serviceName = props.getProperty("generator.serviceName");
-        String serviceImplName = props.getProperty("generator.serviceImplName");
-        String entityName = props.getProperty("generator.entityName");
-        String idType = props.getProperty("generator.idType");
         Boolean enableCache = Boolean.valueOf(props.getProperty("generator.enableCache"));
         Boolean baseResultMap = Boolean.valueOf(props.getProperty("generator.baseResultMap"));
         Boolean baseColumnList = Boolean.valueOf(props.getProperty("generator.baseColumnList"));
         String author = props.getProperty("generator.author");
+        String serviceName = props.getProperty("generator.serviceName");
+        String serviceImplName = props.getProperty("generator.serviceImplName");
+        String entityName = props.getProperty("generator.entityName");
+        String idType = props.getProperty("generator.idType");
+
         DbType dbTpe = DbType.valueOf(props.getProperty("generator.dbType"));
         String driverName = props.getProperty("generator.driverName");
         String username = EncryptUtils.aesDecrypt(props.getProperty("generator.username"));
         String password = EncryptUtils.aesDecrypt(props.getProperty("generator.password"));
         String url = props.getProperty("generator.url");
+
         Boolean capitalMode = Boolean.valueOf(props.getProperty("generator.capitalMode"));
-        String[] tablePrefix = StringUtils.isEmpty(props.getProperty("generator.tablePrefix")) ? null : props.getProperty("generator.tablePrefix").split(",");
+        String[] tablePrefix = StringUtils.isEmpty(props.getProperty("generator.tablePrefix")) ? null : props.getProperty("generator.tablePrefix").split(Constants.SPLIT_SEPARATOR);
         String naming = props.getProperty("generator.naming");
         String columnNaming = props.getProperty("generator.columnNaming");
-        String[] include = StringUtils.isEmpty(props.getProperty("generator.include")) ? null : props.getProperty("generator.include").split(",");
-        String[] exclude = StringUtils.isEmpty(props.getProperty("generator.exclude")) ? null : props.getProperty("generator.exclude").split(",");
+        String[] include = StringUtils.isEmpty(props.getProperty("generator.include")) ? null : props.getProperty("generator.include").split(Constants.SPLIT_SEPARATOR);
+        String[] exclude = StringUtils.isEmpty(props.getProperty("generator.exclude")) ? null : props.getProperty("generator.exclude").split(Constants.SPLIT_SEPARATOR);
         String superEntityClass = props.getProperty("generator.superEntityClass");
-        String[] superEntityColumns = StringUtils.isEmpty(props.getProperty("generator.superEntityColumns")) ? null : props.getProperty("generator.superEntityColumns").split(",");
+        String[] superEntityColumns = StringUtils.isEmpty(props.getProperty("generator.superEntityColumns")) ? null : props.getProperty("generator.superEntityColumns").split(Constants.SPLIT_SEPARATOR);
         String superMapperClass = props.getProperty("generator.superMapperClass");
         String superServiceClass = props.getProperty("generator.superServiceClass");
         String superServiceImplClass = props.getProperty("generator.superServiceImplClass");
@@ -72,6 +75,8 @@ public class MyBatisGenerator {
         Boolean entityLombokModel = Boolean.valueOf(props.getProperty("generator.entityLombokModel"));
         Boolean entityTableFieldAnnotationEnable = Boolean.valueOf(props.getProperty("generator.entityTableFieldAnnotationEnable"));
         Boolean restControllerStyle = Boolean.valueOf(props.getProperty("generator.restControllerStyle"));
+        String logicDeleteFieldName = props.getProperty("generator.logicDeleteFieldName");
+
         String parent = props.getProperty("generator.parent");
         String moduleName = props.getProperty("generator.moduleName");
         String controller = props.getProperty("generator.controller");
@@ -80,6 +85,7 @@ public class MyBatisGenerator {
         String mapper = props.getProperty("generator.mapper");
         String xml = props.getProperty("generator.xml");
         String entity = props.getProperty("generator.entity");
+
         Boolean addDtoServiceAndImpl = Boolean.valueOf(props.getProperty("generator.addDtoServiceAndImpl"));
         String dtoPackageName = props.getProperty("generator.dtoPackageName");
 
@@ -165,6 +171,8 @@ public class MyBatisGenerator {
         strategyConfig.entityTableFieldAnnotationEnable(entityTableFieldAnnotationEnable);
         // REST 注解
         strategyConfig.setRestControllerStyle(restControllerStyle);
+        // 逻辑删除字段
+        strategyConfig.setLogicDeleteFieldName(logicDeleteFieldName);
 
         /**
          * 包配置
@@ -217,23 +225,23 @@ public class MyBatisGenerator {
              */
             List<FileOutConfig> focList = new ArrayList<>();
             // 添加 DTO service 模板
-            focList.add(new FileOutConfig("/templates/dtoService.java.vm") {
+            focList.add(new FileOutConfig(Constants.DTO_SERVICE_TEMPLATE_PATH) {
                 @Override
                 public String outputFile(TableInfo tableInfo) {
                     // 自定义输出的文件位置
                     String packageName = parent + "." + moduleName + "." + service;
                     String packagePath = packageName.replaceAll("\\.", "\\" + File.separator);
-                    return outputDir + File.separator + packagePath + File.separator + tableInfo.getEntityName() + "DtoService.java";
+                    return outputDir + File.separator + packagePath + File.separator + tableInfo.getEntityName() + Constants.DTO_SERVICE_NAME;
                 }
             });
             // 添加 DTO service impl 模板
-            focList.add(new FileOutConfig("/templates/dtoServiceImpl.java.vm") {
+            focList.add(new FileOutConfig(Constants.DTO_SERVICE_IMPL_TEMPLATE_PATH) {
                 @Override
                 public String outputFile(TableInfo tableInfo) {
                     // 自定义输出的文件位置
                     String packageName = parent + "." + moduleName + "." + serviceImpl;
                     String packagePath = packageName.replaceAll("\\.", "\\" + File.separator);
-                    return outputDir + File.separator + packagePath + File.separator + tableInfo.getEntityName() + "DtoServiceImpl.java";
+                    return outputDir + File.separator + packagePath + File.separator + tableInfo.getEntityName() + Constants.DTO_SERVICE_IMPL_NAME;
                 }
             });
             injectionConfig.setFileOutConfigList(focList);

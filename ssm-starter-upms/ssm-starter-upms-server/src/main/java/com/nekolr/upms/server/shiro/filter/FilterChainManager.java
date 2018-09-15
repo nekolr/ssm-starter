@@ -1,10 +1,15 @@
 package com.nekolr.upms.server.shiro.filter;
 
 
+import com.nekolr.common.Constants;
+import com.nekolr.config.bean.ShiroBean;
 import com.nekolr.upms.api.rpc.AccountService;
 import com.nekolr.upms.api.rpc.ShiroFilterRuleService;
 import com.nekolr.upms.common.vo.RoleResourceRule;
+import com.nekolr.util.EnvironmentUtils;
+import com.nekolr.util.StringHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -29,6 +34,8 @@ public class FilterChainManager {
     private AccountService accountService;
     @Autowired
     private ShiroFilterRuleService shiroFilterRuleService;
+    @Autowired
+    private Environment environment;
 
     /**
      * 初始化默认的过滤器集合
@@ -53,10 +60,13 @@ public class FilterChainManager {
      *
      * @return
      */
-    public Map<String, String> initFilterChainDefinitions() {
+    public Map<String, String> initFilterChainDefinitions() throws Exception {
+
+        ShiroBean shiroBean = EnvironmentUtils.toBean(this.environment, ShiroBean.class);
+
         Map<String, String> filterChain = new LinkedHashMap<>();
         // defaultAnon 为过滤器默认忽略的 URI
-        List<String> defaultAnon = Arrays.asList();
+        List<String> defaultAnon = Arrays.asList(StringHelper.split(shiroBean.getIgnoredUris(), Constants.SPLIT_SEPARATOR));
         defaultAnon.forEach(anon -> filterChain.put(anon, "anon"));
 
         // defaultAuth 为需要 PasswordFilter 过滤器认证的 URI

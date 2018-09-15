@@ -2,11 +2,9 @@ package com.nekolr.upms.api.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-
 import java.time.LocalDateTime;
-
 import com.baomidou.mybatisplus.annotation.TableId;
-
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import java.io.Serializable;
 
 /**
@@ -15,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author nekolr
- * @since 2018-09-09
+ * @since 2018-09-15
  */
 public class User extends Model<User> {
 
@@ -43,6 +41,11 @@ public class User extends Model<User> {
     private String salt;
 
     /**
+     * 昵称
+     */
+    private String nickName;
+
+    /**
      * 邮箱
      */
     private String email;
@@ -51,6 +54,11 @@ public class User extends Model<User> {
      * 手机号
      */
     private String mobile;
+
+    /**
+     * 地址
+     */
+    private String address;
 
     /**
      * 真实姓名
@@ -63,7 +71,7 @@ public class User extends Model<User> {
     private Integer age;
 
     /**
-     * 性别
+     * 性别（0女 1男 2保密）
      */
     private Integer sex;
 
@@ -86,6 +94,12 @@ public class User extends Model<User> {
      * 状态
      */
     private Integer status;
+
+    /**
+     * 逻辑删除（0未删除 1已删除）
+     */
+    @TableLogic
+    private Boolean deleteFlag;
 
 
     public String getId() {
@@ -120,6 +134,14 @@ public class User extends Model<User> {
         this.salt = salt;
     }
 
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -134,6 +156,14 @@ public class User extends Model<User> {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getRealName() {
@@ -192,6 +222,14 @@ public class User extends Model<User> {
         this.status = status;
     }
 
+    public Boolean getDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public void setDeleteFlag(Boolean deleteFlag) {
+        this.deleteFlag = deleteFlag;
+    }
+
     @Override
     protected Serializable pkVal() {
         return this.id;
@@ -200,19 +238,22 @@ public class User extends Model<User> {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", username=" + username +
-                ", password=" + password +
-                ", salt=" + salt +
-                ", email=" + email +
-                ", mobile=" + mobile +
-                ", realName=" + realName +
-                ", age=" + age +
-                ", sex=" + sex +
-                ", avatar=" + avatar +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                ", status=" + status +
-                "}";
+        "id=" + id +
+        ", username=" + username +
+        ", password=" + password +
+        ", salt=" + salt +
+        ", nickName=" + nickName +
+        ", email=" + email +
+        ", mobile=" + mobile +
+        ", address=" + address +
+        ", realName=" + realName +
+        ", age=" + age +
+        ", sex=" + sex +
+        ", avatar=" + avatar +
+        ", createTime=" + createTime +
+        ", updateTime=" + updateTime +
+        ", status=" + status +
+        ", deleteFlag=" + deleteFlag +
+        "}";
     }
 }

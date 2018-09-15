@@ -12,7 +12,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author nekolr
- * @since 2018-09-10
+ * @since 2018-09-15
  */
 public class AccountLog extends Model<AccountLog> {
 
@@ -33,11 +33,6 @@ public class AccountLog extends Model<AccountLog> {
      * 操作者的用户名
      */
     private String username;
-
-    /**
-     * 操作者的主键
-     */
-    private String userId;
 
     /**
      * 创建时间
@@ -84,14 +79,6 @@ public class AccountLog extends Model<AccountLog> {
         this.username = username;
     }
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
     public LocalDateTime getCreateTime() {
         return createTime;
     }
@@ -135,7 +122,6 @@ public class AccountLog extends Model<AccountLog> {
         "id=" + id +
         ", logName=" + logName +
         ", username=" + username +
-        ", userId=" + userId +
         ", createTime=" + createTime +
         ", status=" + status +
         ", message=" + message +

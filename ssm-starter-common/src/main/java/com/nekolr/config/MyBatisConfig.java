@@ -2,7 +2,10 @@ package com.nekolr.config;
 
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.MybatisXMLLanguageDriver;
+import com.baomidou.mybatisplus.core.config.GlobalConfig;
+import com.baomidou.mybatisplus.core.toolkit.GlobalConfigUtils;
 import com.baomidou.mybatisplus.extension.MybatisMapWrapperFactory;
+import com.baomidou.mybatisplus.extension.injector.LogicSqlInjector;
 import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
@@ -68,12 +71,14 @@ public class MyBatisConfig {
         configuration.setAggressiveLazyLoading(myBatisBean.getAggressiveLazyLoading());
         // 结果集为 java.util.Map 时将查询结果的下划线自动转驼峰
         configuration.setObjectWrapperFactory(new MybatisMapWrapperFactory());
-
         // 设置数据源
         factoryBean.setDataSource(dataSource);
 
         // 设置配置项
         factoryBean.setConfiguration(configuration);
+
+        // MyBatis Plus 全局配置
+        factoryBean.setGlobalConfig(globalConfig());
 
         // 设置实体别名
         if (StringUtils.isNotEmpty(myBatisBean.getTypeAliasesPackage())) {
@@ -118,6 +123,19 @@ public class MyBatisConfig {
         mapperScannerConfigurer.setSqlSessionFactoryBeanName("sqlSessionFactory");
         mapperScannerConfigurer.setBasePackage(myBatisBean.getBasePackage());
         return mapperScannerConfigurer;
+    }
+
+    /**
+     * MyBatis Plus 全局配置
+     *
+     * @return
+     */
+    @Bean
+    public GlobalConfig globalConfig() {
+        GlobalConfig config = GlobalConfigUtils.defaults();
+        // 逻辑删除注入
+        config.setSqlInjector(new LogicSqlInjector());
+        return config;
     }
 
     /**

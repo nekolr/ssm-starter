@@ -8,8 +8,10 @@
         <result column="username" property="username" />
         <result column="password" property="password" />
         <result column="salt" property="salt" />
+        <result column="nick_name" property="nickName" />
         <result column="email" property="email" />
         <result column="mobile" property="mobile" />
+        <result column="address" property="address" />
         <result column="real_name" property="realName" />
         <result column="age" property="age" />
         <result column="sex" property="sex" />
@@ -17,6 +19,7 @@
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
         <result column="status" property="status" />
+        <result column="delete_flag" property="deleteFlag" />
     </resultMap>
 
     <select id="getUserRoles" parameterType="java.lang.String" resultType="java.lang.String">

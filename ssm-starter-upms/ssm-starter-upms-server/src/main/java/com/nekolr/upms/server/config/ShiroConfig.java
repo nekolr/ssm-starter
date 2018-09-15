@@ -24,7 +24,7 @@ import org.springframework.context.annotation.Configuration;
 public class ShiroConfig {
 
     @Bean(name = "shiroFilter")
-    public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager, FilterChainManager filterChainManager) {
+    public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager, FilterChainManager filterChainManager) throws Exception {
         // 创建重写的 ShiroFilterFactoryBean
         RestShiroFilterFactoryBean shiroFilterFactoryBean = new RestShiroFilterFactoryBean();
         // 设置 SecurityManager

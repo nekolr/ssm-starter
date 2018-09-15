@@ -7,7 +7,7 @@
         <id column="id" property="id" />
         <result column="log_name" property="logName" />
         <result column="username" property="username" />
-        <result column="user_id" property="userId" />
+        <result column="operation" property="operation" />
         <result column="create_time" property="createTime" />
         <result column="status" property="status" />
         <result column="message" property="message" />

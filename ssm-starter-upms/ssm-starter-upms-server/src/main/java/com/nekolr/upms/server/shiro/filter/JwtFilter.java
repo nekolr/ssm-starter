@@ -4,6 +4,7 @@ import com.nekolr.common.ResultBean;
 import com.nekolr.shiro.filter.AbstractRestPathMatchingFilter;
 import com.nekolr.shiro.token.JwtToken;
 import com.nekolr.upms.api.rpc.AccountService;
+import com.nekolr.upms.common.UpmsConstants;
 import com.nekolr.upms.common.util.JwtUtils;
 import com.nekolr.util.*;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -69,11 +70,6 @@ public class JwtFilter extends AbstractRestPathMatchingFilter {
      */
     private static final String ISSUER = "token-server";
 
-    /**
-     * Redis 中存放的令牌过期时间，单位秒
-     */
-    private static final long REFRESH_PERIOD = 3600L;
-
     private StringRedisTemplate stringRedisTemplate;
 
     private AccountService accountService;
@@ -97,9 +93,9 @@ public class JwtFilter extends AbstractRestPathMatchingFilter {
                     if (refreshJwt != null && refreshJwt.equals(jwt)) {
                         String roles = accountService.getUserRoles(appId);
                         String newJwt = JwtUtils.issueJwt(IdGenerator.randomUUID(), appId, ISSUER,
-                                REFRESH_PERIOD >> 2, roles, null, SignatureAlgorithm.HS512);
+                                UpmsConstants.REFRESH_PERIOD >> 2, roles, null, SignatureAlgorithm.HS512);
                         // 将新令牌存入 Redis，key 的格式为：JWT_SESSION_appId
-                        stringRedisTemplate.opsForValue().set(JWT_SESSION_PREFIX + appId, newJwt, REFRESH_PERIOD, TimeUnit.SECONDS);
+                        stringRedisTemplate.opsForValue().set(JWT_SESSION_PREFIX + appId, newJwt, UpmsConstants.REFRESH_PERIOD, TimeUnit.SECONDS);
                         // 返回新令牌
                         ResponseUtils.responseJson(response, new ResultBean().success(NEW_JWT_INFO).addData("jwt", newJwt));
                         return false;

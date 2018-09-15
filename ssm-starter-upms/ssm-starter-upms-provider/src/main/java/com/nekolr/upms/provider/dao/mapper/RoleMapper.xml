@@ -10,6 +10,7 @@
         <result column="status" property="status" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
+        <result column="delete_flag" property="deleteFlag" />
     </resultMap>
 
 </mapper>

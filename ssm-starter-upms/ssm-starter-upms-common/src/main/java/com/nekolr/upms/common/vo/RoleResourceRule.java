@@ -42,7 +42,7 @@ public class RoleResourceRule implements Serializable {
             Set<String> roleSet = StringHelper.split2Set(this.roles, ",");
             /**
              * 此处约定为：
-             * - 如果一个资源被分配到 role_anon 角色下，则该资源不需要认证和权限即可访问
+             * - 如果一个资源被分配到 ROLE_ANON 角色下，则该资源不需要认证和权限即可访问
              * - 除此之外的角色下的资源都需要认证和授权才可以访问
              */
             if (roleSet.contains(UpmsConstants.ROLE_ANON)) {

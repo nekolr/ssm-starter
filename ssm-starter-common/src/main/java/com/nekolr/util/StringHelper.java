@@ -33,4 +33,18 @@ public class StringHelper {
         return set;
     }
 
+    /**
+     * 将字符串拆分
+     *
+     * @param value 字符串
+     * @param regex 分隔符
+     * @return
+     */
+    public static String[] split(String value, String regex) {
+        if (StringUtils.isEmpty(value)) {
+            return new String[0];
+        }
+        return StringUtils.split(value, regex);
+    }
+
 }

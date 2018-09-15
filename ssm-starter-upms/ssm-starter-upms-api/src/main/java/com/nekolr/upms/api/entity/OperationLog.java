@@ -12,7 +12,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author nekolr
- * @since 2018-09-10
+ * @since 2018-09-15
  */
 public class OperationLog extends Model<OperationLog> {
 
@@ -33,11 +33,6 @@ public class OperationLog extends Model<OperationLog> {
      * 操作者的用户名
      */
     private String username;
-
-    /**
-     * 操作者的主键
-     */
-    private String userId;
 
     /**
      * 请求的 api 名称
@@ -87,14 +82,6 @@ public class OperationLog extends Model<OperationLog> {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     public String getApi() {
@@ -148,7 +135,6 @@ public class OperationLog extends Model<OperationLog> {
         "id=" + id +
         ", logName=" + logName +
         ", username=" + username +
-        ", userId=" + userId +
         ", api=" + api +
         ", method=" + method +
         ", createTime=" + createTime +
