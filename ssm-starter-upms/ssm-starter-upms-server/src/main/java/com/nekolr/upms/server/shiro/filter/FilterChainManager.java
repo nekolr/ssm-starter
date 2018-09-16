@@ -65,13 +65,14 @@ public class FilterChainManager {
         ShiroBean shiroBean = EnvironmentUtils.toBean(this.environment, ShiroBean.class);
 
         Map<String, String> filterChain = new LinkedHashMap<>();
-        // defaultAnon 为过滤器默认忽略的 URI
-        List<String> defaultAnon = Arrays.asList(StringHelper.split(shiroBean.getIgnoredUris(), Constants.SPLIT_SEPARATOR));
-        defaultAnon.forEach(anon -> filterChain.put(anon, "anon"));
 
         // defaultAuth 为需要 PasswordFilter 过滤器认证的 URI
         List<String> defaultAuth = Arrays.asList("/account/**");
         defaultAuth.forEach(auth -> filterChain.put(auth, "auth"));
+
+        // defaultAnon 为过滤器默认忽略的 URI
+        List<String> defaultAnon = Arrays.asList(StringHelper.split(shiroBean.getIgnoredUris(), Constants.SPLIT_SEPARATOR));
+        defaultAnon.forEach(anon -> filterChain.put(anon, "anon"));
 
         // 从数据库根据角色资源关系动态加载过滤链规则
         if (shiroFilterRuleService != null) {

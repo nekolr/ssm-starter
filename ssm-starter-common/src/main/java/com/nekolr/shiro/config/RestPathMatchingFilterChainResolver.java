@@ -8,6 +8,7 @@ import org.apache.shiro.web.util.WebUtils;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import java.util.Iterator;
 
 /**
  * REST 风格过滤器链处理器
@@ -24,28 +25,37 @@ public class RestPathMatchingFilterChainResolver extends PathMatchingFilterChain
             return null;
         }
         String requestURI = getPathWithinApplication(request);
-        boolean isMatch = false;
-        for (String pathPattern : filterChainManager.getChainNames()) {
-            // 比如一个资源，url = "api/v1/resource", httpMethod="GET"，那么配置为：api/v1/resource==GET
-            String[] pathPatterns = pathPattern.split("==");
-            if (pathPatterns.length == 2) {
+        boolean isMatch;
+        Iterator<String> iterator = filterChainManager.getChainNames().iterator();
+        String pathPattern;
+        String[] strings;
+        do {
+            if (!iterator.hasNext()) {
+                return null;
+            }
+            pathPattern = iterator.next();
+            strings = pathPattern.split("==");
+            if (strings.length == 2) {
                 // 比较 HTTP METHOD 是否一致，不一致就不匹配
-                if (WebUtils.toHttp(request).getMethod().toUpperCase().equals(pathPatterns[1].toUpperCase())) {
+                if (WebUtils.toHttp(request).getMethod().toUpperCase().equals(strings[1].toUpperCase())) {
                     isMatch = true;
                 } else {
                     isMatch = false;
                 }
-                // 重新赋值
-                pathPattern = pathPatterns[0];
+            } else {
+                isMatch = false;
             }
-            if (pathMatches(pathPattern, requestURI) && isMatch) {
-                if (log.isTraceEnabled()) {
-                    log.trace("Matched path pattern [" + pathPattern + "] for requestURI [" + requestURI + "].  " +
-                            "Utilizing corresponding filter chain...");
-                }
-                return filterChainManager.proxy(originalChain, pathPattern);
-            }
+            // 重新赋值
+            pathPattern = strings[0];
+        } while (!this.pathMatches(pathPattern, requestURI) || isMatch);
+
+        if (log.isTraceEnabled()) {
+            log.trace("Matched path pattern [" + pathPattern + "] for requestURI [" + requestURI + "].  " +
+                    "Utilizing corresponding filter chain...");
         }
-        return null;
+        if (strings.length == 2) {
+            pathPattern = pathPattern.concat("==").concat(WebUtils.toHttp(request).getMethod().toUpperCase());
+        }
+        return filterChainManager.proxy(originalChain, pathPattern);
     }
 }

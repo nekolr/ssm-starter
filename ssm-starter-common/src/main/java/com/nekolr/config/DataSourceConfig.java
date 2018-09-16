@@ -27,7 +27,7 @@ public class DataSourceConfig {
         // 设置属性
         dataSource.setDriverClassName(dataSourceBean.getDriverClass());
         dataSource.setUrl(dataSourceBean.getUrl());
-        dataSource.setUsername(EncryptUtils.aesDecrypt(dataSourceBean.getUsername()));
+        dataSource.setUsername(dataSourceBean.getUsername());
         dataSource.setPassword(EncryptUtils.aesDecrypt(dataSourceBean.getPassword()));
         dataSource.setInitialSize(dataSourceBean.getInitialSize());
         dataSource.setMinIdle(dataSourceBean.getMinIdle());

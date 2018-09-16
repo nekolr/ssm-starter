@@ -39,8 +39,9 @@ public class RedisConfig {
 
         // 客户端配置
         LettuceClientConfiguration clientConfig = LettuceClientConfiguration.builder()
-                .useSsl()
-                .and()
+                // TODO: 暂时不使用 SSL
+//                .useSsl()
+//                .and()
                 .commandTimeout(Duration.ofSeconds(redisBean.getCommandTimeout()))
                 .shutdownTimeout(Duration.ofSeconds(redisBean.getShutdownTimeout()))
                 .clientResources(clientResources(environment))

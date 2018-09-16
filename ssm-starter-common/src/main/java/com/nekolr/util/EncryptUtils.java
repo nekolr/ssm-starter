@@ -77,4 +77,8 @@ public class EncryptUtils {
         return SecureUtil.md5(original);
     }
 
+    public static void main(String[] args) {
+        System.out.println(EncryptUtils.aesDecrypt("exu4nM0eUWCl0n3os5398A=="));
+    }
+
 }

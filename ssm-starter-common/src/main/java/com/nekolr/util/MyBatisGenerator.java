@@ -54,7 +54,7 @@ public class MyBatisGenerator {
 
         DbType dbTpe = DbType.valueOf(props.getProperty("generator.dbType"));
         String driverName = props.getProperty("generator.driverName");
-        String username = EncryptUtils.aesDecrypt(props.getProperty("generator.username"));
+        String username = props.getProperty("generator.username");
         String password = EncryptUtils.aesDecrypt(props.getProperty("generator.password"));
         String url = props.getProperty("generator.url");
 
