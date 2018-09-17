@@ -1,6 +1,5 @@
 package com.nekolr.shiro.token;
 
-import com.nekolr.util.EncryptUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -45,7 +44,7 @@ public class PasswordToken implements AuthenticationToken {
 
     public PasswordToken(String account, String password, String timestamp, String ip, String tokenKey) {
         this.account = account;
-        this.password = EncryptUtils.aesDecrypt(password, tokenKey);
+        this.password = password;
         this.timestamp = timestamp;
         this.ip = ip;
         this.tokenKey = tokenKey;

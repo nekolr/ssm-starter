@@ -48,7 +48,7 @@ public class RoleResourceRule implements Serializable {
             if (roleSet.contains(UpmsConstants.ROLE_ANON)) {
                 return "anon";
             } else {
-                return "jwt:[" + this.roles + "]";
+                return "jwt[" + this.roles + "]";
             }
         }
         return null;

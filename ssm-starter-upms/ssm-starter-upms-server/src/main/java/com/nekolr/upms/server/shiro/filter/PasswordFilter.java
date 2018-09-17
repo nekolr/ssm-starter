@@ -1,12 +1,11 @@
 package com.nekolr.upms.server.shiro.filter;
 
+import cn.hutool.crypto.CryptoException;
 import com.nekolr.common.ResultBean;
 import com.nekolr.shiro.token.PasswordToken;
-import com.nekolr.util.IpUtils;
-import com.nekolr.util.RandomUtils;
-import com.nekolr.util.RequestUtils;
-import com.nekolr.util.ResponseUtils;
+import com.nekolr.util.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;
@@ -16,7 +15,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -145,11 +143,10 @@ public class PasswordFilter extends AccessControlFilter {
      * @return
      */
     private boolean isLogin(ServletRequest request) {
-        Map<String, String> body = RequestUtils.getRequestMap(request);
-        String account = body.get("account");
-        String password = body.get("password");
-        String timestamp = body.get("timestamp");
-        String method = body.get("method");
+        String account = RequestUtils.getParameter(request, "account");
+        String password = RequestUtils.getParameter(request, "password");
+        String timestamp = RequestUtils.getParameter(request, "timestamp");
+        String method = RequestUtils.getParameter(request, "method");
         return (request instanceof HttpServletRequest)
                 && ((HttpServletRequest) request).getMethod().toUpperCase().equals("POST")
                 && account != null && password != null && method != null
@@ -164,7 +161,7 @@ public class PasswordFilter extends AccessControlFilter {
      */
     private boolean doLogin(ServletRequest request, ServletResponse response) {
         // 根据提交的信息创建 token
-        AuthenticationToken token = createPasswordToken(request);
+        AuthenticationToken token = createPasswordToken(request, response);
         Subject subject = getSubject(request, response);
         try {
             // 尝试登录
@@ -195,16 +192,27 @@ public class PasswordFilter extends AccessControlFilter {
      * 创建 PasswordToken
      *
      * @param request
+     * @param response
      * @return
      */
-    private AuthenticationToken createPasswordToken(ServletRequest request) {
-        Map<String, String> body = RequestUtils.getRequestMap(request);
-        String account = body.get("account");
-        String password = body.get("password");
-        String timestamp = body.get("timestamp");
+    private AuthenticationToken createPasswordToken(ServletRequest request, ServletResponse response) {
+        String account = RequestUtils.getParameter(request, "account");
+        String password = RequestUtils.getParameter(request, "password");
+        String timestamp = RequestUtils.getParameter(request, "timestamp");
+        String userKey = RequestUtils.getParameter(request, "userKey");
         String ip = IpUtils.getRemoteAddr((HttpServletRequest) request).toUpperCase();
-        String userKey = body.get("userKey");
         String tokenKey = stringRedisTemplate.opsForValue().get(TOKEN_KEY_PREFIX + ip + "_" + userKey);
+        if (StringUtils.isEmpty(tokenKey)) {
+            // 获取不到 tokenKey 一律视为无效请求
+            ResponseUtils.responseJson(response, new ResultBean().fail(400, ERROR_REQUEST_INFO));
+        }
+        try {
+            password = EncryptUtils.aesDecrypt(password, tokenKey);
+        } catch (CryptoException e) {
+            // 抛出 CryptoException 异常说明密文格式不正确或不匹配
+            ResponseUtils.responseJson(response, new ResultBean().fail(400, ERROR_REQUEST_INFO));
+            return null;
+        }
         return new PasswordToken(account, password, timestamp, ip, tokenKey);
     }
 }

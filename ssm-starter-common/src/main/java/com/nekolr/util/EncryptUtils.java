@@ -1,5 +1,6 @@
 package com.nekolr.util;
 
+import cn.hutool.crypto.CryptoException;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.symmetric.AES;
 
@@ -15,7 +16,7 @@ public class EncryptUtils {
     }
 
     /**
-     * AES 加密
+     * AES 加密，只用于配置文件加密
      *
      * @param original 原文
      * @return
@@ -28,7 +29,7 @@ public class EncryptUtils {
     }
 
     /**
-     * AES 解密
+     * AES 解密，只用于配置文件解密
      *
      * @param encrypt 密文
      * @return
@@ -60,8 +61,9 @@ public class EncryptUtils {
      * @param encrypt 密文
      * @param secret  密钥
      * @return
+     * @throws CryptoException 当密文格式不符合或者密文不匹配时抛出该异常
      */
-    public static String aesDecrypt(String encrypt, String secret) {
+    public static String aesDecrypt(String encrypt, String secret) throws CryptoException {
         // 构建
         AES aes = SecureUtil.aes(secret.getBytes());
         // 解密
@@ -70,6 +72,7 @@ public class EncryptUtils {
 
     /**
      * MD5 加密
+     *
      * @param original
      * @return
      */
