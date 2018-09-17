@@ -22,7 +22,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     @Override
     public Map<String, String[]> getParameterMap() {
         Map<String, String[]> parameterMap = super.getParameterMap();
-        Map<String, String[]> result = new HashMap<>((int)(((float)parameterMap.size()/ 0.75F) + 1.0F));
+        Map<String, String[]> result = new HashMap<>((int) (((float) parameterMap.size() / 0.75F) + 1.0F));
         parameterMap.forEach((k, v) -> result.put(k, filterParams(v)));
         return result;
     }
@@ -62,8 +62,10 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
      * @return
      */
     private String[] filterParams(String[] params) {
-        for (int i = 0; i < params.length; i++) {
-            params[i] = filterParam(params[i]);
+        if (params != null) {
+            for (int i = 0; i < params.length; i++) {
+                params[i] = filterParam(params[i]);
+            }
         }
         return params;
     }

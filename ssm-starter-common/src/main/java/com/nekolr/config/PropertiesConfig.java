@@ -17,7 +17,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
  */
 @Configuration
 @PropertySources(value = {
-        @PropertySource(value = Constants.UPMS_CONFIG_FILE_PATH, ignoreResourceNotFound = true)
+        @PropertySource(value = Constants.UPMS_CONFIG_FILE_PATH, ignoreResourceNotFound = true, encoding = "UTF-8")
 })
 public class PropertiesConfig {
 
@@ -30,6 +30,9 @@ public class PropertiesConfig {
      */
     @Bean
     public static PropertySourcesPlaceholderConfigurer placeholderConfigurer() {
-        return new PropertySourcesPlaceholderConfigurer();
+        PropertySourcesPlaceholderConfigurer configurer = new PropertySourcesPlaceholderConfigurer();
+        // 处理读取配置文件中文会出现乱码的问题
+        configurer.setFileEncoding("UTF-8");
+        return configurer;
     }
 }

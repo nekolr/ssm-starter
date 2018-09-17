@@ -6,6 +6,8 @@ import lombok.Setter;
 
 /**
  * Swagger 配置 bean
+ *
+ * @author nekolr
  */
 @Getter
 @Setter

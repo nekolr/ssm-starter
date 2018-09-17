@@ -6,6 +6,8 @@ import lombok.Setter;
 
 /**
  * Shiro 配置 bean
+ *
+ * @author nekolr
  */
 @Getter
 @Setter
