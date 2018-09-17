@@ -162,18 +162,20 @@ public class PasswordFilter extends AccessControlFilter {
     private boolean doLogin(ServletRequest request, ServletResponse response) {
         // 根据提交的信息创建 token
         AuthenticationToken token = createPasswordToken(request, response);
-        Subject subject = getSubject(request, response);
-        try {
-            // 尝试登录
-            subject.login(token);
-            // 登录认证成功
-            return true;
-        } catch (AuthenticationException e) {
-            log.warn("{}::{}", token.getPrincipal(), e.getMessage());
-            ResponseUtils.responseJson(response, new ResultBean().fail(400, LOGIN_FAIL_INFO));
-        } catch (Exception e) {
-            log.warn("{}::认证异常::{}", token.getPrincipal(), e.getMessage(), e);
-            ResponseUtils.responseJson(response, new ResultBean().fail(400, LOGIN_FAIL_INFO));
+        if (token != null) {
+            Subject subject = getSubject(request, response);
+            try {
+                // 尝试登录
+                subject.login(token);
+                // 登录认证成功
+                return true;
+            } catch (AuthenticationException e) {
+                log.warn("{}::{}", token.getPrincipal(), e.getMessage());
+                ResponseUtils.responseJson(response, new ResultBean().fail(400, LOGIN_FAIL_INFO));
+            } catch (Exception e) {
+                log.warn("{}::认证异常::{}", token.getPrincipal(), e.getMessage(), e);
+                ResponseUtils.responseJson(response, new ResultBean().fail(400, LOGIN_FAIL_INFO));
+            }
         }
         return false;
     }
@@ -205,6 +207,7 @@ public class PasswordFilter extends AccessControlFilter {
         if (StringUtils.isEmpty(tokenKey)) {
             // 获取不到 tokenKey 一律视为无效请求
             ResponseUtils.responseJson(response, new ResultBean().fail(400, ERROR_REQUEST_INFO));
+            return null;
         }
         try {
             password = EncryptUtils.aesDecrypt(password, tokenKey);
