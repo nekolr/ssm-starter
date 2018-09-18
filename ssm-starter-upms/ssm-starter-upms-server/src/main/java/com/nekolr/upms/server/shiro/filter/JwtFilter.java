@@ -30,46 +30,6 @@ import java.util.stream.Stream;
 @Slf4j
 public class JwtFilter extends AbstractRestPathMatchingFilter {
 
-    /**
-     * 客户端收到的消息：无效的请求
-     */
-    private static final String ERROR_REQUEST_INFO = "error request";
-
-    /**
-     * 客户端收到的消息：无效的 JWT
-     */
-    private static final String ERROR_JWT_INFO = "error jwt";
-
-    /**
-     * 客户端收到的消息：过期的 JWT
-     */
-    private static final String EXPIRED_JWT_INFO = "expired jwt";
-
-    /**
-     * 客户端收到的消息：新的 JWT
-     */
-    private static final String NEW_JWT_INFO = "new jwt";
-
-    /**
-     * 客户端收到的消息：没有访问权限
-     */
-    private static final String NO_PERMISSION_INFO = "no permission";
-
-    /**
-     * 服务端内部使用的异常消息：过期的 JWT
-     */
-    private static final String EXPIRED_JWT_EXCEPTION_MESSAGE = "expiredJwt";
-
-    /**
-     * JWT 在 redis 中存放时的前缀
-     */
-    private static final String JWT_SESSION_PREFIX = "JWT_SESSION_";
-
-    /**
-     * JWT 签发者
-     */
-    private static final String ISSUER = "token-server";
-
     private StringRedisTemplate stringRedisTemplate;
 
     private AccountService accountService;
@@ -86,37 +46,37 @@ public class JwtFilter extends AbstractRestPathMatchingFilter {
                 return this.checkRoles(subject, mappedValue);
             } catch (AuthenticationException e) {
                 // JWT 过期
-                if (EXPIRED_JWT_EXCEPTION_MESSAGE.equals(e.getMessage())) {
+                if (UpmsConstants.EXPIRED_JWT_EXCEPTION_MESSAGE.equals(e.getMessage())) {
                     String appId = ((HttpServletRequest) request).getHeader("appId");
                     String jwt = ((HttpServletRequest) request).getHeader("authorization");
-                    String refreshJwt = stringRedisTemplate.opsForValue().get(JWT_SESSION_PREFIX + appId);
+                    String refreshJwt = stringRedisTemplate.opsForValue().get(UpmsConstants.JWT_SESSION_PREFIX + appId);
                     if (refreshJwt != null && refreshJwt.equals(jwt)) {
                         String roles = accountService.getUserRoles(appId);
-                        String newJwt = JwtUtils.issueJwt(IdGenerator.randomUUID(), appId, ISSUER,
+                        String newJwt = JwtUtils.issueJwt(IdGenerator.randomUUID(), appId, UpmsConstants.ISSUER,
                                 UpmsConstants.REFRESH_PERIOD >> 2, roles, null, SignatureAlgorithm.HS512);
                         // 将新令牌存入 Redis，key 的格式为：JWT_SESSION_appId
-                        stringRedisTemplate.opsForValue().set(JWT_SESSION_PREFIX + appId, newJwt, UpmsConstants.REFRESH_PERIOD, TimeUnit.SECONDS);
+                        stringRedisTemplate.opsForValue().set(UpmsConstants.JWT_SESSION_PREFIX + appId, newJwt, UpmsConstants.REFRESH_PERIOD, TimeUnit.SECONDS);
                         // 返回新令牌
-                        ResponseUtils.responseJson(response, new ResultBean().success(NEW_JWT_INFO).addData("jwt", newJwt));
+                        ResponseUtils.responseJson(response, new ResultBean().success(UpmsConstants.NEW_JWT_INFO).addData("jwt", newJwt));
                         return false;
                     } else {
                         // JWT 失效，同时刷新时间已过，需要提示客户端重新登录
-                        ResponseUtils.responseJson(response, new ResultBean().fail(400, EXPIRED_JWT_INFO));
+                        ResponseUtils.responseJson(response, new ResultBean().fail(400, UpmsConstants.EXPIRED_JWT_INFO));
                         return false;
                     }
                 }
                 // 其他错误视为 JWT 无效
-                ResponseUtils.responseJson(response, new ResultBean().fail(400, ERROR_JWT_INFO));
+                ResponseUtils.responseJson(response, new ResultBean().fail(400, UpmsConstants.ERROR_JWT_INFO));
                 return false;
             } catch (Exception e) {
                 // 其他错误
                 log.error("JWT 认证失败::{}::{}", IpUtils.getRemoteAddr((HttpServletRequest) request), token.toString(), e);
-                ResponseUtils.responseJson(response, new ResultBean().fail(400, ERROR_JWT_INFO));
+                ResponseUtils.responseJson(response, new ResultBean().fail(400, UpmsConstants.ERROR_JWT_INFO));
                 return false;
             }
         } else {
             // 请求未携带 authorization，即 jwt，视为无效的请求
-            ResponseUtils.responseJson(response, new ResultBean().fail(401, ERROR_REQUEST_INFO));
+            ResponseUtils.responseJson(response, new ResultBean().fail(401, UpmsConstants.ERROR_REQUEST_INFO));
             return false;
         }
     }
@@ -128,10 +88,10 @@ public class JwtFilter extends AbstractRestPathMatchingFilter {
         // 没有认证
         if (subject == null || !subject.isAuthenticated()) {
             // 需要客户端控制跳转到登录页面
-            ResponseUtils.responseJson(response, new ResultBean().fail(400, ERROR_JWT_INFO));
+            ResponseUtils.responseJson(response, new ResultBean().fail(400, UpmsConstants.ERROR_JWT_INFO));
         } else {
             // 已经认证但是没有权限访问
-            ResponseUtils.responseJson(response, new ResultBean().fail(403, NO_PERMISSION_INFO));
+            ResponseUtils.responseJson(response, new ResultBean().fail(403, UpmsConstants.NO_PERMISSION_INFO));
         }
 
         return false;
@@ -145,7 +105,7 @@ public class JwtFilter extends AbstractRestPathMatchingFilter {
      */
     private boolean isJwtRequest(ServletRequest request) {
         String jwt = RequestUtils.getHeader(request, "authorization");
-        String appId = RequestUtils.getHeader(request, "appId");
+        String appId = RequestUtils.getHeader(request, "appId".toLowerCase());
         return (request instanceof HttpServletRequest) && !StringUtils.isEmpty(jwt) && !StringUtils.isEmpty(appId);
     }
 
@@ -157,10 +117,10 @@ public class JwtFilter extends AbstractRestPathMatchingFilter {
      */
     private AuthenticationToken createJwtToken(ServletRequest request) {
         Map<String, String> headers = RequestUtils.getHeaders(request);
-        String appId = headers.get("appId");
+        String appId = headers.get("appId".toLowerCase());
         String ip = IpUtils.getRemoteAddr((HttpServletRequest) request);
         String jwt = headers.get("authorization");
-        String deviceInfo = headers.get("deviceInfo");
+        String deviceInfo = headers.get("deviceInfo".toLowerCase());
         return new JwtToken(appId, ip, deviceInfo, jwt);
     }
 

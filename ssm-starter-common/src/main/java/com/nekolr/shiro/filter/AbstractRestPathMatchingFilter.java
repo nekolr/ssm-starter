@@ -35,7 +35,7 @@ public abstract class AbstractRestPathMatchingFilter extends PathMatchingFilter 
         } else if (pathPatterns.length == 2) {
             // 配置了 URI 和 HTTP METHOD，则需要两者都匹配
             String httpMethod = WebUtils.toHttp(request).getMethod().toUpperCase();
-            return httpMethod.equals(pathPatterns[1].toUpperCase()) && pathsMatch(pathPatterns[1], requestURI);
+            return httpMethod.equals(pathPatterns[1].toUpperCase()) && pathsMatch(pathPatterns[0], requestURI);
         } else {
             log.error("PathPattern must be in the form like uri[==http method]");
             return false;

@@ -35,7 +35,7 @@ public class JwtRealm extends AuthorizingRealm {
         String payload = (String) principals.getPrimaryPrincipal();
         // payload 的格式为：jwt:{}
         if (payload.startsWith("jwt:") && payload.charAt(4) == '{' && payload.charAt(payload.length() - 1) == '}') {
-            Map<String, Object> map = JwtUtils.readValue(payload);
+            Map<String, Object> map = JwtUtils.readValue(payload.substring(4));
             Set<String> roles = StringHelper.split2Set((String) map.get("roles"), ",");
             Set<String> perms = StringHelper.split2Set((String) map.get("perms"), ",");
             SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();

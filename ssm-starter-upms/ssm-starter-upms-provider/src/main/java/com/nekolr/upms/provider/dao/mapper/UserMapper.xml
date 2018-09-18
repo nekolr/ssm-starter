@@ -26,7 +26,8 @@
         SELECT GROUP_CONCAT(r.code) AS roles
         FROM role r
         JOIN user_role ur ON ur.role_id = r.id
-        WHERE ur.user_id = #{appId, jdbcType=VARCHAR}
+        JOIN user u ON u.id = ur.user_id
+        WHERE u.username = #{appId, jdbcType=VARCHAR}
     </select>
 
 </mapper>

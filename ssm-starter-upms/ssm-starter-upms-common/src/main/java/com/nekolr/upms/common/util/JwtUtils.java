@@ -142,7 +142,6 @@ public class JwtUtils {
         jwtAccount.setAudience(claims.getAudience());
         jwtAccount.setRoles((String) claims.get("roles"));
         jwtAccount.setPerms((String) claims.get("perms"));
-        jwtAccount.setHost((String) claims.get("host"));
         return jwtAccount;
     }
 
