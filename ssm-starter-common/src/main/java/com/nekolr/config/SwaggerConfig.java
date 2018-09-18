@@ -2,6 +2,8 @@ package com.nekolr.config;
 
 import com.nekolr.config.bean.SwaggerBean;
 import com.nekolr.util.EnvironmentUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -34,8 +36,12 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo(swaggerBean))
                 // 通过 select 返回一个 ApiSelectorBuilder 对接口进行细粒度控制
                 .select()
-                // 生成该包下的所有控制器接口
+                // 只扫描该包下的所有控制器
                 .apis(RequestHandlerSelectors.basePackage(swaggerBean.getBasePackage()))
+                // 只有带有 @Api 注解的控制器才会生成文档
+                .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
+                // 只有带有 @ApiOperation 注解的方法才会生成文档
+                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 // 任意路径（线上环境要换成 PathSelectors.none()）
                 .paths(PathSelectors.any())
                 .build();

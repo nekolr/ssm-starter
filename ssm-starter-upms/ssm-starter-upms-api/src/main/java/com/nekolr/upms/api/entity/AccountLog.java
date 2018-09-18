@@ -2,9 +2,15 @@ package com.nekolr.upms.api.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+
 import java.time.LocalDateTime;
+
 import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.io.Serializable;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * <p>
@@ -12,46 +18,33 @@ import java.io.Serializable;
  * </p>
  *
  * @author nekolr
- * @since 2018-09-15
+ * @since 2018-09-18
  */
+@ApiModel(value = "AccountLog 对象", description = "账户操作日志")
 public class AccountLog extends Model<AccountLog> {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 主键
-     */
+    @ApiModelProperty(value = "主键")
     @TableId(value = "id", type = IdType.ID_WORKER_STR)
     private String id;
 
-    /**
-     * 日志名称
-     */
+    @ApiModelProperty(value = "日志名称")
     private String logName;
 
-    /**
-     * 操作者的用户名
-     */
+    @ApiModelProperty(value = "操作者的用户名")
     private String username;
 
-    /**
-     * 创建时间
-     */
+    @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
 
-    /**
-     * 操作状态
-     */
+    @ApiModelProperty(value = "操作状态")
     private Boolean status;
 
-    /**
-     * 具体信息
-     */
+    @ApiModelProperty(value = "具体信息")
     private String message;
 
-    /**
-     * 操作时的 IP
-     */
+    @ApiModelProperty(value = "操作时的 IP")
     private String ip;
 
 
@@ -119,13 +112,13 @@ public class AccountLog extends Model<AccountLog> {
     @Override
     public String toString() {
         return "AccountLog{" +
-        "id=" + id +
-        ", logName=" + logName +
-        ", username=" + username +
-        ", createTime=" + createTime +
-        ", status=" + status +
-        ", message=" + message +
-        ", ip=" + ip +
-        "}";
+                "id=" + id +
+                ", logName=" + logName +
+                ", username=" + username +
+                ", createTime=" + createTime +
+                ", status=" + status +
+                ", message=" + message +
+                ", ip=" + ip +
+                "}";
     }
 }

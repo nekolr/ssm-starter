@@ -67,7 +67,7 @@ public class FilterChainManager {
         Map<String, String> filterChain = new LinkedHashMap<>();
 
         // defaultAuth 为需要 PasswordFilter 过滤器认证的 URI
-        List<String> defaultAuth = Arrays.asList("/account/**");
+        List<String> defaultAuth = Arrays.asList("/account/**", "/druid/**");
         defaultAuth.forEach(auth -> filterChain.put(auth, "auth"));
 
         // defaultAnon 为过滤器默认忽略的 URI

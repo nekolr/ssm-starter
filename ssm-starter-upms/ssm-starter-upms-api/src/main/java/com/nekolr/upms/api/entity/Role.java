@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import java.io.Serializable;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * <p>
@@ -13,46 +15,33 @@ import java.io.Serializable;
  * </p>
  *
  * @author nekolr
- * @since 2018-09-15
+ * @since 2018-09-18
  */
+@ApiModel(value = "Role 对象", description = "角色")
 public class Role extends Model<Role> {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 主键
-     */
+    @ApiModelProperty(value = "主键")
     @TableId(value = "id", type = IdType.ID_WORKER_STR)
     private String id;
 
-    /**
-     * 角色名称
-     */
+    @ApiModelProperty(value = "角色名称")
     private String name;
 
-    /**
-     * 角色编码
-     */
+    @ApiModelProperty(value = "角色编码")
     private String code;
 
-    /**
-     * 状态
-     */
+    @ApiModelProperty(value = "状态")
     private Boolean status;
 
-    /**
-     * 创建时间
-     */
+    @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
 
-    /**
-     * 修改时间
-     */
+    @ApiModelProperty(value = "修改时间")
     private LocalDateTime updateTime;
 
-    /**
-     * 逻辑删除（0未删除 1已删除）
-     */
+    @ApiModelProperty(value = "逻辑删除（0未删除 1已删除）")
     @TableLogic
     private Boolean deleteFlag;
 

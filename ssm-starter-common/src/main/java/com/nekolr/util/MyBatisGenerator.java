@@ -51,6 +51,7 @@ public class MyBatisGenerator {
         String serviceImplName = props.getProperty("generator.serviceImplName");
         String entityName = props.getProperty("generator.entityName");
         String idType = props.getProperty("generator.idType");
+        Boolean swagger2 = Boolean.valueOf(props.getProperty("generator.swagger2"));
 
         DbType dbTpe = DbType.valueOf(props.getProperty("generator.dbType"));
         String driverName = props.getProperty("generator.driverName");
@@ -115,6 +116,8 @@ public class MyBatisGenerator {
         globalConfig.setBaseColumnList(baseColumnList);
         // 作者
         globalConfig.setAuthor(author);
+        // 启用 Swagger2
+        globalConfig.setSwagger2(swagger2);
 
         /**
          * 数据源配置

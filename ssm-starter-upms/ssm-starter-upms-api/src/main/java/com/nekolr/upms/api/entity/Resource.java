@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import java.io.Serializable;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * <p>
@@ -13,76 +15,51 @@ import java.io.Serializable;
  * </p>
  *
  * @author nekolr
- * @since 2018-09-15
+ * @since 2018-09-18
  */
+@ApiModel(value = "Resource 对象", description = "资源")
 public class Resource extends Model<Resource> {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 主键
-     */
+    @ApiModelProperty(value = "主键")
     @TableId(value = "id", type = IdType.ID_WORKER_STR)
     private String id;
 
-    /**
-     * 资源名称
-     */
+    @ApiModelProperty(value = "资源名称")
     private String name;
 
-    /**
-     * 资源编码
-     */
+    @ApiModelProperty(value = "资源编码")
     private String code;
 
-    /**
-     * 统一资源标识符
-     */
+    @ApiModelProperty(value = "统一资源标识符")
     private String uri;
 
-    /**
-     * 资源类型
-     */
+    @ApiModelProperty(value = "资源类型")
     private Integer type;
 
-    /**
-     * 上级主键
-     */
+    @ApiModelProperty(value = "上级主键")
     private String parentId;
 
-    /**
-     * 请求方法
-     */
+    @ApiModelProperty(value = "请求方法")
     private String method;
 
-    /**
-     * 图标
-     */
+    @ApiModelProperty(value = "图标")
     private String icon;
 
-    /**
-     * 创建时间
-     */
+    @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
 
-    /**
-     * 更新时间
-     */
+    @ApiModelProperty(value = "更新时间")
     private LocalDateTime updateTime;
 
-    /**
-     * 排序（值越小越靠前）
-     */
+    @ApiModelProperty(value = "排序（值越小越靠前）")
     private Integer sortOrder;
 
-    /**
-     * 状态
-     */
+    @ApiModelProperty(value = "状态")
     private Boolean status;
 
-    /**
-     * 逻辑删除（0未删除 1已删除）
-     */
+    @ApiModelProperty(value = "逻辑删除（0未删除 1已删除）")
     @TableLogic
     private Boolean deleteFlag;
 

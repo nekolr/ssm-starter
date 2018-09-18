@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * <p>
@@ -12,51 +14,36 @@ import java.io.Serializable;
  * </p>
  *
  * @author nekolr
- * @since 2018-09-15
+ * @since 2018-09-18
  */
+@ApiModel(value = "OperationLog 对象", description = "操作日志")
 public class OperationLog extends Model<OperationLog> {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 主键
-     */
+    @ApiModelProperty(value = "主键")
     @TableId(value = "id", type = IdType.ID_WORKER_STR)
     private String id;
 
-    /**
-     * 日志名称
-     */
+    @ApiModelProperty(value = "日志名称")
     private String logName;
 
-    /**
-     * 操作者的用户名
-     */
+    @ApiModelProperty(value = "操作者的用户名")
     private String username;
 
-    /**
-     * 请求的 api 名称
-     */
+    @ApiModelProperty(value = "请求的 api 名称")
     private String api;
 
-    /**
-     * 请求的方法名
-     */
+    @ApiModelProperty(value = "请求的方法名")
     private String method;
 
-    /**
-     * 创建时间
-     */
+    @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
 
-    /**
-     * 状态
-     */
+    @ApiModelProperty(value = "状态")
     private Boolean status;
 
-    /**
-     * 具体信息
-     */
+    @ApiModelProperty(value = "具体信息")
     private String message;
 
 
