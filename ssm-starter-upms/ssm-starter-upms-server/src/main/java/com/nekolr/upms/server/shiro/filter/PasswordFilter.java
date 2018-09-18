@@ -210,7 +210,7 @@ public class PasswordFilter extends AccessControlFilter {
             return null;
         }
         try {
-            password = EncryptUtils.aesDecrypt(password, tokenKey);
+            password = EncryptUtils.aesDecryptCBC(password, tokenKey);
         } catch (CryptoException e) {
             // 抛出 CryptoException 异常说明密文格式不正确或不匹配
             ResponseUtils.responseJson(response, new ResultBean().fail(400, ERROR_REQUEST_INFO));

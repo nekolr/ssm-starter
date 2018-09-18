@@ -1,8 +1,13 @@
 package com.nekolr.util;
 
 import cn.hutool.crypto.CryptoException;
+import cn.hutool.crypto.Mode;
+import cn.hutool.crypto.Padding;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.symmetric.AES;
+
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 
 /**
  * 加密、解密套件
@@ -66,6 +71,36 @@ public class EncryptUtils {
     public static String aesDecrypt(String encrypt, String secret) throws CryptoException {
         // 构建
         AES aes = SecureUtil.aes(secret.getBytes());
+        // 解密
+        return aes.decryptStrFromBase64(encrypt);
+    }
+
+    /**
+     * AES CBC 加密
+     *
+     * @param original 原文
+     * @param secret   密钥
+     * @return
+     */
+    public static String aesEncryptCBC(String original, String secret) {
+        SecretKeySpec keySpec = new SecretKeySpec(secret.getBytes(), "AES");
+        // 构建
+        AES aes = new AES(Mode.CBC, Padding.PKCS5Padding, keySpec, new IvParameterSpec(secret.getBytes()));
+        // 加密
+        return aes.encryptBase64(original);
+    }
+
+    /**
+     * AES CBC 解密
+     *
+     * @param encrypt 密文
+     * @param secret  密钥
+     * @return
+     */
+    public static String aesDecryptCBC(String encrypt, String secret) throws CryptoException {
+        SecretKeySpec keySpec = new SecretKeySpec(secret.getBytes(), "AES");
+        // 构建
+        AES aes = new AES(Mode.CBC, Padding.PKCS5Padding, keySpec, new IvParameterSpec(secret.getBytes()));
         // 解密
         return aes.decryptStrFromBase64(encrypt);
     }
