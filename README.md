@@ -43,7 +43,8 @@ ssm-starter
 | sequence | 分布式 ID 生成器 | MyBatis Plus 默认集成，详情： <https://gitee.com/yu120/sequence> |
 | Log4j 2 | 日志框架 | 日志门面使用 Slf4j |
 | Hutool | Java 工具集 | 主要使用它进行加密解密，详情：<https://gitee.com/loolly/hutool> |
-
+| hibernate-validator | 请求参数校验 | 除了修改 Spring MVC 默认的请求参数校验，增加参数校验切面，省去编写校验代码 |
+| Swagger2 | RESTful 接口文档自动生成 |  |
 - 前端
 
 # 说明
