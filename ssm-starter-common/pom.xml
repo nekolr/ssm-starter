@@ -38,6 +38,7 @@
         <spring-data-redis.version>2.0.10.RELEASE</spring-data-redis.version>
         <lettuce.version>5.0.5.RELEASE</lettuce.version>
         <springfox.version>2.9.2</springfox.version>
+        <hibernate-validator.version>6.0.13.Final</hibernate-validator.version>
     </properties>
 
     <dependencies>
@@ -253,6 +254,12 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
             <version>${springfox.version}</version>
+        </dependency>
+        <!-- hibernate-validator -->
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate-validator.version}</version>
         </dependency>
     </dependencies>
 

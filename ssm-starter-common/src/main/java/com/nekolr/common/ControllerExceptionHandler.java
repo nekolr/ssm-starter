@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import javax.validation.ValidationException;
+
 /**
  * 控制层异常处理类（也可以自定义切面类来处理）
  *
@@ -19,10 +21,21 @@ public class ControllerExceptionHandler {
 
     /**
      * 不要使用最大的异常来处理，要细化，这是错误的处理方式
+     *
+     * TODO: 去掉全局的处理
      */
     @ExceptionHandler(Throwable.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResultBean handleException(Throwable e) {
         return new ResultBean().fail(500, e.getMessage());
+    }
+
+    /**
+     * 请求参数校验抛出异常统一处理
+     */
+    @ExceptionHandler(ValidationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResultBean handleValidationException(Throwable e) {
+        return new ResultBean().fail(400, e.getMessage());
     }
 }

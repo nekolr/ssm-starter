@@ -40,4 +40,10 @@ public class Account implements Serializable {
      */
     @ApiModelProperty(value = "令牌")
     private String jwt;
+
+    /**
+     * 头像
+     */
+    @ApiModelProperty(value = "头像")
+    private String avatar;
 }
