@@ -1,5 +1,6 @@
-package com.nekolr.common;
+package com.nekolr.support;
 
+import com.nekolr.common.ResultBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -21,8 +22,6 @@ public class ControllerExceptionHandler {
 
     /**
      * 不要使用最大的异常来处理，要细化，这是错误的处理方式
-     *
-     * TODO: 去掉全局的处理
      */
     @ExceptionHandler(Throwable.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

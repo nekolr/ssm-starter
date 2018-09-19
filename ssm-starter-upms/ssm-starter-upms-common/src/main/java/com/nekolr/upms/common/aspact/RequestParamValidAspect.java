@@ -64,7 +64,7 @@ public class RequestParamValidAspect {
         Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
         // 执行校验
         Set<ConstraintViolation<Object>> validResult = validMethodParams(target, method, args);
-        if (validResult.isEmpty()) {
+        if (!validResult.isEmpty()) {
             // 获取方法的参数名
             String[] parameterNames = parameterNameDiscoverer.getParameterNames(method);
             List<FieldError> errors = validResult.stream().map(constraintViolation -> {
@@ -103,7 +103,19 @@ public class RequestParamValidAspect {
      */
     private String toValidationMessage(List<FieldError> fieldErrors) {
         StringBuilder builder = new StringBuilder();
-        fieldErrors.forEach(e -> builder.append(e));
+        for (int i = 0, len = fieldErrors.size(); i < len; i++) {
+            FieldError fieldError = fieldErrors.get(i);
+            if (i == len - 1) {
+                builder.append(fieldError.getName());
+                builder.append(" ");
+                builder.append(fieldError.getMessage());
+            } else {
+                builder.append(fieldError.getName());
+                builder.append(" ");
+                builder.append(fieldError.getMessage());
+                builder.append(", ");
+            }
+        }
         return builder.toString();
     }
 }
