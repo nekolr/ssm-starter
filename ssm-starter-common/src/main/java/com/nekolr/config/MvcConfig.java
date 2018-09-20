@@ -65,7 +65,7 @@ public class MvcConfig implements WebMvcConfigurer {
     public ResourceBundleMessageSource hibernateValidationMessages() {
         ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();
         resourceBundleMessageSource.setDefaultEncoding("UTF-8");
-        // resources/i18n/ 目录下的国际化资源文件
+        // classpath:/i18n 目录下的国际化资源文件
         resourceBundleMessageSource.setBasenames("i18n/message", "i18n/validation");
         return resourceBundleMessageSource;
     }

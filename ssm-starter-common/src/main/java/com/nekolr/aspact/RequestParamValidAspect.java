@@ -1,6 +1,6 @@
-package com.nekolr.upms.common.aspact;
+package com.nekolr.aspact;
 
-import com.nekolr.upms.common.FieldError;
+import com.nekolr.common.FieldError;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -50,7 +50,7 @@ public class RequestParamValidAspect {
     /**
      * 切点
      */
-    @Pointcut("execution(* com.nekolr.upms.server.controller.*.*(..))")
+    @Pointcut("execution(* com.nekolr.*.server.controller.*.*(..))")
     public void controllerBefore() {
     }
 

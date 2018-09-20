@@ -1,4 +1,4 @@
-package com.nekolr.upms.common;
+package com.nekolr.common;
 
 import lombok.Data;
 
