@@ -1,6 +1,5 @@
 package com.nekolr.upms.provider.dao;
 
-import com.nekolr.upms.api.dto.ResourceDTO;
 import com.nekolr.upms.api.entity.Resource;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.nekolr.upms.common.vo.RoleResourceRule;
@@ -30,5 +29,5 @@ public interface ResourceMapper extends BaseMapper<Resource> {
      * @param appId
      * @return
      */
-    List<ResourceDTO> getUserMenus(String appId);
+    List<Resource> getUserMenus(String appId);
 }

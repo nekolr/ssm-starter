@@ -1,6 +1,6 @@
 package com.nekolr.upms.api.rpc;
 
-import com.nekolr.upms.api.dto.ResourceDTO;
+import com.nekolr.upms.api.entity.Resource;
 
 import java.util.List;
 
@@ -17,5 +17,5 @@ public interface MenuService {
      * @param appId
      * @return
      */
-    List<ResourceDTO> getUserMenus(String appId);
+    List<Resource> getUserMenus(String appId);
 }

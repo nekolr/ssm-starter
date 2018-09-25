@@ -1,6 +1,6 @@
 package com.nekolr.upms.server.util;
 
-import com.nekolr.upms.api.dto.ResourceDTO;
+import com.nekolr.upms.api.entity.Resource;
 import com.nekolr.upms.server.vo.resource.Menu;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.cglib.beans.BeanCopier;
@@ -19,19 +19,19 @@ public class MenuUtils {
     /**
      * ResourceDTO 转 VO BeanCopier
      */
-    private static final BeanCopier dto2VoBeanCopier = BeanCopier.create(ResourceDTO.class, Menu.class, false);
+    private static final BeanCopier dto2VoBeanCopier = BeanCopier.create(Resource.class, Menu.class, false);
 
     private MenuUtils() {
 
     }
 
     /**
-     * 将 DTO 集合转成 VO 集合
+     * 将 DO 集合转成 VO 集合
      *
      * @param menus
      * @return
      */
-    public static List<Menu> dto2Vo(List<ResourceDTO> menus) {
+    public static List<Menu> dto2Vo(List<Resource> menus) {
         if (menus != null) {
             List<Menu> menuList = menus.stream().map(resourceDTO -> {
                 Menu menu = new Menu();

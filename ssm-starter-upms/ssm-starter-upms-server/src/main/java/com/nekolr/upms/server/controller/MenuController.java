@@ -1,6 +1,6 @@
 package com.nekolr.upms.server.controller;
 
-import com.nekolr.upms.api.dto.ResourceDTO;
+import com.nekolr.upms.api.entity.Resource;
 import com.nekolr.upms.api.rpc.MenuService;
 import com.nekolr.upms.server.util.MenuUtils;
 import com.nekolr.upms.server.vo.resource.Menu;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
@@ -26,13 +25,13 @@ import java.util.List;
 @Api
 public class MenuController {
 
-    @Resource
+    @javax.annotation.Resource
     private MenuService menuService;
 
     @GetMapping("/getUserMenus")
     @ApiOperation(value = "获取用户菜单")
     public ResponseEntity<List<Menu>> getUserMenus(@NotEmpty String appId) {
-        List<ResourceDTO> menuList = menuService.getUserMenus(appId);
+        List<Resource> menuList = menuService.getUserMenus(appId);
         List<Menu> menus = MenuUtils.dto2Vo(menuList);
         // 将菜单列表处理成带子节点的列表
         List<Menu> result = MenuUtils.menus2Tree(menus);

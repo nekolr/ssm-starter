@@ -30,7 +30,7 @@
         re.uri, re.id
     </select>
 
-    <select id="getUserMenus" parameterType="java.lang.String" resultType="com.nekolr.upms.api.dto.ResourceDTO">
+    <select id="getUserMenus" parameterType="java.lang.String" resultType="com.nekolr.upms.api.entity.Resource">
         SELECT r.* FROM resource r
         INNER JOIN role_resource rr ON r.id = rr.resource_id
         INNER JOIN user_role ur ON ur.role_id = rr.role_id
