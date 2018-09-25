@@ -36,7 +36,7 @@
         INNER JOIN user_role ur ON ur.role_id = rr.role_id
         INNER JOIN user u ON u.id = ur.user_id
         WHERE u.username = #{appId, jdbcType=VARCHAR} AND r.type = 1
-        ORDER BY r.sort_order;
+        ORDER BY r.sort_order
     </select>
 
 </mapper>

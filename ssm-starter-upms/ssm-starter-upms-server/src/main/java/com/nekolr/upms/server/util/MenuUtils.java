@@ -8,6 +8,11 @@ import net.sf.cglib.beans.BeanCopier;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * 菜单工具类
+ *
+ * @author nekolr
+ */
 @Slf4j
 public class MenuUtils {
 
