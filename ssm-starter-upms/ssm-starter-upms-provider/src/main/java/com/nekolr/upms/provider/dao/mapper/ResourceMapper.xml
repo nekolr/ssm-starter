@@ -9,6 +9,7 @@
         <result column="code" property="code" />
         <result column="uri" property="uri" />
         <result column="type" property="type" />
+        <result column="component" property="component" />
         <result column="parent_id" property="parentId" />
         <result column="method" property="method" />
         <result column="icon" property="icon" />
@@ -34,7 +35,8 @@
         INNER JOIN role_resource rr ON r.id = rr.resource_id
         INNER JOIN user_role ur ON ur.role_id = rr.role_id
         INNER JOIN user u ON u.id = ur.user_id
-        WHERE u.username = #{appId, jdbcType=VARCHAR} AND r.type = 1;
+        WHERE u.username = #{appId, jdbcType=VARCHAR} AND r.type = 1
+        ORDER BY r.sort_order;
     </select>
 
 </mapper>

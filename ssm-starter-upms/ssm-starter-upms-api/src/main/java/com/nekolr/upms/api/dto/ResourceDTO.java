@@ -24,6 +24,7 @@ public class ResourceDTO implements Serializable {
     private String code;
     private String uri;
     private Integer type;
+    private String component;
     private String parentId;
     private String method;
     private String icon;

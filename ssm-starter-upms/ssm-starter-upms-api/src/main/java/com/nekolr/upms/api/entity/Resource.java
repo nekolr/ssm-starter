@@ -1,5 +1,6 @@
 package com.nekolr.upms.api.entity;
 
+import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.time.LocalDateTime;
@@ -15,7 +16,7 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author nekolr
- * @since 2018-09-18
+ * @since 2018-09-25
  */
 @ApiModel(value = "Resource 对象", description = "资源")
 public class Resource extends Model<Resource> {
@@ -38,6 +39,9 @@ public class Resource extends Model<Resource> {
     @ApiModelProperty(value = "资源类型")
     private Integer type;
 
+    @ApiModelProperty(value = "组件名称")
+    private String component;
+
     @ApiModelProperty(value = "上级主键")
     private String parentId;
 
@@ -54,7 +58,7 @@ public class Resource extends Model<Resource> {
     private LocalDateTime updateTime;
 
     @ApiModelProperty(value = "排序（值越小越靠前）")
-    private Integer sortOrder;
+    private BigDecimal sortOrder;
 
     @ApiModelProperty(value = "状态")
     private Boolean status;
@@ -104,6 +108,14 @@ public class Resource extends Model<Resource> {
         this.type = type;
     }
 
+    public String getComponent() {
+        return component;
+    }
+
+    public void setComponent(String component) {
+        this.component = component;
+    }
+
     public String getParentId() {
         return parentId;
     }
@@ -144,11 +156,11 @@ public class Resource extends Model<Resource> {
         this.updateTime = updateTime;
     }
 
-    public Integer getSortOrder() {
+    public BigDecimal getSortOrder() {
         return sortOrder;
     }
 
-    public void setSortOrder(Integer sortOrder) {
+    public void setSortOrder(BigDecimal sortOrder) {
         this.sortOrder = sortOrder;
     }
 
@@ -181,6 +193,7 @@ public class Resource extends Model<Resource> {
         ", code=" + code +
         ", uri=" + uri +
         ", type=" + type +
+        ", component=" + component +
         ", parentId=" + parentId +
         ", method=" + method +
         ", icon=" + icon +
