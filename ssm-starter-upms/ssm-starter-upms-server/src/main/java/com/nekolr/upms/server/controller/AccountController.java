@@ -1,6 +1,9 @@
 package com.nekolr.upms.server.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.nekolr.upms.api.entity.User;
 import com.nekolr.upms.api.rpc.AccountService;
+import com.nekolr.upms.api.rpc.UserService;
 import com.nekolr.upms.common.UpmsConstants;
 import com.nekolr.upms.common.util.JwtUtils;
 import com.nekolr.upms.server.support.factory.LogTaskFactory;
@@ -29,8 +32,14 @@ import java.util.concurrent.TimeUnit;
 @Api
 public class AccountController {
 
+    @Autowired
+    private LogExecuteManager logExecuteManager;
+
     @Resource
     private AccountService accountService;
+
+    @Resource
+    private UserService userService;
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
@@ -42,17 +51,20 @@ public class AccountController {
         String account = RequestUtils.getParameter(request, "account");
         // 获取用户对应的角色
         String roles = accountService.getUserRoles(account);
+        // 获取用户信息
+        User user = userService.getOne(new QueryWrapper<User>().lambda().eq(User::getUsername, account));
         // 签发 Token
         String jwt = JwtUtils.issueJwt(IdGenerator.randomUUID(), account, UpmsConstants.ISSUER, UpmsConstants.REFRESH_PERIOD >> 2,
                 roles, null, SignatureAlgorithm.HS512);
         // 放入 Redis
         stringRedisTemplate.opsForValue().set(UpmsConstants.JWT_SESSION_PREFIX + account, jwt, UpmsConstants.REFRESH_PERIOD, TimeUnit.SECONDS);
         // 记录日志
-        LogExecuteManager.getInstance().executeLogTask(LogTaskFactory.loginLog(account, IpUtils.getRemoteAddr(request), true, "登录成功"));
+        logExecuteManager.executeLogTask(LogTaskFactory.loginLog(account, IpUtils.getRemoteAddr(request), true, "登录成功"));
         // 组装账户 VO
         Account entity = new Account();
         entity.setAccount(account);
         entity.setJwt(jwt);
+        entity.setAvatar(user.getAvatar());
 
         return new ResponseEntity<>(entity, HttpStatus.OK);
     }

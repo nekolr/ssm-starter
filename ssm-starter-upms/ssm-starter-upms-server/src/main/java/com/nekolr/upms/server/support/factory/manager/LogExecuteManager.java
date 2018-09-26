@@ -1,5 +1,9 @@
 package com.nekolr.upms.server.support.factory.manager;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.stereotype.Component;
+
 import java.util.TimerTask;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -9,7 +13,9 @@ import java.util.concurrent.TimeUnit;
  *
  * @author nekolr
  */
-public class LogExecuteManager {
+@Component
+@Slf4j
+public class LogExecuteManager implements DisposableBean {
 
     /**
      * 核心池大小
@@ -21,19 +27,14 @@ public class LogExecuteManager {
      */
     private static final int DELAY_TIME = 10;
 
-    private static LogExecuteManager logExecuteManager = new LogExecuteManager();
-
     private ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(CORE_POOL_SIZE);
-
-    private LogExecuteManager() {
-
-    }
-
-    public static LogExecuteManager getInstance() {
-        return logExecuteManager;
-    }
 
     public void executeLogTask(TimerTask timerTask) {
         executor.schedule(timerTask, DELAY_TIME, TimeUnit.MICROSECONDS);
+    }
+
+    public void destroy() {
+        log.info("Destroying bean [logExecuteManager]...");
+        executor.shutdown();
     }
 }

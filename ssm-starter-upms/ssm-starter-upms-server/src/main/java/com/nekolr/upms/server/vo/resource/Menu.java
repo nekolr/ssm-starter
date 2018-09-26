@@ -28,6 +28,8 @@ public class Menu {
     private String component;
     @ApiModelProperty(value = "路径")
     private String path;
+    @ApiModelProperty(value = "图标")
+    private String icon;
     @ApiModelProperty(value = "父菜单主键")
     private String parentId;
     @ApiModelProperty(value = "子菜单列表")

@@ -33,11 +33,11 @@ public class MenuUtils {
      */
     public static List<Menu> dto2Vo(List<Resource> menus) {
         if (menus != null) {
-            List<Menu> menuList = menus.stream().map(resourceDTO -> {
+            List<Menu> menuList = menus.stream().map(resource -> {
                 Menu menu = new Menu();
-                dto2VoBeanCopier.copy(resourceDTO, menu, null);
+                dto2VoBeanCopier.copy(resource, menu, null);
                 // 名称不同手动赋值
-                menu.setPath(resourceDTO.getUri());
+                menu.setPath(resource.getUri());
                 return menu;
             }).collect(Collectors.toList());
             return menuList;

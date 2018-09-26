@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotEmpty;
@@ -30,7 +31,7 @@ public class MenuController {
 
     @GetMapping("/getUserMenus")
     @ApiOperation(value = "获取用户菜单")
-    public ResponseEntity<List<Menu>> getUserMenus(@NotEmpty String appId) {
+    public ResponseEntity<List<Menu>> getUserMenus(@RequestParam @NotEmpty String appId) {
         List<Resource> menuList = menuService.getUserMenus(appId);
         List<Menu> menus = MenuUtils.dto2Vo(menuList);
         // 将菜单列表处理成带子节点的列表
