@@ -1,5 +1,6 @@
 package com.nekolr.upms.server.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -53,41 +54,32 @@ public class UserController {
             @ApiImplicitParam(name = "email", value = "邮箱", paramType = "query"),
             @ApiImplicitParam(name = "sex", value = "性别", paramType = "query"),
             @ApiImplicitParam(name = "status", value = "状态", paramType = "query"),
-            @ApiImplicitParam(name = "createTime", value = "创建时间", paramType = "query"),
-            @ApiImplicitParam(name = "sort", value = "排序字段", paramType = "query"),
-            @ApiImplicitParam(name = "order", value = "顺序", paramType = "query")
+            @ApiImplicitParam(name = "startDate", value = "查询条件：开始日期", paramType = "query"),
+            @ApiImplicitParam(name = "endDate", value = "查询条件：结束日期", paramType = "query")
     })
     public ResponseEntity<Page<UserVO>> getUserListByConditions(@NotNull @Digits(integer = 4, fraction = 0) Integer pageNumber,
                                                                 @NotNull @Digits(integer = 3, fraction = 0) Integer pageSize,
-                                                                String username, String mobile, String email,
-                                                                String sex, String status, String createTime,
-                                                                String sort, String order) {
+                                                                String username, String mobile, String email, String sex,
+                                                                String status, String startDate, String endDate) {
         // 查询条件组装
-        QueryWrapper queryWrapper = new QueryWrapper<User>();
+        LambdaQueryWrapper<User> queryWrapper = new QueryWrapper<User>().lambda();
         if (!StringUtils.isEmpty(username)) {
-            queryWrapper.like("username", username);
+            queryWrapper.like(User::getUsername, username);
         }
         if (!StringUtils.isEmpty(mobile)) {
-            queryWrapper.like("mobile", mobile);
+            queryWrapper.like(User::getMobile, mobile);
         }
         if (!StringUtils.isEmpty(email)) {
-            queryWrapper.like("email", email);
+            queryWrapper.like(User::getEmail, email);
         }
         if (!StringUtils.isEmpty(sex)) {
-            queryWrapper.eq("sex", sex);
+            queryWrapper.eq(User::getSex, sex);
         }
         if (!StringUtils.isEmpty(status)) {
-            queryWrapper.eq("status", status);
+            queryWrapper.eq(User::getStatus, status);
         }
-        if (!StringUtils.isEmpty(createTime)) {
-            queryWrapper.eq("createTime", createTime);
-        }
-        if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
-            if (order.equalsIgnoreCase("asc")) {
-                queryWrapper.orderByAsc(sort);
-            } else if (order.equalsIgnoreCase("desc")) {
-                queryWrapper.orderByDesc(sort);
-            }
+        if (!StringUtils.isEmpty(startDate) && !StringUtils.isEmpty(endDate)) {
+            queryWrapper.between(User::getCreateTime, startDate, endDate);
         }
 
         // 执行查询
