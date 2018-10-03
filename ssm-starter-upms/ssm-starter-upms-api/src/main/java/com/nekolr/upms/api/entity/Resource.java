@@ -27,6 +27,9 @@ public class Resource extends Model<Resource> {
     @TableId(value = "id", type = IdType.ID_WORKER_STR)
     private String id;
 
+    @ApiModelProperty(value = "标题")
+    private String title;
+
     @ApiModelProperty(value = "资源名称")
     private String name;
 
@@ -74,6 +77,14 @@ public class Resource extends Model<Resource> {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getName() {
@@ -189,6 +200,7 @@ public class Resource extends Model<Resource> {
     public String toString() {
         return "Resource{" +
         "id=" + id +
+        ", title=" + title +
         ", name=" + name +
         ", code=" + code +
         ", uri=" + uri +

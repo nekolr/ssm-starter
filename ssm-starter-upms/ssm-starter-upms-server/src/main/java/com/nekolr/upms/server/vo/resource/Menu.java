@@ -20,6 +20,8 @@ import java.util.List;
 public class Menu {
     @ApiModelProperty(value = "主键")
     private String id;
+    @ApiModelProperty(value = "标题")
+    private String title;
     @ApiModelProperty(value = "名称")
     private String name;
     @ApiModelProperty(value = "编码")

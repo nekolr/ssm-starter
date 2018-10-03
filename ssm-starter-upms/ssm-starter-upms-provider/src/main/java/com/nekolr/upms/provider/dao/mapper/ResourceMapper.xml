@@ -6,6 +6,7 @@
     <resultMap id="BaseResultMap" type="com.nekolr.upms.api.entity.Resource">
         <id column="id" property="id" />
         <result column="name" property="name" />
+        <result column="title" property="title" />
         <result column="code" property="code" />
         <result column="uri" property="uri" />
         <result column="type" property="type" />
