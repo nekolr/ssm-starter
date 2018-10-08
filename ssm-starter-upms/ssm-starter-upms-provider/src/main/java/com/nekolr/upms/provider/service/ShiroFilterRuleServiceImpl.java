@@ -1,9 +1,9 @@
 package com.nekolr.upms.provider.service;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.nekolr.upms.api.rpc.ShiroFilterRuleService;
 import com.nekolr.upms.common.vo.RoleResourceRule;
 import com.nekolr.upms.provider.dao.ResourceMapper;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;

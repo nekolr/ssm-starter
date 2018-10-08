@@ -1,6 +1,7 @@
 package com.nekolr.upms.server.shiro.filter;
 
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.nekolr.common.Constants;
 import com.nekolr.config.bean.ShiroBean;
 import com.nekolr.upms.api.rpc.AccountService;
@@ -30,10 +31,13 @@ public class FilterChainManager {
 
     @Resource
     private StringRedisTemplate stringRedisTemplate;
-    @Autowired
+
+    @Reference
     private AccountService accountService;
-    @Autowired
+
+    @Reference
     private ShiroFilterRuleService shiroFilterRuleService;
+
     @Autowired
     private Environment environment;
 

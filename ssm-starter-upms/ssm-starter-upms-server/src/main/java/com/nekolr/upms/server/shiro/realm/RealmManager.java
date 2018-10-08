@@ -1,5 +1,6 @@
 package com.nekolr.upms.server.shiro.realm;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.nekolr.shiro.token.JwtToken;
 import com.nekolr.shiro.token.PasswordToken;
 import com.nekolr.upms.api.rpc.UserService;
@@ -23,9 +24,11 @@ public class RealmManager {
 
     @Autowired
     private PasswordMatcher passwordMatcher;
+
     @Autowired
     private JwtMatcher jwtMatcher;
-    @Autowired
+
+    @Reference
     private UserService userService;
 
     /**

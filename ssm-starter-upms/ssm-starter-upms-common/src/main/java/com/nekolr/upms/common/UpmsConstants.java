@@ -7,6 +7,8 @@ package com.nekolr.upms.common;
  */
 public class UpmsConstants {
 
+    // ----------------------------------------- 消息 -----------------------------------------
+
     /**
      * 匿名角色，此角色下分配的资源不需要权限即可访问
      */
@@ -76,4 +78,16 @@ public class UpmsConstants {
      * 客户端收到的消息：登录失败
      */
     public static final String LOGIN_FAIL_INFO = "login fail";
+
+    // ----------------------------------------- Dubbo -----------------------------------------
+
+    /**
+     * Dubbo 扫描服务消费者基本包
+     */
+    public static final String DUBBO_CONSUMER_BASE_PACKAGE = "com.nekolr.upms.server.controller";
+
+    /**
+     * Dubbo 扫描服务提供者基本包
+     */
+    public static final String DUBBO_PROVIDER_BASE_PACKAGE = "com.nekolr.upms.provider.service";
 }
