@@ -1,6 +1,5 @@
 package com.nekolr.upms.server.controller;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import java.time.format.DateTimeFormatter;
@@ -41,7 +41,7 @@ public class UserController {
 
     private final BeanCopier do2VoBeanCopier = BeanCopier.create(User.class, UserVO.class, false);
 
-    @Reference
+    @Resource
     private UserService userService;
 
     @GetMapping()

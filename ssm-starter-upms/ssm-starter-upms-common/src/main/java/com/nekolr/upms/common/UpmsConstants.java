@@ -78,16 +78,4 @@ public class UpmsConstants {
      * 客户端收到的消息：登录失败
      */
     public static final String LOGIN_FAIL_INFO = "login fail";
-
-    // ----------------------------------------- Dubbo -----------------------------------------
-
-    /**
-     * Dubbo 扫描服务消费者基本包
-     */
-    public static final String DUBBO_CONSUMER_BASE_PACKAGE = "com.nekolr.upms.server.controller";
-
-    /**
-     * Dubbo 扫描服务提供者基本包
-     */
-    public static final String DUBBO_PROVIDER_BASE_PACKAGE = "com.nekolr.upms.provider.service";
 }

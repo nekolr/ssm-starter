@@ -1,6 +1,5 @@
 package com.nekolr.upms.server.controller;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.nekolr.upms.api.entity.Resource;
 import com.nekolr.upms.api.rpc.MenuService;
 import com.nekolr.upms.server.util.MenuUtils;
@@ -27,7 +26,7 @@ import java.util.List;
 @Api
 public class MenuController {
 
-    @Reference
+    @javax.annotation.Resource
     private MenuService menuService;
 
     @GetMapping("/getUserMenus")

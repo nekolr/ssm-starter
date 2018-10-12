@@ -1,6 +1,5 @@
 package com.nekolr.upms.server.shiro.realm;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.nekolr.shiro.token.JwtToken;
 import com.nekolr.shiro.token.PasswordToken;
 import com.nekolr.upms.api.rpc.UserService;
@@ -10,6 +9,7 @@ import org.apache.shiro.realm.Realm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,7 +28,7 @@ public class RealmManager {
     @Autowired
     private JwtMatcher jwtMatcher;
 
-    @Reference
+    @Resource
     private UserService userService;
 
     /**

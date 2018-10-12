@@ -1,8 +1,8 @@
 package com.nekolr.upms.provider.service;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.nekolr.upms.api.rpc.AccountService;
 import com.nekolr.upms.provider.dao.UserMapper;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 

@@ -1,6 +1,5 @@
 package com.nekolr.upms.server.controller;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.nekolr.upms.api.entity.User;
 import com.nekolr.upms.api.rpc.AccountService;
@@ -24,6 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.concurrent.TimeUnit;
 
@@ -35,10 +35,10 @@ public class AccountController {
     @Autowired
     private LogExecuteManager logExecuteManager;
 
-    @Reference
+    @Resource
     private AccountService accountService;
 
-    @Reference
+    @Resource
     private UserService userService;
 
     @Autowired

@@ -1,9 +1,9 @@
 package com.nekolr.upms.provider.service;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.nekolr.upms.api.entity.Resource;
 import com.nekolr.upms.api.rpc.MenuService;
 import com.nekolr.upms.provider.dao.ResourceMapper;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
