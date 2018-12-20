@@ -11,7 +11,7 @@
     </parent>
 
     <artifactId>ssm-starter-upms-server</artifactId>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <name>ssm-starter-upms-server</name>
 
