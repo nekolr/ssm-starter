@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<assembly
+        xmlns="http://maven.apache.org/ASSEMBLY/2.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
+
+    <id>assembly</id>
+
+    <formats>
+        <!-- 打包成 tar.gz 格式 -->
+        <format>tar.gz</format>
+    </formats>
+
+    <!-- 让压缩包包含基础根目录 -->
+    <includeBaseDirectory>true</includeBaseDirectory>
+
+    <fileSets>
+        <!--
+          - 将 com.alibaba:dubbo 依赖里面解压出来的文件重新打包
+          - 从该依赖包里面解压文件的操作是在 POM 的 maven-dependency-plugin 插件中描述的
+          -->
+        <fileSet>
+            <!-- 欲打包的目录 -->
+            <directory>${project.build.directory}/dubbo/META-INF/assembly/bin</directory>
+            <!-- 打包后的输出目录 -->
+            <outputDirectory>bin</outputDirectory>
+            <!-- 指定文件权限，主要是给予可执行权限 -->
+            <fileMode>0755</fileMode>
+        </fileSet>
+
+        <!-- 打包配置文件 -->
+        <fileSet>
+            <!-- 配置文件所在目录 -->
+            <directory>src/main/assembly/conf</directory>
+            <!-- 打包后的输出目录 -->
+            <outputDirectory>conf</outputDirectory>
+            <!-- 指定文件权限，没有可执行权限 -->
+            <fileMode>0644</fileMode>
+        </fileSet>
+    </fileSets>
+
+    <!-- 提取本项目的所有依赖包 -->
+    <dependencySets>
+        <dependencySet>
+            <!-- 输出到 lib 目录下 -->
+            <outputDirectory>lib</outputDirectory>
+        </dependencySet>
+    </dependencySets>
+</assembly>

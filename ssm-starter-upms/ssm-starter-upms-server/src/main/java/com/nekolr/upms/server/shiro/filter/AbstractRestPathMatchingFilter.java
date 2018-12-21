@@ -1,4 +1,4 @@
-package com.nekolr.shiro.filter;
+package com.nekolr.upms.server.shiro.filter;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;

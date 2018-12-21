@@ -1,6 +1,7 @@
-package com.nekolr.config;
+package com.nekolr.upms.server.config;
 
 import com.alibaba.druid.support.http.StatViewServlet;
+import com.nekolr.config.AppConfig;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
@@ -39,7 +40,7 @@ public abstract class AbstractWebInitializer extends AbstractAnnotationConfigDis
     }
 
     @Override
-    public void onStartup(javax.servlet.ServletContext servletContext) throws ServletException {
+    public void onStartup(ServletContext servletContext) throws ServletException {
         super.onStartup(servletContext);
         this.servletContext = servletContext;
         initCustomFilters();

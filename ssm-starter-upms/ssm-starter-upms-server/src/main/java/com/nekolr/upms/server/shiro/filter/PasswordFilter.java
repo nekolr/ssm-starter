@@ -2,8 +2,8 @@ package com.nekolr.upms.server.shiro.filter;
 
 import cn.hutool.crypto.CryptoException;
 import com.nekolr.common.ResultBean;
-import com.nekolr.shiro.token.PasswordToken;
 import com.nekolr.upms.common.UpmsConstants;
+import com.nekolr.upms.server.shiro.token.PasswordToken;
 import com.nekolr.util.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

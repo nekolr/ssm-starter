@@ -2,10 +2,10 @@ package com.nekolr.upms.server.shiro.filter;
 
 
 import com.nekolr.common.Constants;
-import com.nekolr.config.bean.ShiroBean;
 import com.nekolr.upms.api.rpc.AccountService;
 import com.nekolr.upms.api.rpc.ShiroFilterRuleService;
 import com.nekolr.upms.common.vo.RoleResourceRule;
+import com.nekolr.upms.server.config.bean.ShiroBean;
 import com.nekolr.util.EnvironmentUtils;
 import com.nekolr.util.StringHelper;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.nekolr.shiro.config;
+package com.nekolr.upms.server.shiro.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.mgt.SecurityManager;

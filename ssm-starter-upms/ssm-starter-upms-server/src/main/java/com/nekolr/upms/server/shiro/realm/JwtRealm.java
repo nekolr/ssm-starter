@@ -1,7 +1,7 @@
 package com.nekolr.upms.server.shiro.realm;
 
-import com.nekolr.shiro.token.JwtToken;
 import com.nekolr.upms.common.util.JwtUtils;
+import com.nekolr.upms.server.shiro.token.JwtToken;
 import com.nekolr.util.StringHelper;
 import io.jsonwebtoken.MalformedJwtException;
 import org.apache.shiro.authc.AuthenticationException;

@@ -1,7 +1,5 @@
 package com.nekolr.upms.server.config;
 
-import com.nekolr.config.AbstractWebInitializer;
-import com.nekolr.config.AppConfig;
 import com.nekolr.support.XssFilter;
 
 import javax.servlet.FilterRegistration;
@@ -15,7 +13,7 @@ public class WebConfig extends AbstractWebInitializer {
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[]{AppConfig.class, ShiroConfig.class};
+        return new Class[]{UpmsAppConfig.class, ShiroConfig.class};
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.nekolr.shiro.token;
+package com.nekolr.upms.server.shiro.token;
 
 import lombok.Getter;
 import lombok.Setter;

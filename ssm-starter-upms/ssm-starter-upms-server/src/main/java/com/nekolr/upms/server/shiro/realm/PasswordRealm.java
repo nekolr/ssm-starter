@@ -1,9 +1,9 @@
 package com.nekolr.upms.server.shiro.realm;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.nekolr.shiro.token.PasswordToken;
 import com.nekolr.upms.api.entity.User;
 import com.nekolr.upms.api.rpc.UserService;
+import com.nekolr.upms.server.shiro.token.PasswordToken;
 import com.nekolr.util.EncryptUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;

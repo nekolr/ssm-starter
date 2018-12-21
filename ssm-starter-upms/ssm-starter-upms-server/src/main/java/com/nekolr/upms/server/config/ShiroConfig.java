@@ -1,6 +1,6 @@
 package com.nekolr.upms.server.config;
 
-import com.nekolr.shiro.config.RestShiroFilterFactoryBean;
+import com.nekolr.upms.server.shiro.config.RestShiroFilterFactoryBean;
 import com.nekolr.upms.server.shiro.filter.FilterChainManager;
 import com.nekolr.upms.server.shiro.filter.RestWebSubjectFactory;
 import com.nekolr.upms.server.shiro.realm.AssignableModularRealmAuthenticator;
