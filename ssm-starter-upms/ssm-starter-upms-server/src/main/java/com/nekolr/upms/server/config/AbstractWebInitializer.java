@@ -1,7 +1,6 @@
 package com.nekolr.upms.server.config;
 
 import com.alibaba.druid.support.http.StatViewServlet;
-import com.nekolr.config.AppConfig;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;

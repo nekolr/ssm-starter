@@ -1,10 +1,10 @@
 package com.nekolr.upms.provider.service;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.nekolr.upms.api.entity.Resource;
 import com.nekolr.upms.provider.dao.ResourceMapper;
 import com.nekolr.upms.api.rpc.ResourceService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.stereotype.Service;
 
 /**
  * <p>

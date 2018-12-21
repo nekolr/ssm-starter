@@ -1,4 +1,4 @@
-package com.nekolr.aspact;
+package com.nekolr.upms.server.aspact;
 
 import com.nekolr.common.FieldError;
 import lombok.extern.slf4j.Slf4j;

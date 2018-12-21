@@ -1,6 +1,7 @@
 package com.nekolr.upms.server.shiro.filter;
 
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.nekolr.common.Constants;
 import com.nekolr.upms.api.rpc.AccountService;
 import com.nekolr.upms.api.rpc.ShiroFilterRuleService;
@@ -13,7 +14,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import javax.servlet.Filter;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -28,13 +28,13 @@ import java.util.Map;
 @Component
 public class FilterChainManager {
 
-    @Resource
+    @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
-    @Resource
+    @Reference
     private AccountService accountService;
 
-    @Resource
+    @Reference
     private ShiroFilterRuleService shiroFilterRuleService;
 
     @Autowired

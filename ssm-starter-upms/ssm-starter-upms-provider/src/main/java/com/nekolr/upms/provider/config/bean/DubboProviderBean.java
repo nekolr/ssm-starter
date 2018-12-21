@@ -1,4 +1,4 @@
-package com.nekolr.config.bean;
+package com.nekolr.upms.provider.config.bean;
 
 import com.nekolr.annotation.PropertiesBean;
 import lombok.Getter;
@@ -17,6 +17,7 @@ public class DubboProviderBean {
     private String applicationLogger;
     private String registryAddress;
     private String registryClient;
-    private Integer registryPort;
-    private String registryProtocol;
+    private Integer protocolPort;
+    private String protocol;
+    private Integer qosPort;
 }

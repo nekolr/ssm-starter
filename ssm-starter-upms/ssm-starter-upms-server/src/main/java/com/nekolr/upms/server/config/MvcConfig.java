@@ -1,7 +1,6 @@
 package com.nekolr.upms.server.config;
 
 import com.nekolr.common.Constants;
-import com.nekolr.config.SwaggerConfig;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.stereotype.Controller;

@@ -37,7 +37,7 @@
         <lettuce.version>5.0.5.RELEASE</lettuce.version>
         <springfox.version>2.9.2</springfox.version>
         <hibernate-validator.version>6.0.13.Final</hibernate-validator.version>
-        <dubbo.version>2.6.5</dubbo.version>
+        <dubbo.version>2.6.2</dubbo.version>
     </properties>
 
     <dependencies>

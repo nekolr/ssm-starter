@@ -1,7 +1,12 @@
-package com.nekolr.config;
+package com.nekolr.upms.provider.config;
 
 import com.nekolr.common.Constants;
-import org.springframework.context.annotation.*;
+import com.nekolr.config.PropertiesConfig;
+import com.nekolr.config.RedisConfig;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.FilterType;
+import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Controller;
 
 /**

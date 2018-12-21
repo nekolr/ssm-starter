@@ -1,10 +1,10 @@
 package com.nekolr.upms.provider.service;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.nekolr.upms.api.entity.AccountLog;
 import com.nekolr.upms.provider.dao.AccountLogMapper;
 import com.nekolr.upms.api.rpc.AccountLogService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.stereotype.Service;
 
 /**
  * <p>

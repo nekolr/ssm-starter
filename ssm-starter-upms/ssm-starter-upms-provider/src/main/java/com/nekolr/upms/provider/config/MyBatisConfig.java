@@ -1,4 +1,4 @@
-package com.nekolr.config;
+package com.nekolr.upms.provider.config;
 
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.MybatisXMLLanguageDriver;
@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
-import com.nekolr.config.bean.MyBatisBean;
+import com.nekolr.upms.provider.config.bean.MyBatisBean;
 import com.nekolr.util.EnvironmentUtils;
 import com.nekolr.util.PackageUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -54,7 +54,7 @@ public class MyBatisConfig {
         MybatisSqlSessionFactoryBean factoryBean = new MybatisSqlSessionFactoryBean();
 
         // MyBatis Configuration 设置
-        com.baomidou.mybatisplus.core.MybatisConfiguration configuration = new MybatisConfiguration();
+        MybatisConfiguration configuration = new MybatisConfiguration();
         configuration.setCacheEnabled(myBatisBean.getCacheEnabled());
         configuration.setDefaultScriptingLanguage(MybatisXMLLanguageDriver.class);
         configuration.setLazyLoadingEnabled(myBatisBean.getLazyLoadingEnabled());

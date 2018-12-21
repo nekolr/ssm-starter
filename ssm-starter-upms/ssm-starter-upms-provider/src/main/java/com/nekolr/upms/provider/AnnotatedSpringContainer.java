@@ -3,8 +3,8 @@ package com.nekolr.upms.provider;
 import com.alibaba.dubbo.common.logger.Logger;
 import com.alibaba.dubbo.common.logger.LoggerFactory;
 import com.alibaba.dubbo.container.Container;
-import com.nekolr.config.AppConfig;
-import org.apache.dubbo.config.spring.initializer.DubboApplicationListener;
+import com.nekolr.upms.provider.config.AppConfig;
+import com.nekolr.upms.provider.config.DubboProviderConfig;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
@@ -21,8 +21,7 @@ public class AnnotatedSpringContainer implements Container {
     @Override
     public void start() {
         context = new AnnotationConfigApplicationContext();
-        context.register(AppConfig.class);
-        context.addApplicationListener(new DubboApplicationListener());
+        context.register(AppConfig.class, DubboProviderConfig.class);
         context.registerShutdownHook();
         context.refresh();
         context.start();

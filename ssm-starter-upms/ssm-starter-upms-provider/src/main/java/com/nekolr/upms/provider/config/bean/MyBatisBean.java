@@ -1,4 +1,4 @@
-package com.nekolr.config.bean;
+package com.nekolr.upms.provider.config.bean;
 
 import com.nekolr.annotation.PropertiesBean;
 import lombok.Getter;

@@ -1,7 +1,7 @@
-package com.nekolr.config;
+package com.nekolr.upms.provider.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.nekolr.config.bean.DataSourceBean;
+import com.nekolr.upms.provider.config.bean.DataSourceBean;
 import com.nekolr.util.EncryptUtils;
 import com.nekolr.util.EnvironmentUtils;
 import org.springframework.context.annotation.Bean;

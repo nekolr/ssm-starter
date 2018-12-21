@@ -1,4 +1,4 @@
-package com.nekolr.config;
+package com.nekolr.upms.provider.config;
 
 import org.springframework.context.annotation.Configuration;
 
