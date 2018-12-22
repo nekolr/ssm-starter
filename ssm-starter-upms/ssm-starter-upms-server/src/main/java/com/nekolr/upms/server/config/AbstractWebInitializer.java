@@ -30,7 +30,8 @@ public abstract class AbstractWebInitializer extends AbstractAnnotationConfigDis
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[]{MvcConfig.class};
+        // 这里要将 Dubbo 的配置类放在 Spring MVC 容器中，不然会出现 Reference 为空的问题
+        return new Class[]{DubboConsumerConfig.class, MvcConfig.class};
     }
 
     @Override

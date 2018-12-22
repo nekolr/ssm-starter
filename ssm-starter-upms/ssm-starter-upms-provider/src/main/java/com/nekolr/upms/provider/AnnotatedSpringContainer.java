@@ -21,7 +21,7 @@ public class AnnotatedSpringContainer implements Container {
     @Override
     public void start() {
         context = new AnnotationConfigApplicationContext();
-        context.register(AppConfig.class, DubboProviderConfig.class);
+        context.register(DubboProviderConfig.class, AppConfig.class);
         context.registerShutdownHook();
         context.refresh();
         context.start();

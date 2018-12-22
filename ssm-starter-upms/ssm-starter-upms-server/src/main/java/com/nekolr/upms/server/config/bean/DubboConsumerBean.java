@@ -17,6 +17,8 @@ public class DubboConsumerBean {
     private String applicationLogger;
     private String registryAddress;
     private String registryClient;
+    private String registryGroup;
+    private String registryVersion;
     private Integer protocolPort;
     private String protocol;
     private Integer consumerTimeout;

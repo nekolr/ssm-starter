@@ -55,6 +55,10 @@ public class DubboConsumerConfig {
         registryConfig.setAddress(dubboConsumerBean.getRegistryAddress());
         registryConfig.setClient(dubboConsumerBean.getRegistryClient());
         registryConfig.setProtocol(dubboConsumerBean.getProtocol());
+        registryConfig.setClient(dubboConsumerBean.getRegistryClient());
+        // 根节点
+        registryConfig.setGroup(dubboConsumerBean.getRegistryGroup());
+        registryConfig.setVersion(dubboConsumerBean.getRegistryVersion());
         return registryConfig;
     }
 
