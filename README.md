@@ -32,7 +32,7 @@ ssm-starter
 `mvn clean package`  
 
 # 运行
-由于使用了 `exec-maven-plugin` 插件，因此可以直接使用 Maven 直接启动 Dubbo 服务提供者。来到 `ssm-starter-upms-provider` 模块目录，使用以下命令启动服务：  
+由于使用了 `exec-maven-plugin` 插件，因此可以直接使用 Maven 启动 Dubbo 服务提供者。来到 `ssm-starter-upms-provider` 模块目录，使用以下命令启动服务：  
 
 ```shell
 mvn org.codehaus.mojo:exec-maven-plugin:java -f pom.xml
