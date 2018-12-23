@@ -21,6 +21,25 @@ ssm-starter
      |        ├─ssm-starter-upms-server             Web 服务模块
 ```
 
+# 依赖关系
+<div style="float:left;"><img src="https://github.com/nekolr/ssm-starter/blob/master/snapshot/ssm-starter-upms-provider.png" /><img src="https://github.com/nekolr/ssm-starter/blob/master/snapshot/ssm-starter-upms-server.png" /></div>
+
+将项目从生产者和消费者角度分成 `ssm-starter-provider` 和 `ssm-starter-server`，其中 provider 服务包含系统所有的业务，而 server 服务只负责消费 provider 提供的服务。  
+
+启动 provider 服务，其中一种方式就是自定义一个启动类，在 main 方法里使用 `ClassPathXmlApplicationContext` 来指定 `dubbo-provider.xml` 启动。这里使用的是 Dubbo 官方提供的一个启动类 `com.alibaba.dubbo.container.Main` 来启动服务，能够轻松实现优雅停机。  
+
+# 编译及打包
+`mvn clean package`  
+
+# 运行
+由于使用了 `exec-maven-plugin` 插件，因此可以直接使用 Maven 直接启动 Dubbo 服务提供者。来到 `ssm-starter-upms-provider` 模块目录，使用以下命令启动服务：  
+
+```shell
+mvn org.codehaus.mojo:exec-maven-plugin:java -f pom.xml
+```
+
+`ssm-starter-upms-server` 模块则通过 Servlet 容器启动。  
+
 # 技术选型
 - 后端
   
