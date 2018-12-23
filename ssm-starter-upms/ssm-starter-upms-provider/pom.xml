@@ -104,6 +104,10 @@
                     <additionalClasspathElements>
                         <additionalClasspathElement>src/main/assembly/conf</additionalClasspathElement>
                     </additionalClasspathElements>
+                    <!-- main 方法运行时传入的参数，目的是为了使用扩展容器 -->
+                    <arguments>
+                        <argument>annotatedSpring</argument>
+                    </arguments>
                 </configuration>
             </plugin>
         </plugins>
@@ -129,7 +133,6 @@
                 </includes>
                 <filtering>true</filtering>
             </resource>
-
         </resources>
     </build>
 </project>
