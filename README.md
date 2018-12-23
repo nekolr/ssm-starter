@@ -53,6 +53,7 @@ mvn org.codehaus.mojo:exec-maven-plugin:java -f pom.xml
 | Redis | key-value 数据库 | |
 | Druid | 数据库连接池 | |
 | Dubbo | RPC 与服务治理 | |
+| ZooKeeper | 分布式数据协调服务 | Dubbo 使用，作为注册中心 |
 | Velocity | 模板引擎 | 只使用它提供代码生成功能 |
 | JWT | 令牌协议 | |
 | ESAPI | Web 解决方案 | 主要使用它实现 Xss 消息过滤 |
