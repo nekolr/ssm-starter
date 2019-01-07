@@ -32,7 +32,7 @@
         <esapi.version>2.1.0.1</esapi.version>
         <fastjson.version>1.2.49</fastjson.version>
         <cglib.version>3.2.7</cglib.version>
-        <jackson.version>2.9.6</jackson.version>
+        <jackson.version>2.9.8</jackson.version>
         <spring-data-redis.version>2.0.10.RELEASE</spring-data-redis.version>
         <lettuce.version>5.0.5.RELEASE</lettuce.version>
         <springfox.version>2.9.2</springfox.version>
