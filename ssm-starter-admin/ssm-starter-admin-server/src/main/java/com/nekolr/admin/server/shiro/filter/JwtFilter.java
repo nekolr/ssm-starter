@@ -7,6 +7,8 @@ import com.nekolr.admin.common.util.JwtUtils;
 import com.nekolr.admin.server.shiro.token.JwtToken;
 import com.nekolr.util.*;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -56,26 +58,26 @@ public class JwtFilter extends AbstractRestPathMatchingFilter {
                         // 将新令牌存入 Redis，key 的格式为：JWT_SESSION_appId
                         stringRedisTemplate.opsForValue().set(AdminConstants.JWT_SESSION_PREFIX + appId, newJwt, AdminConstants.REFRESH_PERIOD, TimeUnit.SECONDS);
                         // 返回新令牌
-                        ResponseUtils.responseJson(response, new ResultBean().success(AdminConstants.NEW_JWT_INFO).addData("jwt", newJwt));
+                        ResponseUtils.responseJson(response, new ResultBean().setMessage(AdminConstants.NEW_JWT_INFO).setData(new Response(newJwt)), 200);
                         return false;
                     } else {
                         // JWT 失效，同时刷新时间已过，需要提示客户端重新登录
-                        ResponseUtils.responseJson(response, new ResultBean().fail(400, AdminConstants.EXPIRED_JWT_INFO));
+                        ResponseUtils.responseJson(response, new ResultBean().setMessage(AdminConstants.EXPIRED_JWT_INFO), 400);
                         return false;
                     }
                 }
                 // 其他错误视为 JWT 无效
-                ResponseUtils.responseJson(response, new ResultBean().fail(400, AdminConstants.ERROR_JWT_INFO));
+                ResponseUtils.responseJson(response, new ResultBean().setMessage(AdminConstants.ERROR_JWT_INFO), 400);
                 return false;
             } catch (Exception e) {
                 // 其他错误
                 log.error("JWT 认证失败::{}::{}", IpUtils.getRemoteAddr((HttpServletRequest) request), token.toString(), e);
-                ResponseUtils.responseJson(response, new ResultBean().fail(400, AdminConstants.ERROR_JWT_INFO));
+                ResponseUtils.responseJson(response, new ResultBean().setMessage(AdminConstants.ERROR_JWT_INFO), 400);
                 return false;
             }
         } else {
             // 请求未携带 authorization，即 jwt，视为无效的请求
-            ResponseUtils.responseJson(response, new ResultBean().fail(401, AdminConstants.ERROR_REQUEST_INFO));
+            ResponseUtils.responseJson(response, new ResultBean().setMessage(AdminConstants.ERROR_REQUEST_INFO), 401);
             return false;
         }
     }
@@ -87,10 +89,10 @@ public class JwtFilter extends AbstractRestPathMatchingFilter {
         // 没有认证
         if (subject == null || !subject.isAuthenticated()) {
             // 需要客户端控制跳转到登录页面
-            ResponseUtils.responseJson(response, new ResultBean().fail(400, AdminConstants.ERROR_JWT_INFO));
+            ResponseUtils.responseJson(response, new ResultBean().setMessage(AdminConstants.ERROR_JWT_INFO), 400);
         } else {
             // 已经认证但是没有权限访问
-            ResponseUtils.responseJson(response, new ResultBean().fail(403, AdminConstants.NO_PERMISSION_INFO));
+            ResponseUtils.responseJson(response, new ResultBean().setMessage(AdminConstants.NO_PERMISSION_INFO), 403);
         }
 
         return false;
@@ -142,5 +144,11 @@ public class JwtFilter extends AbstractRestPathMatchingFilter {
 
     public void setAccountService(AccountService accountService) {
         this.accountService = accountService;
+    }
+
+    @Data
+    @AllArgsConstructor
+    private class Response {
+        private String jwt;
     }
 }

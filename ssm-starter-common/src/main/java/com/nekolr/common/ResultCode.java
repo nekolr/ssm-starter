@@ -5,23 +5,23 @@ package com.nekolr.common;
  */
 public enum ResultCode {
 
-    SUCCESS("0", "success"),
-    ERROR_JWT("", "error jwt"),
-    ERROR_REQUEST("", "error request");
+    SUCCESS("000000", "Success"),
+    INVALID_PARAMETER("", "Invalid request parameter"),
+    UNKNOWN_ERROR("999999", "Unknown error");
 
     private String code;
-    private String reason;
+    private String message;
 
     public String getCode() {
         return code;
     }
 
-    public String getReason() {
-        return reason;
+    public String getMessage() {
+        return message;
     }
 
-    ResultCode(String code, String reason) {
+    ResultCode(String code, String message) {
         this.code = code;
-        this.reason = reason;
+        this.message = message;
     }
 }

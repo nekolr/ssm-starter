@@ -5,6 +5,8 @@ import com.nekolr.common.ResultBean;
 import com.nekolr.admin.common.AdminConstants;
 import com.nekolr.admin.server.shiro.token.PasswordToken;
 import com.nekolr.util.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -72,7 +74,7 @@ public class PasswordFilter extends AccessControlFilter {
         }
 
         // 无效的请求
-        ResponseUtils.responseJson(response, new ResultBean().fail(400, AdminConstants.ERROR_REQUEST_INFO));
+        ResponseUtils.responseJson(response, new ResultBean().setMessage(AdminConstants.ERROR_REQUEST_INFO), 400);
         return false;
     }
 
@@ -102,11 +104,10 @@ public class PasswordFilter extends AccessControlFilter {
         // 动态密钥放入 redis，有效期 5 秒，key 为 TOKEN_KEY_IP_userKey，value 为 tokenKey
         try {
             stringRedisTemplate.opsForValue().set(AdminConstants.TOKEN_KEY_PREFIX + ip + "_" + userKey, tokenKey, 5, TimeUnit.SECONDS);
-            ResponseUtils.responseJson(response, new ResultBean().success(AdminConstants.ISSUE_TOKEN_KEY_SUCCESS_INFO)
-                    .addData(TOKEN_KEY, tokenKey).addData(USER_KEY, userKey));
+            ResponseUtils.responseJson(response, new ResultBean().setMessage(AdminConstants.ISSUE_TOKEN_KEY_SUCCESS_INFO).setData(new Response(tokenKey, userKey)), 200);
         } catch (Exception e) {
             log.warn("签发动态密钥失败：{}", e.getMessage(), e);
-            ResponseUtils.responseJson(response, new ResultBean().fail(AdminConstants.ISSUE_TOKEN_KEY_FAIL_INFO));
+            ResponseUtils.responseJson(response, new ResultBean().setMessage(AdminConstants.ISSUE_TOKEN_KEY_FAIL_INFO), 500);
         }
 
         return false;
@@ -147,10 +148,10 @@ public class PasswordFilter extends AccessControlFilter {
                 return true;
             } catch (AuthenticationException e) {
                 log.warn("{}::{}", token.getPrincipal(), e.getMessage());
-                ResponseUtils.responseJson(response, new ResultBean().fail(400, AdminConstants.LOGIN_FAIL_INFO));
+                ResponseUtils.responseJson(response, new ResultBean().setMessage(AdminConstants.LOGIN_FAIL_INFO), 400);
             } catch (Exception e) {
                 log.warn("{}::认证异常::{}", token.getPrincipal(), e.getMessage(), e);
-                ResponseUtils.responseJson(response, new ResultBean().fail(400, AdminConstants.LOGIN_FAIL_INFO));
+                ResponseUtils.responseJson(response, new ResultBean().setMessage(AdminConstants.LOGIN_FAIL_INFO), 400);
             }
         }
         return false;
@@ -182,16 +183,26 @@ public class PasswordFilter extends AccessControlFilter {
         String tokenKey = stringRedisTemplate.opsForValue().get(AdminConstants.TOKEN_KEY_PREFIX + ip + "_" + userKey);
         if (StringUtils.isEmpty(tokenKey)) {
             // 获取不到 tokenKey 一律视为无效请求
-            ResponseUtils.responseJson(response, new ResultBean().fail(400, AdminConstants.ERROR_REQUEST_INFO));
+            ResponseUtils.responseJson(response, new ResultBean().setMessage(AdminConstants.ERROR_REQUEST_INFO), 400);
             return null;
         }
         try {
             password = EncryptUtils.aesDecryptCBC(password, tokenKey);
         } catch (CryptoException e) {
             // 抛出 CryptoException 异常说明密文格式不正确或不匹配
-            ResponseUtils.responseJson(response, new ResultBean().fail(400, AdminConstants.ERROR_REQUEST_INFO));
+            ResponseUtils.responseJson(response, new ResultBean().setMessage(AdminConstants.ERROR_REQUEST_INFO), 400);
             return null;
         }
         return new PasswordToken(account, password, timestamp, ip, tokenKey);
+    }
+
+    /**
+     * 签发动态密钥后需要返回的有效荷载
+     */
+    @Data
+    @AllArgsConstructor
+    private class Response {
+        private String tokenKey;
+        private String userKey;
     }
 }

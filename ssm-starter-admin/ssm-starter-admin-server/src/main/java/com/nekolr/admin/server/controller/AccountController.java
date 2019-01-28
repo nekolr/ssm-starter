@@ -11,9 +11,9 @@ import com.nekolr.admin.server.support.factory.LogTaskFactory;
 import com.nekolr.admin.server.support.factory.manager.LogExecuteManager;
 import com.nekolr.admin.server.vo.user.Account;
 import com.nekolr.common.ResultBean;
+import com.nekolr.common.ResultCode;
 import com.nekolr.util.IdGenerator;
 import com.nekolr.util.IpUtils;
-import com.nekolr.util.RequestUtils;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.NotNull;
 import java.util.concurrent.TimeUnit;
 
 @RestController
@@ -45,9 +46,7 @@ public class AccountController {
 
     @ApiOperation(value = "账号登录")
     @PostMapping("/login")
-    public ResultBean<Account> login(HttpServletRequest request) {
-        // 获取账号
-        String account = RequestUtils.getParameter(request, "account");
+    public ResultBean<Account> login(HttpServletRequest request, @NotNull String account) {
         // 获取用户对应的角色
         String roles = accountService.getUserRoles(account);
         // 获取用户信息
@@ -65,7 +64,7 @@ public class AccountController {
         entity.setJwt(jwt);
         entity.setAvatar(user.getAvatar());
 
-        return new ResultBean<Account>().success(entity);
+        return new ResultBean<>().setData(entity).setCode(ResultCode.SUCCESS.getCode()).setMessage(ResultCode.SUCCESS.getMessage());
     }
 
 }

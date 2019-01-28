@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.nekolr.admin.api.entity.User;
 import com.nekolr.admin.api.rpc.UserService;
 import com.nekolr.admin.server.vo.user.UserVO;
+import com.nekolr.common.ResultBean;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -57,10 +58,10 @@ public class UserController {
             @ApiImplicitParam(name = "startDate", value = "查询条件：开始日期", paramType = "query"),
             @ApiImplicitParam(name = "endDate", value = "查询条件：结束日期", paramType = "query")
     })
-    public ResponseEntity<Page<UserVO>> getUserListByConditions(@NotNull @Digits(integer = 4, fraction = 0) Integer pageNumber,
-                                                                @NotNull @Digits(integer = 3, fraction = 0) Integer pageSize,
-                                                                String username, String mobile, String email, String sex,
-                                                                String status, String startDate, String endDate) {
+    public ResultBean<Page<UserVO>> getUserListByConditions(@NotNull @Digits(integer = 4, fraction = 0) Integer pageNumber,
+                                                            @NotNull @Digits(integer = 3, fraction = 0) Integer pageSize,
+                                                            String username, String mobile, String email, String sex,
+                                                            String status, String startDate, String endDate) {
         // 查询条件组装
         LambdaQueryWrapper<User> queryWrapper = new QueryWrapper<User>().lambda();
         if (!StringUtils.isEmpty(username)) {
@@ -104,7 +105,7 @@ public class UserController {
         voPage.setSize(page.getSize());
         voPage.setTotal(page.getTotal());
 
-        return new ResponseEntity<>(voPage, HttpStatus.OK);
+        return new ResultBean<>().setData(voPage);
     }
 }
 

@@ -25,11 +25,11 @@ public class ResponseUtils {
      * @param response
      * @param resultBean
      */
-    public static void responseJson(ServletResponse response, ResultBean resultBean) {
+    public static void responseJson(ServletResponse response, ResultBean resultBean, Integer code) {
         // 设置响应头
         response.setContentType("application/json;charset=utf-8");
         // 设置状态码
-        ((HttpServletResponse) response).setStatus(resultBean.getCode());
+        ((HttpServletResponse) response).setStatus(code);
         PrintWriter printWriter = null;
         try {
             printWriter = response.getWriter();

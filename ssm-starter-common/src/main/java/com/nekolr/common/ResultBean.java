@@ -1,24 +1,18 @@
 package com.nekolr.common;
 
 import lombok.Data;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 通用消息返回 bean
  */
 @Data
-public class ResultBean {
+public class ResultBean<T> {
 
     /**
-     * 失败或成功
+     * 业务状态码
+     * {@link ResultCode}
      */
-    private Boolean status;
-
-    /**
-     * 状态码
-     */
-    private Integer code;
+    private String code;
 
     /**
      * 消息
@@ -28,33 +22,20 @@ public class ResultBean {
     /**
      * 数据
      */
-    private Map<String, Object> data = new HashMap<>();
+    private T data;
 
-
-    public ResultBean success(String message) {
-        this.status = Boolean.TRUE;
-        this.code = 200;
-        this.message = message;
-        return this;
-    }
-
-    public ResultBean fail(String message) {
-        this.status = Boolean.FALSE;
-        this.code = 500;
-        this.message = message;
-        return this;
-    }
-
-    public ResultBean fail(Integer code, String message) {
-        this.status = Boolean.FALSE;
+    public ResultBean setCode(String code) {
         this.code = code;
+        return this;
+    }
+
+    public ResultBean setMessage(String message) {
         this.message = message;
         return this;
     }
 
-
-    public ResultBean addData(String key, Object value) {
-        this.data.put(key, value);
+    public ResultBean setData(T data) {
+        this.data = data;
         return this;
     }
 }
