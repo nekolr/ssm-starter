@@ -46,8 +46,8 @@ public class IpUtils {
         String ip = null;
         for (String proxyHeader : proxyHeaders) {
             ip = request.getHeader(proxyHeader);
-            if (StringUtils.isEmpty(ip) || "UNKNOWN".equalsIgnoreCase(ip)) {
-                continue;
+            if (!StringUtils.isEmpty(ip) && !"UNKNOWN".equalsIgnoreCase(ip)) {
+                break;
             }
         }
         if (StringUtils.isEmpty(ip) || "UNKNOWN".equalsIgnoreCase(ip)) {
