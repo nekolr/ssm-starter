@@ -5,9 +5,9 @@ package com.nekolr.common;
  */
 public enum ResultCode {
 
-    SUCCESS("000000", "Success"),
-    INVALID_PARAMETER("", "Invalid request parameter"),
-    UNKNOWN_ERROR("999999", "Unknown error");
+    SUCCESS("000000", "success"),
+    INVALID_PARAMETER("", "invalid_request_parameter"),
+    UNKNOWN_ERROR("999999", "unknown_error");
 
     private String code;
     private String message;
