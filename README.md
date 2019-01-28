@@ -14,15 +14,15 @@
 ```
 ssm-starter
      ├─ssm-starter-common                       公共模块
-     ├─ssm-starter-upms                         用户权限管理系统
-     |        ├─ssm-starter-upms-common             公共模块
-     |        ├─ssm-starter-upms-api                API 模块
-     |        ├─ssm-starter-upms-provider           服务提供模块
-     |        ├─ssm-starter-upms-server             Web 服务模块
+     ├─ssm-starter-admin                             后台管理系统
+     |        ├─ssm-starter-admin-common             公共模块
+     |        ├─ssm-starter-admin-api                API 模块
+     |        ├─ssm-starter-admin-provider           服务提供模块
+     |        ├─ssm-starter-admin-server             Web 服务模块
 ```
 
 # 依赖关系
-<div style="float:left;"><img src="https://github.com/nekolr/ssm-starter/blob/master/snapshot/ssm-starter-upms-provider.png" /><img src="https://github.com/nekolr/ssm-starter/blob/master/snapshot/ssm-starter-upms-server.png" /></div>
+<div style="float:left;"><img src="https://github.com/nekolr/ssm-starter/blob/master/snapshot/ssm-starter-admin-provider.png" /><img src="https://github.com/nekolr/ssm-starter/blob/master/snapshot/ssm-starter-admin-server.png" /></div>
 
 将项目从生产者和消费者角度分成 `ssm-starter-provider` 和 `ssm-starter-server`，其中 provider 服务包含系统所有的业务，而 server 服务只负责消费 provider 提供的服务。  
 
@@ -32,13 +32,13 @@ ssm-starter
 `mvn clean package`  
 
 # 运行
-由于使用了 `exec-maven-plugin` 插件，因此可以直接使用 Maven 启动 Dubbo 服务提供者。来到 `ssm-starter-upms-provider` 模块目录，使用以下命令启动服务：  
+由于使用了 `exec-maven-plugin` 插件，因此可以直接使用 Maven 启动 Dubbo 服务提供者。来到 `ssm-starter-admin-provider` 模块目录，使用以下命令启动服务：
 
 ```shell
 mvn org.codehaus.mojo:exec-maven-plugin:java -f pom.xml
 ```
 
-`ssm-starter-upms-server` 模块则通过 Servlet 容器启动。  
+`ssm-starter-admin-server` 模块则通过 Servlet 容器启动。
 
 # 技术选型
 - 后端

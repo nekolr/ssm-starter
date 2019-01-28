@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>ssm-starter-admin</artifactId>
+        <groupId>com.nekolr</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>ssm-starter-admin-provider</artifactId>
+    <packaging>jar</packaging>
+
+    <name>ssm-starter-admin-provider</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <dubbo.version>2.6.2</dubbo.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.nekolr</groupId>
+            <artifactId>ssm-starter-admin-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- 从依赖包中提取文件 -->
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.0.2</version>
+                <executions>
+                    <!-- 在 package 阶段对指定的依赖包进行解压缩 -->
+                    <execution>
+                        <id>unpack</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <!-- 指定依赖包的 groupId, artifactId 和 version -->
+                                    <groupId>com.alibaba</groupId>
+                                    <artifactId>dubbo</artifactId>
+                                    <version>${dubbo.version}</version>
+                                    <!-- 提取依赖包中 META-INF/assembly 目录下的所有内容（主要是可执行脚本） -->
+                                    <includes>META-INF/assembly/**</includes>
+                                    <!-- 输出到指定目录 -->
+                                    <outputDirectory>${project.build.directory}/dubbo</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- 根据 assembly.xml 文件的配置将此项目重新打包 -->
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <!-- 指定 assembly.xml 文件的路径 -->
+                    <descriptors>
+                        <descriptor>src/main/assembly/assembly.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <!-- 在 package 阶段进行打包 -->
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- 在 Maven 中直接启动应用 -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <!-- 执行 java 命令 -->
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- 执行指定类型下的 main 方法 -->
+                    <mainClass>com.alibaba.dubbo.container.Main</mainClass>
+                    <!-- 向 classpath 添加额外路径，主要包含配置文件 -->
+                    <additionalClasspathElements>
+                        <additionalClasspathElement>src/main/assembly/conf</additionalClasspathElement>
+                    </additionalClasspathElements>
+                    <!-- main 方法运行时传入的参数，目的是为了使用扩展容器 -->
+                    <arguments>
+                        <argument>annotatedSpring</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+        </plugins>
+
+        <resources>
+            <resource>
+                <!-- resources 目录下的文件 -->
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                    <include>**/com.alibaba.dubbo.container.Container</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+
+            <resource>
+                <!-- java 源文件下 -->
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
+</project>

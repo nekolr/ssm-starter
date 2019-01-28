@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.nekolr</groupId>
-    <artifactId>ssm-starter</artifactId>
+    <artifactId>ssm-starter-admin</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -16,8 +16,10 @@
     </properties>
 
     <modules>
-        <module>ssm-starter-common</module>
-        <module>ssm-starter-admin</module>
+        <module>ssm-starter-admin-provider</module>
+        <module>ssm-starter-admin-api</module>
+        <module>ssm-starter-admin-common</module>
+        <module>ssm-starter-admin-server</module>
     </modules>
 
 </project>

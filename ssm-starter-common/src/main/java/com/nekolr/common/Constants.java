@@ -17,7 +17,7 @@ public class Constants {
     /**
      * 用户权限管理系统框架配置文件
      */
-    public static final String UPMS_CONFIG_FILE_PATH = "classpath:/upms/framework.properties";
+    public static final String ADMIN_CONFIG_FILE_PATH = "classpath:/admin/framework.properties";
 
     /**
      * 全局默认 split 分隔符

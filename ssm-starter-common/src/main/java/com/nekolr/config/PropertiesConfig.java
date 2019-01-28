@@ -17,7 +17,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
  */
 @Configuration
 @PropertySources(value = {
-        @PropertySource(value = Constants.UPMS_CONFIG_FILE_PATH, ignoreResourceNotFound = true, encoding = "UTF-8")
+        @PropertySource(value = Constants.ADMIN_CONFIG_FILE_PATH, ignoreResourceNotFound = true, encoding = "UTF-8")
 })
 public class PropertiesConfig {
 

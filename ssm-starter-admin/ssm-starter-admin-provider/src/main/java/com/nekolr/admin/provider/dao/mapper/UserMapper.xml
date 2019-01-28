@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nekolr.admin.provider.dao.UserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.nekolr.admin.api.entity.User">
+        <id column="id" property="id" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="salt" property="salt" />
+        <result column="nick_name" property="nickName" />
+        <result column="email" property="email" />
+        <result column="mobile" property="mobile" />
+        <result column="address" property="address" />
+        <result column="real_name" property="realName" />
+        <result column="age" property="age" />
+        <result column="sex" property="sex" />
+        <result column="avatar" property="avatar" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="status" property="status" />
+        <result column="delete_flag" property="deleteFlag" />
+    </resultMap>
+
+    <select id="getUserRoles" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT GROUP_CONCAT(r.code) AS roles
+        FROM role r
+        JOIN user_role ur ON ur.role_id = r.id
+        JOIN user u ON u.id = ur.user_id
+        WHERE u.username = #{appId, jdbcType=VARCHAR}
+    </select>
+
+</mapper>
