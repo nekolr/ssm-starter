@@ -37,6 +37,6 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(ValidationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResultBean handleValidationException(Throwable e) {
-        return new ResultBean().setCode(ResultCode.INVALID_PARAMETER.getCode());
+        return new ResultBean().setCode(ResultCode.INVALID_PARAMETER.getCode()).setMessage(e.getMessage());
     }
 }
