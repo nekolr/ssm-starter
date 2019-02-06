@@ -47,7 +47,7 @@ public class RestPathMatchingFilterChainResolver extends PathMatchingFilterChain
             }
             // 重新赋值
             pathPattern = strings[0];
-        } while (!this.pathMatches(pathPattern, requestURI) || isMatch);
+        } while (!this.pathMatches(pathPattern, requestURI) || !isMatch);
 
         if (log.isTraceEnabled()) {
             log.trace("Matched path pattern [" + pathPattern + "] for requestURI [" + requestURI + "].  " +

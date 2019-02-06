@@ -5,7 +5,7 @@ import com.nekolr.support.XssFilter;
 import javax.servlet.FilterRegistration;
 
 /**
- * UPMS 系统 Web 配置
+ * ssm-admin 系统 Web 配置
  *
  * @author nekolr
  */
@@ -13,7 +13,8 @@ public class WebConfig extends AbstractWebInitializer {
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[]{AppConfig.class, ShiroConfig.class};
+        // 需要在父容器中创建 Dubbo 的服务类，不然无法初始化 ShiroConfig 中的部分业务类
+        return new Class[]{DubboConsumerConfig.class, AppConfig.class, ShiroConfig.class};
     }
 
     @Override
