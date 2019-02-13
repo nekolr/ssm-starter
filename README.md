@@ -1,5 +1,5 @@
 <p align="center">
-     <img src="https://github.com/nekolr/ssm-starter/blob/master/ssm-starter.png">
+     <img src="https://github.com/nekolr/ssm-starter/blob/master/snapshot/ssm-starter.png">
      <br/>
      <img src="https://img.shields.io/badge/JDK-8-blue.svg?style=flat-square">
      <img src="https://img.shields.io/github/stars/nekolr/ssm-starter.svg?style=flat-square&label=Stars">
