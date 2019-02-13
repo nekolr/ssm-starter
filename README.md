@@ -22,9 +22,7 @@ ssm-starter
 ```
 
 # 依赖关系
-<div style="float:left;"><img src="https://github.com/nekolr/ssm-starter/blob/master/snapshot/ssm-starter-admin-provider.png" /><img src="https://github.com/nekolr/ssm-starter/blob/master/snapshot/ssm-starter-admin-server.png" /></div>
-
-将项目从生产者和消费者角度分成 `ssm-starter-provider` 和 `ssm-starter-server`，其中 provider 服务包含系统所有的业务，而 server 服务只负责消费 provider 提供的服务。  
+将项目从生产者和消费者角度分成 `ssm-starter-admin-provider` 和 `ssm-starter-admin-server`，其中 provider 服务包含系统所有的业务，而 server 服务只负责消费 provider 提供的服务。  
 
 启动 provider 服务，其中一种方式就是自定义一个启动类，在 main 方法里使用 `ClassPathXmlApplicationContext` 来指定 `dubbo-provider.xml` 启动。这里使用的是 Dubbo 官方提供的一个启动类 `com.alibaba.dubbo.container.Main` 来启动服务，能够轻松实现优雅停机。  
 
