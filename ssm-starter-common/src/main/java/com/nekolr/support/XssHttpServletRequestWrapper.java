@@ -80,6 +80,6 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
         if (null == param) {
             return null;
         }
-        return XssUtils.filterXssScript(XssUtils.filterXssSql(param));
+        return XssUtils.filterXss(param);
     }
 }

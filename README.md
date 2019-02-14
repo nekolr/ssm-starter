@@ -54,7 +54,6 @@ mvn org.codehaus.mojo:exec-maven-plugin:java -f pom.xml
 | ZooKeeper | 分布式数据协调服务 | Dubbo 使用，作为注册中心 |
 | Velocity | 模板引擎 | 只使用它提供代码生成功能 |
 | JWT | 令牌协议 | |
-| ESAPI | Web 解决方案 | 主要使用它实现 Xss 消息过滤 |
 | cglib | Java 代码生成类库 | 主要使用它的 BeanCopier 实现对象复制 |
 | Lombok | Java 代码插入 | 自动生成 Getter 和 Setter 等，需要 IDE 安装 Lombok 插件 |
 | Fastjson | JSON 处理器 | 主要使用它构建 JSON 处理工具，MVC 框架中使用的还是 Jackson |

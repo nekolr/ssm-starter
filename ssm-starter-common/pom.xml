@@ -29,7 +29,6 @@
         <velocity-engine-core.version>2.0</velocity-engine-core.version>
         <hutool.version>4.1.9</hutool.version>
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
-        <esapi.version>2.1.0.1</esapi.version>
         <fastjson.version>1.2.49</fastjson.version>
         <cglib.version>3.2.7</cglib.version>
         <jackson.version>2.9.8</jackson.version>
@@ -144,26 +143,6 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons-lang3.version}</version>
-        </dependency>
-        <!-- esapi -->
-        <dependency>
-            <groupId>org.owasp.esapi</groupId>
-            <artifactId>esapi</artifactId>
-            <version>${esapi.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-fileupload</groupId>
-                    <artifactId>commons-fileupload</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-beanutils</groupId>
-                    <artifactId>commons-beanutils-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>log4j</groupId>
-                    <artifactId>log4j</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <!-- commons-beanutils -->
         <dependency>
