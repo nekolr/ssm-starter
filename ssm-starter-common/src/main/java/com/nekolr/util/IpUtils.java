@@ -1,7 +1,7 @@
 package com.nekolr.util;
 
-import org.apache.commons.lang.text.StrTokenizer;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.StrTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;

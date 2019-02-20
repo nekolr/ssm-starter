@@ -23,6 +23,7 @@
         <disruptor.version>3.4.2</disruptor.version>
         <lombok.version>1.18.2</lombok.version>
         <commons-lang3.version>3.8</commons-lang3.version>
+        <commons-text.version>1.6</commons-text.version>
         <mybatis-plus.version>3.0.1</mybatis-plus.version>
         <jjwt.version>0.10.5</jjwt.version>
         <mysql-driver.version>5.1.47</mysql-driver.version>
@@ -143,6 +144,12 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons-lang3.version}</version>
+        </dependency>
+        <!-- commons-text -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>${commons-text.version}</version>
         </dependency>
         <!-- commons-beanutils -->
         <dependency>
