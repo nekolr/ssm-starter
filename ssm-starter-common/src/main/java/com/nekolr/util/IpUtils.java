@@ -1,7 +1,7 @@
 package com.nekolr.util;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.text.StrTokenizer;
+import org.apache.commons.text.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
@@ -54,7 +54,7 @@ public class IpUtils {
             ip = request.getRemoteAddr();
         }
         // 这里没有直接取第一个，而是选择其中的某个公网 IP 返回
-        StrTokenizer tokenizer = new StrTokenizer(ip, ",");
+        StringTokenizer tokenizer = new StringTokenizer(ip, ",");
         while (tokenizer.hasNext()) {
             ip = tokenizer.nextToken().trim();
             if (isIPv4Valid(ip) && !isIPv4Private(ip)) {
